@@ -1,0 +1,374 @@
+{
+  "questions": [
+    {
+      "type": "care",
+      "title": "Complete the sentence: 'I want to apologize for … This happened not because you …, but because I …'.",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what moments do you stop feeling happy in the relationship? What could your partner do to help you in those moments?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Ask your partner: 'What can I do to make you feel happy more often?'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Make a list of five points together and discuss it: 'In our relationship, it's especially important to me that you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When we … together, I feel happy because it matters to me …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Which of your weaknesses would you like your partner to accept with more warmth and understanding?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What first impression of your partner made you fall in love? What qualities or actions stood out?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Ask your partner: 'Which three of my qualities do you find most admirable?'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What three core qualities did you love about your partner at the beginning of the relationship? How have they changed over time, and how do you feel about that?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Ask your partner: 'What about my behavior sometimes makes you angry or annoyed? What should I work on?'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share at least five points with your partner: 'I admire how you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'It makes me very happy when you … Then I feel …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Ask your partner: 'How can I help you when you're sad?'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share at least five points with your partner: 'I am very grateful to you for …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "How could your partner help you cope with fears and inner struggles?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what areas do you feel your partner has put too much pressure on you? How could that change?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What would you like to receive compliments for more often? Which parts of your personality or behavior would you like your partner to notice more?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When I act distant, please remember it's connected to the fact that I …, not that you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Which moments of your life together do you find the brightest and most joyful? What makes them particularly memorable?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Which of your qualities do you think your partner might sometimes undervalue in order to feel more secure themselves?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I feel your care when you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Recall a situation where you reacted too emotionally to a minor event. What did you learn from it, and what would you change about your reaction today?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I really like it when you … It brings me joy to see how you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what ways do you consider yourself stubborn? In which situations would it be important to be more flexible, and how could that affect your relationship?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I would like you to say … more often.' Why is that important to you?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What small gestures of care or attention make you truly happy?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What role does physical touch play in your relationship? Which types of touch bring you the most joy?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What do you most want to hear from your partner in difficult moments?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What words or actions help you feel loved?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When you do … for me, I feel especially valued.'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what moments is it especially important for you to feel your partner's support?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Is there something in your behavior or habits you'd like to change to make the relationship warmer?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What actions of your partner help you feel secure?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What can I do so you feel calmer and more at ease around me more often?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In which moments do you especially wish I was simply there with you, without saying a word?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When you share your thoughts and feelings with me, I feel …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What small rituals or traditions could strengthen your emotional connection?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What do you usually expect from me when you've had a bad day?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When you pay attention to … in our relationship, I feel …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Which habit in your relationship do you find the warmest and most heartfelt? Why?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Is there something missing in your communication? How could that change?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Which part of your personality would you like to show more often, but haven't dared to yet?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I feel especially loved when you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What actions or habits of mine help you feel better?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what moments do you feel especially valued by me? Why is that important?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "How do you prefer I support you in difficult moments — with words or with actions?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'It's important to me that you understand I sometimes feel …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "How do you usually show care for others? How can I respond to that in a way that feels good for you?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'Sometimes I just need you to …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what moments do you feel most loved? How can I do that more often?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'It's important to me to know what care and attention mean to you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Which feelings are especially important for you to express in the relationship, and why?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "How can I help you feel more comfortable and secure in the relationship?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When we … together, I feel …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Is there something you wish we did together more often to strengthen our connection?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What role do warm words and loving terms of endearment play in your life? Why does it matter?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I would like us to talk more about …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What small acts of self-care help you feel loved?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what moments do you most want to be close to me? Why?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I feel safer in our relationship when you …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What words or actions help you believe in our love even in difficult times?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "How can I make our everyday moments warmer and more memorable?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What helps you feel connected to me and sense the feeling of 'us'?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'When you tell me about your thoughts and feelings, I feel …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What tradition would you like to bring into your life together to make it cozier?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Is there something you'd like to change or add to your daily conversations?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'I would like to hear from you more often …'",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "How can I become a better listener for you? What matters most to you in those moments?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What words or actions help you feel safe in my presence?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Is there a topic you'd like to discuss but don't know how to bring up?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "Share with your partner: 'Sometimes I'm afraid that you …' How do you usually deal with that feeling?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "In what moments do you feel that our love is growing stronger?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What role do small surprises and gestures of attention play in your life?",
+      "isAnswered": false
+    },
+    {
+      "type": "care",
+      "title": "What can I do to preserve warmth and care in our relationship even in difficult times?",
+      "isAnswered": false
+    }
+  ]
+}

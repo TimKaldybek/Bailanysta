@@ -1,0 +1,1315 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Alert.MixedSection.Message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick themes from one section only 💛 Either deep questions or fun games — then let's go!"
+          }
+        }
+      }
+    },
+    "Alert.MixedSection.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oops! 🤔"
+          }
+        }
+      }
+    },
+    "Alerts.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerts"
+          }
+        }
+      }
+    },
+    "Article.HappyRelationship.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empathy, positivity, connection"
+          }
+        }
+      }
+    },
+    "Article.HappyRelationship.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Science of Happy Relationships"
+          }
+        }
+      }
+    },
+    "Article.MarriageSuccess.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 science-backed secrets"
+          }
+        }
+      }
+    },
+    "Article.MarriageSuccess.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Why the Best Marriages Succeed"
+          }
+        }
+      }
+    },
+    "Article.RelationshipStrength.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More important than love alone"
+          }
+        }
+      }
+    },
+    "Article.RelationshipStrength.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The #1 Key to a Strong Relationship"
+          }
+        }
+      }
+    },
+    "Article.TalkToPartner.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tips from a couples therapist"
+          }
+        }
+      }
+    },
+    "Article.TalkToPartner.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How to Talk to Your Partner"
+          }
+        }
+      }
+    },
+    "ChooseCategoriesVC.BuyPremium": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buy premium access"
+          }
+        }
+      }
+    },
+    "ChooseCategoriesVC.ChooseCategory": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a category"
+          }
+        }
+      }
+    },
+    "ChooseCategoriesVC.ChooseCategoryBeforeStart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First select a category before starting the game"
+          }
+        }
+      }
+    },
+    "ChooseCategoriesVC.ChooseMoreThemesBuySubscr": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To play these themes, buy a paid subscription"
+          }
+        }
+      }
+    },
+    "ChooseCategoriesVC.ChooseTopic": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What topic do you want to talk about?"
+          }
+        }
+      }
+    },
+    "Continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "Error": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Error"
+          }
+        }
+      }
+    },
+    "Error.load.settings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to open settings"
+          }
+        }
+      }
+    },
+    "Feed.Post": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Post"
+          }
+        }
+      }
+    },
+    "Feed.Tab.Alerts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerts"
+          }
+        }
+      }
+    },
+    "Feed.Tab.Feed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feed"
+          }
+        }
+      }
+    },
+    "Feed.Tab.Profile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profile"
+          }
+        }
+      }
+    },
+    "Feed.Tab.Search": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search"
+          }
+        }
+      }
+    },
+    "Feed.WhatsHappening": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's happening?"
+          }
+        }
+      }
+    },
+    "FeedbackVC.Impressions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your impressions"
+          }
+        }
+      }
+    },
+    "FeedbackVC.ThanksForFeedback": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thank you for your feedback!"
+          }
+        }
+      }
+    },
+    "FeedbackVC.feedback": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feedback"
+          }
+        }
+      }
+    },
+    "Finish": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finish"
+          }
+        }
+      }
+    },
+    "Next.question": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next question"
+          }
+        }
+      }
+    },
+    "Notification.1.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Now is the perfect time to reconnect ✨"
+          }
+        }
+      }
+    },
+    "Notification.1.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When did you last have a heart-to-heart? 💬"
+          }
+        }
+      }
+    },
+    "Notification.2.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An evening full of fun and discovery awaits 🌙"
+          }
+        }
+      }
+    },
+    "Notification.2.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play with your other half tonight 🎲"
+          }
+        }
+      }
+    },
+    "Notification.3.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One question can bring you closer than you think 💫"
+          }
+        }
+      }
+    },
+    "Notification.3.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How is your other half feeling? ❤️"
+          }
+        }
+      }
+    },
+    "Notification.4.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get to know each other even better tonight 🔥"
+          }
+        }
+      }
+    },
+    "Notification.4.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We have lots of new interesting questions for you 🌟"
+          }
+        }
+      }
+    },
+    "Notification.5.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One question reveals something new about your partner 🎯"
+          }
+        }
+      }
+    },
+    "Notification.5.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get a little closer every day 💑"
+          }
+        }
+      }
+    },
+    "Notification.6.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discover new sides of your partner tonight 💫"
+          }
+        }
+      }
+    },
+    "Notification.6.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The perfect evening starts right here 🕯️"
+          }
+        }
+      }
+    },
+    "Notification.7.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A little conversation makes relationships stronger 💪"
+          }
+        }
+      }
+    },
+    "Notification.7.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Question of the day for you two ❓"
+          }
+        }
+      }
+    },
+    "Notification.8.Body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A few questions will make your evening unforgettable ✨"
+          }
+        }
+      }
+    },
+    "Notification.8.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missing each other? 🥰"
+          }
+        }
+      }
+    },
+    "OK": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "PlayView.PressButtons": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Press and hold the buttons simultaneously to start the game!"
+          }
+        }
+      }
+    },
+    "PlayView.ReadyToStart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ready to get started?"
+          }
+        }
+      }
+    },
+    "Profile.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profile"
+          }
+        }
+      }
+    },
+    "QuestionCard.Topic: %@": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Topic: %@"
+          }
+        }
+      }
+    },
+    "QuickGame.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Random theme"
+          }
+        }
+      }
+    },
+    "QuickGame.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Game"
+          }
+        }
+      }
+    },
+    "Reply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reply"
+          }
+        }
+      }
+    },
+    "Search.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search"
+          }
+        }
+      }
+    },
+    "Section.Articles.Header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Useful articles 📖"
+          }
+        }
+      }
+    },
+    "Section.Deep.Header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heart-to-heart questions 💬"
+          }
+        }
+      }
+    },
+    "Section.Fun.Header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laugh together 😂"
+          }
+        }
+      }
+    },
+    "Section.Tip.Header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Relationship Tip 💡"
+          }
+        }
+      }
+    },
+    "Send": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send"
+          }
+        }
+      }
+    },
+    "Sent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sent"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settings"
+          }
+        }
+      }
+    },
+    "SettingsVC.GiveFeedback": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Give feedback"
+          }
+        }
+      }
+    },
+    "SettingsVC.InterfaceLanguage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interface language"
+          }
+        }
+      }
+    },
+    "SettingsVC.Notifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications and sounds"
+          }
+        }
+      }
+    },
+    "SettingsVC.ShareApp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share the app"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.AllThemes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All themes unlocked"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Benefit1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We are adding new questions and you will be the first to access them."
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Benefit2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We customize themes specifically for you based on your preferences"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Benefit3": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get to know each other better with daily questions."
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Benefit4": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open all topics and categories without restrictions, anytime."
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Benefit5": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore all categories — from romantic to adventurous."
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Benefit6": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No round limits — ask as many questions as you want."
+          }
+        }
+      }
+    },
+    "SubscriptionPage.CloserTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Know each other deeper"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.ContinueFree": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue for free"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Feature.UnlimitedDesc": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questions never end — explore without limits"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.ForOneMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For 1 month"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.ForOneYear": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For 1 year"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.ForThreeMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For 3 months"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.FullAccess": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Access to all topics"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.HeaderSubtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlock all topics and get closer to your partner"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.HeaderTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rediscover each other"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.NewQuestions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New questions"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.NoLimits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlimited questions"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.PerMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "per month"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Personal.Recommend": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal recommendations"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.PersonalizedQuestions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalized Question Recommendations"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.PremiumIncludes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's included"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.PrivacyPolicy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy Policy"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.RegularUpdates": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular updates"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.Subscribe": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get subscription"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.TermsOfUse": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terms and conditions"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.UnlimiteQuesitons": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlimited access"
+          }
+        }
+      }
+    },
+    "SubscriptionPage.UnlimitedAccess": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlimited access to all topics"
+          }
+        }
+      }
+    },
+    "Theme.Care": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Care and warmth"
+          }
+        }
+      }
+    },
+    "Theme.Confessions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confessions"
+          }
+        }
+      }
+    },
+    "Theme.DreamsDesires": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dreams and desires"
+          }
+        }
+      }
+    },
+    "Theme.LifeWorkMoney": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Life, work, money"
+          }
+        }
+      }
+    },
+    "Theme.NeverHaveI": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Never have I ever..."
+          }
+        }
+      }
+    },
+    "Theme.Random": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Random"
+          }
+        }
+      }
+    },
+    "Theme.Relationship": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Relationships"
+          }
+        }
+      }
+    },
+    "Theme.Sex": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex"
+          }
+        }
+      }
+    },
+    "Theme.TruthOrDare": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Truth or dare"
+          }
+        }
+      }
+    },
+    "Theme.WhoAmong": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Who between us..."
+          }
+        }
+      }
+    },
+    "Tip.1.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Practice the «6-second kiss» today. Research shows it's long enough to release oxytocin and create a moment of genuine connection."
+          }
+        }
+      }
+    },
+    "Tip.10.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Give your partner a genuine compliment about something they often overlook about themselves."
+          }
+        }
+      }
+    },
+    "Tip.11.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch more intentionally today — a hand on the shoulder, a longer hug, a gentle touch when passing by."
+          }
+        }
+      }
+    },
+    "Tip.12.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share a memory that made you fall in love with your partner. Say it out loud."
+          }
+        }
+      }
+    },
+    "Tip.13.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Surprise your partner with their favorite snack or drink today. Small gestures build big love."
+          }
+        }
+      }
+    },
+    "Tip.14.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask: «What would make next week better for you?» and actually help make it happen."
+          }
+        }
+      }
+    },
+    "Tip.15.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before going to sleep tonight, tell your partner one thing you're grateful for about them."
+          }
+        }
+      }
+    },
+    "Tip.2.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put your phones away for one hour tonight. Give each other your full, undivided attention — no screens, just presence."
+          }
+        }
+      }
+    },
+    "Tip.3.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask your partner: «What's one small thing I do that makes you feel loved?» Then do more of it."
+          }
+        }
+      }
+    },
+    "Tip.4.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write a text to your partner right now listing three things you love about them. Send it before you put your phone down."
+          }
+        }
+      }
+    },
+    "Tip.5.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try the 'appreciation ritual' tonight: each of you shares one moment from today when your partner made you feel good."
+          }
+        }
+      }
+    },
+    "Tip.6.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan a five-minute walk together after dinner — no phones, no agenda. Just walk and talk."
+          }
+        }
+      }
+    },
+    "Tip.7.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Say 'I love you' in a different way today — through an action, a note, or something you cook."
+          }
+        }
+      }
+    },
+    "Tip.8.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask your partner: «What's one dream you haven't told me yet?» Then just listen."
+          }
+        }
+      }
+    },
+    "Tip.9.Text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recreate your very first date tonight — same food, same music, same energy."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

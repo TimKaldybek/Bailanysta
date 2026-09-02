@@ -1,0 +1,12 @@
+*.xcscheme
+*.plist
+!Bailanysta/Info.plist
+*.xcbkptlist
+*.xcuserstate
+*.xcuserdata/
+xcuserdata
+!xcuserdata/**/xcschemes/*
+**/.DS_Store
+*.DS_Store
+.DS_Store
+CLAUDE.md

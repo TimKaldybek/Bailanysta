@@ -1,0 +1,42 @@
+{
+  "deep": [
+    { "type": "job",          "imageName": "theme_job" },
+    { "type": "dreams",       "imageName": "theme_dreams" },
+    { "type": "care",         "imageName": "theme_care" },
+    { "type": "relationship", "imageName": "theme_relationship" },
+    { "type": "sex",          "imageName": "theme_sex" },
+    { "type": "random",       "imageName": "theme_random" }
+  ],
+  "fun": [
+    { "type": "neverHaveI",  "imageName": "theme_random" },
+    { "type": "whoAmong",    "imageName": "theme_relationship" },
+    { "type": "confessions", "imageName": "theme_care" },
+    { "type": "truthOrDare", "imageName": "theme_dreams" }
+  ],
+  "articles": [
+    {
+      "titleKey":    "Article.MarriageSuccess.Title",
+      "subtitleKey": "Article.MarriageSuccess.Subtitle",
+      "urlString":   "https://www.psychologytoday.com/us/blog/decade-of-childhood/202508/why-do-marriages-succeed",
+      "iconName":    "heart.text.square"
+    },
+    {
+      "titleKey":    "Article.TalkToPartner.Title",
+      "subtitleKey": "Article.TalkToPartner.Subtitle",
+      "urlString":   "https://www.washingtonpost.com/wellness/2025/12/28/relationship-advice-better-relationships/",
+      "iconName":    "bubble.left.and.bubble.right"
+    },
+    {
+      "titleKey":    "Article.RelationshipStrength.Title",
+      "subtitleKey": "Article.RelationshipStrength.Subtitle",
+      "urlString":   "https://www.cnbc.com/2025/11/15/psychologist-who-studies-couples-the-no-1-thing-that-keeps-relationships-strong-more-than-love.html",
+      "iconName":    "hands.sparkles"
+    },
+    {
+      "titleKey":    "Article.HappyRelationship.Title",
+      "subtitleKey": "Article.HappyRelationship.Subtitle",
+      "urlString":   "https://time.com/5321262/science-behind-happy-healthy-relationships/",
+      "iconName":    "person.2.fill"
+    }
+  ]
+}

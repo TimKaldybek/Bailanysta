@@ -1,0 +1,38 @@
+{
+  "features": [
+    { "emoji": "🔓", "titleKey": "SubscriptionPage.FullAccess",            "subtitleKey": "SubscriptionPage.Benefit4" },
+    { "emoji": "♾️", "titleKey": "SubscriptionPage.UnlimiteQuesitons",     "subtitleKey": "SubscriptionPage.Feature.UnlimitedDesc" },
+    { "emoji": "🎯", "titleKey": "SubscriptionPage.PersonalizedQuestions", "subtitleKey": "SubscriptionPage.Benefit2" },
+    { "emoji": "✨", "titleKey": "SubscriptionPage.NewQuestions",          "subtitleKey": "SubscriptionPage.Benefit1" },
+    { "emoji": "❤️", "titleKey": "SubscriptionPage.CloserTitle",           "subtitleKey": "SubscriptionPage.Benefit3" }
+  ],
+  "options": [
+    {
+      "titleKey": "SubscriptionPage.ForOneMonth",
+      "price": "$4,99 USD",
+      "discountPrice": null,
+      "monthPaymentPrice": "$4,99",
+      "productId": "unlimited.month",
+      "groupName": "Premium",
+      "isDefaultSelected": false
+    },
+    {
+      "titleKey": "SubscriptionPage.ForThreeMonth",
+      "price": "$12.99 USD",
+      "discountPrice": "$15.99",
+      "monthPaymentPrice": "≈ $4",
+      "productId": "unlimited.3.month",
+      "groupName": "Premium",
+      "isDefaultSelected": false
+    },
+    {
+      "titleKey": "SubscriptionPage.ForOneYear",
+      "price": "$29.99 USD",
+      "discountPrice": "$58.99",
+      "monthPaymentPrice": "≈ $2",
+      "productId": "unlimited.year",
+      "groupName": "Premium",
+      "isDefaultSelected": true
+    }
+  ]
+}
