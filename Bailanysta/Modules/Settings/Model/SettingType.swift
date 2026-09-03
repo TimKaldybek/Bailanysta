@@ -8,8 +8,8 @@
 import Foundation
 
 enum SettingType: String {
+    case appearance
     case language
-    case feedback
     case share
     case notifications
 }

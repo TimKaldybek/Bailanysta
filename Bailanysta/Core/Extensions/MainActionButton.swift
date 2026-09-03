@@ -17,7 +17,7 @@ extension UIButton {
             
             button.backgroundColor = Color.primary
             button.layer.cornerRadius = 24
-            button.tintColor = .white
+            button.tintColor = Color.onPrimary
             button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
             
             return button

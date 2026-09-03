@@ -6,21 +6,11 @@
 //
 
 import UIKit
-import FirebaseCore
-import RevenueCat
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         setupNavigationBarBackButton()
-        FirebaseApp.configure()
-        Purchases.configure(withAPIKey: GlobalConstants.revenueCatApiKey)
-        Purchases.logLevel = .debug
-        
-        Task {
-            await SubscriptionManager.shared.setupInitialState()
-        }
 
         NotificationManager.shared.requestPermissionAndSchedule()
         NotificationManager.shared.rescheduleIfNeeded()
@@ -62,7 +52,7 @@ private extension AppDelegate {
         navigationBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = Constants.backButtonOffset
         navigationBarAppearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         UINavigationBar.appearance().titleTextAttributes = nil
-        UINavigationBar.appearance().tintColor = Color.text
+        UINavigationBar.appearance().tintColor = Color.label
         UINavigationBar.appearance().standardAppearance   = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         UINavigationBar.appearance().compactAppearance    = navigationBarAppearance

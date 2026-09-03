@@ -10,14 +10,12 @@ final class TabBarContainerViewController: UIViewController {
     var onComposeTapped: (() -> Void)?
 
     private let childControllers: [TabBarItem: UIViewController]
-    private let select: (TabBarItem) -> Void
 
     private let tabBarView = TabBarView()
     private var currentTab: TabBarItem = .feed
 
-    init(childControllers: [TabBarItem: UIViewController], select: @escaping (TabBarItem) -> Void) {
+    init(childControllers: [TabBarItem: UIViewController]) {
         self.childControllers = childControllers
-        self.select = select
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,7 +40,7 @@ final class TabBarContainerViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = Color.background
 
         TabBarItem.allCases.forEach { item in
             guard let controller = childControllers[item] else { return }
@@ -55,7 +53,6 @@ final class TabBarContainerViewController: UIViewController {
 
         tabBarView.onTabSelected = { [weak self] item in
             self?.showTab(item)
-            self?.select(item)
         }
         tabBarView.onComposeTapped = { [weak self] in
             self?.onComposeTapped?()

@@ -13,7 +13,8 @@ final class SettingsCoordinator: Coordinator {
     
     let navigationController: UINavigationController
     private let activityViewController: UIActivityViewController
-    
+    private weak var settingsViewController: SettingsViewController?
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.activityViewController = UIActivityViewController(
@@ -21,28 +22,43 @@ final class SettingsCoordinator: Coordinator {
             applicationActivities: nil
         )
     }
-    
+
     func start() {
         let vc = ModuleFactory.createSettingsModule()
-    
+
         vc.completionHandler = { [weak self] settingType in
             self?.handleSelected(settingType)
         }
-        
+        settingsViewController = vc
+
         navigationController.pushViewController(vc, animated: true)
     }
-    
+
     private func handleSelected(_ settingType: SettingType) {
         switch settingType {
+        case .appearance:
+            showAppearancePicker()
         case .language:
             showSettingsFlow()
-        case .feedback:
-            showFeedbackVC()
         case .share:
             navigationController.present(activityViewController, animated: true)
         case .notifications:
             handleNotificationsTap()
         }
+    }
+
+    private func showAppearancePicker() {
+        let picker = UIAlertController(title: "SettingsVC.Appearance".localized, message: nil, preferredStyle: .alert)
+
+        AppTheme.allCases.forEach { theme in
+            picker.addAction(UIAlertAction(title: theme.displayName, style: .default) { [weak self] _ in
+                ThemeManager.shared.apply(theme)
+                self?.settingsViewController?.reloadSettings()
+            })
+        }
+        picker.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel))
+
+        navigationController.present(picker, animated: true)
     }
     
     private func handleNotificationsTap() {
@@ -77,28 +93,5 @@ final class SettingsCoordinator: Coordinator {
         alert.addAction(UIAlertAction(title: "OK".localized, style: .default))
         UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         navigationController.present(alert, animated: true)
-    }
-    
-    private func showFeedbackVC() {
-        let feedbackVC = ModuleFactory.createFeedbackModule { [weak self] status in
-            guard let self else {
-                self?.completionHandler?()
-                return
-            }
-            
-            navigationController.dismiss(animated: false)
-            
-            switch status {
-            case let .success(title, subtitle):
-                showAlert(title: title, message: subtitle)
-            case let .failure(title, subtitle):
-                showAlert(title: title, message: subtitle)
-            }
-        }
-        
-        feedbackVC.modalPresentationStyle = .overFullScreen
-        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-    
-        navigationController.present(feedbackVC, animated: true)
     }
 }

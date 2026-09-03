@@ -23,7 +23,7 @@ extension UIViewController {
     func setupNavigationBarTitle(_ titleText: String) {
         let label = UILabel()
         label.text = titleText
-        label.textColor = Color.text
+        label.textColor = Color.label
         label.font = .systemFont(ofSize: 24, weight: .medium)
         
         navigationItem.titleView = label
@@ -33,7 +33,7 @@ extension UIViewController {
         let imageview = UIImageView()
         imageview.image = image
         imageview.contentMode = .scaleAspectFit
-        imageview.tintColor = Color.text
+        imageview.tintColor = Color.label
         
         return imageview
     }

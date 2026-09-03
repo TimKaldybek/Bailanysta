@@ -71,10 +71,10 @@ final class TabBarItemButton: UIControl {
     func setSelected(_ selected: Bool) {
         isTabSelected = selected
 
-        let tint = selected ? TabBarStyle.selectedColor : TabBarStyle.unselectedColor
+        let tint = selected ? Color.primary : Color.labelSecondary
         iconView.image = UIImage(systemName: selected ? selectedIconName : unselectedIconName)
         iconView.tintColor = tint
         titleLabel.textColor = tint
-        pillView.backgroundColor = selected ? TabBarStyle.pillBackground : .clear
+        pillView.backgroundColor = selected ? Color.primaryMuted : .clear
     }
 }

@@ -6,48 +6,6 @@
 //
 
 final class ModuleFactory {
-    static func createMainModule() -> MainViewController {
-        let interactor    = MainInteractor()
-        let configBuilder = GameSectionConfigBuilder()
-        let presenter     = MainPresenter(interactor: interactor, configBuilder: configBuilder)
-
-        return MainViewController(presenter: presenter)
-    }
-    
-    static func createFunGameModule(selectedThemes: [ThemeType]) -> FunGameViewController {
-        let presenter = FunGamePresenter(selectedThemes: selectedThemes)
-        return FunGameViewController(presenter: presenter)
-    }
-
-    static func createDiceAnimationFlow(selectedThemes: [ThemeType]) -> DiceAnimationViewController {
-        let presenter = DiceAnimationModulePresenter(selectedThemes: selectedThemes)
-        let vc = DiceAnimationViewController(presenter: presenter)
-        presenter.view = vc
-        
-        return vc
-    }
-    
-    static func createQuestionCardModule(selectedTheme: ThemeType) -> QuestionCardViewController {
-        QuestionCardViewController(selectedTheme: selectedTheme)
-    }
-    
-    static func createSubscriptionModule() -> SubscriptionViewController {
-        let interactor = SubscriptionInteractor()
-        let presenter  = SubscriptionPresenter(interactor: interactor)
-        let vc = SubscriptionViewController(presenter: presenter)
-        presenter.view = vc
-        interactor.output = presenter
-
-        return vc
-    }
-    
-    static func createSubscriptionDetailsModule() -> SubscriptionDetailsViewController {
-        let presenter = SubscriptionDetailsPresenter()
-        let vc = SubscriptionDetailsViewController(presenter: presenter)
-        presenter.view = vc
-        return vc
-    }
-    
     static func createSettingsModule() -> SettingsViewController {
         let presenter = SettingsPresenter()
         
@@ -55,34 +13,67 @@ final class ModuleFactory {
     }
     
     static func createFeedModule() -> FeedViewController {
-        let presenter = FeedPresenter()
-        return FeedViewController(presenter: presenter)
+        let service = FeedPostsService()
+        let dataProvider = FeedPostsDataProvider(service: service)
+        let interactor = FeedInteractor(dataProvider: dataProvider)
+        let viewDataFactory = FeedViewDataFactory()
+        let presenter = FeedPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = FeedViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
     }
 
     static func createSearchModule() -> SearchViewController {
-        let presenter = SearchPresenter()
-        return SearchViewController(presenter: presenter)
+        let service = SearchLandingService()
+        let dataProvider = SearchLandingDataProvider(service: service)
+        let interactor = SearchInteractor(dataProvider: dataProvider)
+        let viewDataFactory = SearchViewDataFactory()
+        let presenter = SearchPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = SearchViewController(presenter: presenter)
+        presenter.view = viewController
+        
+        return viewController
     }
 
     static func createAlertsModule() -> AlertsViewController {
-        let presenter = AlertsPresenter()
-        return AlertsViewController(presenter: presenter)
+        let service = AlertNotificationsService()
+        let dataProvider = AlertNotificationsDataProvider(service: service)
+        let interactor = AlertsInteractor(dataProvider: dataProvider)
+        let viewDataFactory = AlertsViewDataFactory()
+        let presenter = AlertsPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = AlertsViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
     }
 
     static func createProfileModule() -> ProfileViewController {
-        let presenter = ProfilePresenter()
-        return ProfileViewController(presenter: presenter)
+        let service = ProfileService()
+        let dataProvider = ProfileDataProvider(service: service)
+        let interactor = ProfileInteractor(dataProvider: dataProvider)
+        let viewDataFactory = ProfileViewDataFactory()
+        let presenter = ProfilePresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = ProfileViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
     }
 
-    static func createFeedbackModule(completion: ((FeedbackStatus) -> Void)?) -> FeedbackViewController {
-        let service = FeedbackService()
-        let presenter = FeedbackPresenter(service: service)
-        let vc = FeedbackViewController(presenter: presenter)
-        presenter.completion = { status in
-            completion?(status)
-        }
-        presenter.view = vc
-        
-        return vc
+    static func createFeedPostModule() -> FeedPostViewController {
+        let service = FeedPostSubmissionService()
+        let dataProvider = FeedPostSubmissionDataProvider(service: service)
+        let interactor = FeedPostInteractor(dataProvider: dataProvider)
+        let viewDataFactory = FeedPostFormViewDataFactory()
+        let presenter = FeedPostPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = FeedPostViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
+    }
+
+    static func createComingSoonModule() -> ComingSoonViewController {
+        let presenter = ComingSoonPresenter()
+        return ComingSoonViewController(presenter: presenter)
     }
 }

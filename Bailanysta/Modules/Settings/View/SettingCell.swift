@@ -20,13 +20,13 @@ final class SettingCell: UITableViewCell {
     private let iconImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        iv.tintColor = .white
+        iv.tintColor = Color.onPrimary
         return iv
     }()
 
     private let titleLabel = UILabel()
     private let arrowIconImageView = UIImageView()
-    private let selectedLanguageLabel = UILabel()
+    private let trailingLabel = UILabel()
     private let separator = UIView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -45,12 +45,12 @@ final class SettingCell: UITableViewCell {
         iconImageView.image = UIImage(systemName: model.sfSymbolName)?
             .withConfiguration(UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))
 
-        if let selectedLanguage = model.selectedLanguage {
-            selectedLanguageLabel.setText(selectedLanguage, size: 15, weight: .regular)
-            selectedLanguageLabel.textColor = Color.textSecondary
-            selectedLanguageLabel.isHidden = false
+        if let trailingText = model.trailingText {
+            trailingLabel.setText(trailingText, size: 15, weight: .regular)
+            trailingLabel.textColor = Color.labelSecondary
+            trailingLabel.isHidden = false
         } else {
-            selectedLanguageLabel.isHidden = true
+            trailingLabel.isHidden = true
         }
 
         arrowIconImageView.image = UIImage(named: model.iconType.rawValue)
@@ -58,11 +58,11 @@ final class SettingCell: UITableViewCell {
 
     private func setupUI() {
         selectionStyle = .none
-        backgroundColor = Color.backgroundAlt
-        separator.backgroundColor = Color.stroke
+        backgroundColor = Color.surface
+        separator.backgroundColor = Color.divider
 
         iconContainer.addSubview(iconImageView)
-        [iconContainer, titleLabel, arrowIconImageView, selectedLanguageLabel, separator].forEach {
+        [iconContainer, titleLabel, arrowIconImageView, trailingLabel, separator].forEach {
             contentView.addSubview($0)
         }
     }
@@ -80,14 +80,14 @@ final class SettingCell: UITableViewCell {
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(iconContainer.snp.trailing).offset(12)
             $0.top.bottom.equalToSuperview().inset(16)
-            $0.trailing.lessThanOrEqualTo(selectedLanguageLabel.snp.leading).offset(-8)
+            $0.trailing.lessThanOrEqualTo(trailingLabel.snp.leading).offset(-8)
         }
         arrowIconImageView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
             $0.size.equalTo(24)
         }
-        selectedLanguageLabel.snp.makeConstraints {
+        trailingLabel.snp.makeConstraints {
             $0.trailing.equalTo(arrowIconImageView.snp.leading).offset(-6)
             $0.centerY.equalToSuperview()
         }

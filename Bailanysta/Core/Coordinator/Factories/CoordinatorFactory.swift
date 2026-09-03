@@ -23,4 +23,24 @@ final class CoordinatorFactory {
     static func tabBarCoordinator(navigationController: UINavigationController) -> TabBarCoordinator {
         TabBarCoordinator(navigationController: navigationController)
     }
+
+    static func feedTabCoordinator(navigationController: UINavigationController) -> FeedTabCoordinator {
+        FeedTabCoordinator(navigationController: navigationController)
+    }
+
+    static func searchTabCoordinator(navigationController: UINavigationController) -> SearchTabCoordinator {
+        SearchTabCoordinator(navigationController: navigationController)
+    }
+
+    static func alertsTabCoordinator(navigationController: UINavigationController) -> AlertsTabCoordinator {
+        AlertsTabCoordinator(navigationController: navigationController)
+    }
+
+    static func profileTabCoordinator(navigationController: UINavigationController) -> ProfileTabCoordinator {
+        ProfileTabCoordinator(navigationController: navigationController)
+    }
+
+    static func feedPostCoordinator(navigationController: UINavigationController) -> FeedPostCoordinator {
+        FeedPostCoordinator(navigationController: navigationController)
+    }
 }

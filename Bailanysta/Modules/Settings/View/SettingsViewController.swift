@@ -36,7 +36,12 @@ final class SettingsViewController: UIViewController {
     required init?(coder: NSCoder) {
         nil
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     private func setupUI() {
         view.backgroundColor = Color.background
         
@@ -52,6 +57,10 @@ final class SettingsViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(12)
             $0.top.bottom.equalToSuperview()
         }
+    }
+
+    func reloadSettings() {
+        tableView.reloadData()
     }
 }
 

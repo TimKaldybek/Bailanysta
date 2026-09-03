@@ -12,33 +12,23 @@ final class TabBarCoordinator: Coordinator {
 
     var onComposeTapped: (() -> Void)?
 
-    private let feedTabCoordinator: FeedTabCoordinator
-    private let searchTabCoordinator: SearchTabCoordinator
-    private let alertsTabCoordinator: AlertsTabCoordinator
-    private let profileTabCoordinator: ProfileTabCoordinator
+    private let tabCoordinators: [TabBarItem: Coordinator]
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.feedTabCoordinator = FeedTabCoordinator(navigationController: UINavigationController())
-        self.searchTabCoordinator = SearchTabCoordinator(navigationController: UINavigationController())
-        self.alertsTabCoordinator = AlertsTabCoordinator(navigationController: UINavigationController())
-        self.profileTabCoordinator = ProfileTabCoordinator(navigationController: UINavigationController())
+        self.tabCoordinators = [
+            .feed: CoordinatorFactory.feedTabCoordinator(navigationController: UINavigationController()),
+            .search: CoordinatorFactory.searchTabCoordinator(navigationController: UINavigationController()),
+            .alerts: CoordinatorFactory.alertsTabCoordinator(navigationController: UINavigationController()),
+            .profile: CoordinatorFactory.profileTabCoordinator(navigationController: UINavigationController())
+        ]
     }
 
     func start() {
-        feedTabCoordinator.start()
-        searchTabCoordinator.start()
-        alertsTabCoordinator.start()
-        profileTabCoordinator.start()
+        tabCoordinators.values.forEach { $0.start() }
 
         let container = TabBarContainerViewController(
-            childControllers: [
-                .feed: feedTabCoordinator.navigationController,
-                .search: searchTabCoordinator.navigationController,
-                .alerts: alertsTabCoordinator.navigationController,
-                .profile: profileTabCoordinator.navigationController
-            ],
-            select: { _ in }
+            childControllers: tabCoordinators.mapValues(\.navigationController)
         )
 
         container.onComposeTapped = { [weak self] in

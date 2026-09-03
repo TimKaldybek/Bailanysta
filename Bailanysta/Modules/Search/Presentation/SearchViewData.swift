@@ -1,0 +1,32 @@
+//
+//  SearchViewData.swift
+//  Bailanysta
+//
+
+struct SearchViewData {
+    let recentSearches: [RecentSearchViewData]
+    let trendingTopics: [TrendingTopicViewData]
+    let suggestedUsers: [SuggestedUserViewData]
+}
+
+struct RecentSearchViewData: Hashable {
+    let id: String
+    let text: String
+}
+
+struct TrendingTopicViewData: Hashable {
+    let id: String
+    /// Готовая для отображения строка метаданных, например "1 • Technology • Trending"
+    let metaText: String
+    let title: String
+    let subtitle: String
+}
+
+struct SuggestedUserViewData: Hashable {
+    let id: String
+    let name: String
+    let handle: String
+    let avatarImageName: String
+    let followButtonTitle: String
+    let isFollowing: Bool
+}

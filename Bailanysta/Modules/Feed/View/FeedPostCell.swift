@@ -6,13 +6,14 @@
 import UIKit
 import SnapKit
 
-final class FeedPostCell: UITableViewCell {
+final class FeedPostCell: UICollectionViewCell {
+    static let reuseIdentifier = "FeedPostCell"
 
     private let cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = FeedColor.cardBackground
+        view.backgroundColor = Color.surface
         view.layer.cornerRadius = 20
-        view.layer.shadowColor = FeedColor.shadow.cgColor
+        view.layer.shadowColor = Color.shadow.cgColor
         view.layer.shadowOpacity = 0.08
         view.layer.shadowRadius = 12
         view.layer.shadowOffset = CGSize(width: 0, height: 6)
@@ -21,15 +22,15 @@ final class FeedPostCell: UITableViewCell {
 
     private let avatarContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = FeedColor.avatarBackground
-        view.layer.cornerRadius = 22
+        view.backgroundColor = Color.primaryMuted
+        view.layer.cornerRadius = 24
         view.clipsToBounds = true
         return view
     }()
 
     private let avatarImageView: UIImageView = {
         let iv = UIImageView()
-        iv.tintColor = FeedColor.accent
+        iv.tintColor = Color.primary
         iv.contentMode = .scaleAspectFit
         return iv
     }()
@@ -38,73 +39,75 @@ final class FeedPostCell: UITableViewCell {
     private let handleTimeLabel = UILabel()
     private let bodyLabel = UILabel()
 
-    private let attachmentView: UIView = {
+    private let attachmentView = FeedAttachmentView()
+
+    private let divider: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 16
-        view.clipsToBounds = true
-
-        let gradient = CAGradientLayer()
-        gradient.colors = [FeedColor.accent.cgColor, Color.accentIndigo.cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        view.layer.insertSublayer(gradient, at: 0)
-        view.layer.setValue(gradient, forKey: "gradientLayer")
-
+        view.backgroundColor = Color.divider
         return view
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
+    private let likesView = FeedEngagementView()
+    private let commentsView = FeedEngagementView()
+    private let shareView = FeedEngagementView()
+
+    private lazy var footerStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [likesView, commentsView, shareView])
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.spacing = 28
+        return stack
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupSubviews()
         setupConstraints()
     }
 
-    required init?(coder: NSCoder) {
-        nil
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { nil }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatarImageView.image = nil
+        authorNameLabel.text = nil
+        handleTimeLabel.text = nil
+        bodyLabel.text = nil
+        attachmentView.isHidden = true
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if let gradient = attachmentView.layer.value(forKey: "gradientLayer") as? CAGradientLayer {
-            gradient.frame = attachmentView.bounds
-        }
-    }
+    func configure(with viewData: FeedPostViewData) {
+        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        authorNameLabel.setText(viewData.authorName, size: 17, weight: .bold, textColor: Color.label)
+        handleTimeLabel.setText(viewData.handleTimeText, size: 14, weight: .regular, textColor: Color.labelSecondary)
+        bodyLabel.setText(viewData.text, size: 17, weight: .regular, textColor: Color.label)
 
-    func configure(with post: FeedPost) {
-        avatarImageView.image = UIImage(systemName: post.avatarImageName)
-        authorNameLabel.setText(post.authorName, size: 16, weight: .bold, textColor: FeedColor.textPrimary)
-        handleTimeLabel.setText(
-            "\(post.authorHandle) • \(post.timeAgoText)",
-            size: 13,
-            weight: .regular,
-            textColor: FeedColor.textSecondary
-        )
-        bodyLabel.setText(post.text, size: 16, weight: .regular, textColor: FeedColor.textPrimary)
-
-        let hasAttachment = post.attachmentImageName != nil
+        let hasAttachment = viewData.attachmentImageName != nil
         attachmentView.isHidden = !hasAttachment
-
         attachmentView.snp.remakeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(bodyLabel.snp.bottom).offset(hasAttachment ? 12 : 0)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.top.equalTo(bodyLabel.snp.bottom).offset(hasAttachment ? 14 : 0)
             if hasAttachment {
-                $0.height.equalTo(attachmentView.snp.width).multipliedBy(10.0 / 16.0)
+                $0.height.equalTo(attachmentView.snp.width).multipliedBy(0.49)
             } else {
                 $0.height.equalTo(0)
             }
         }
+
+        likesView.configure(systemImageName: "heart", countText: viewData.formattedLikesCount)
+        commentsView.configure(systemImageName: "bubble.left", countText: viewData.formattedCommentsCount)
+        shareView.configure(systemImageName: "square.and.arrow.up", countText: nil)
     }
 
-    private func setupUI() {
-        selectionStyle = .none
-        backgroundColor = .clear
+    private func setupSubviews() {
         bodyLabel.numberOfLines = 0
 
         avatarContainer.addSubview(avatarImageView)
-        [avatarContainer, authorNameLabel, handleTimeLabel, bodyLabel, attachmentView].forEach {
-            cardView.addSubview($0)
-        }
+        [
+            avatarContainer, authorNameLabel, handleTimeLabel, bodyLabel,
+            attachmentView, divider, footerStack
+        ].forEach { cardView.addSubview($0) }
         contentView.addSubview(cardView)
     }
 
@@ -115,16 +118,16 @@ final class FeedPostCell: UITableViewCell {
         }
         avatarContainer.snp.makeConstraints {
             $0.leading.top.equalToSuperview().inset(16)
-            $0.size.equalTo(44)
+            $0.size.equalTo(48)
         }
         avatarImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.size.equalTo(22)
+            $0.size.equalTo(24)
         }
         authorNameLabel.snp.makeConstraints {
             $0.leading.equalTo(avatarContainer.snp.trailing).offset(12)
             $0.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(avatarContainer)
+            $0.top.equalTo(avatarContainer).offset(2)
         }
         handleTimeLabel.snp.makeConstraints {
             $0.leading.equalTo(authorNameLabel)
@@ -133,13 +136,19 @@ final class FeedPostCell: UITableViewCell {
         }
         bodyLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(avatarContainer.snp.bottom).offset(12)
+            $0.top.equalTo(avatarContainer.snp.bottom).offset(14)
         }
-        attachmentView.snp.makeConstraints {
+        // attachmentView задаётся динамически в configure(with:), т.к. зависит от наличия вложения
+        divider.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(bodyLabel.snp.bottom).offset(12)
-            $0.height.equalTo(0)
+            $0.top.equalTo(attachmentView.snp.bottom).offset(16)
+            $0.height.equalTo(1)
+        }
+        footerStack.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.top.equalTo(divider.snp.bottom).offset(14)
             $0.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(22)
         }
     }
 }

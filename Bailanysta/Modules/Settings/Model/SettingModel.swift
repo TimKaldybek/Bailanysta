@@ -10,7 +10,7 @@ import UIKit
 struct SettingModel {
     let type: SettingType
     let title: String
-    let selectedLanguage: String?
+    let trailingText: String?
     let iconType: SettingIconType
     let sfSymbolName: String
     let accentColor: UIColor
@@ -18,14 +18,14 @@ struct SettingModel {
     init(
         type: SettingType,
         title: String,
-        selectedLanguage: String? = nil,
+        trailingText: String? = nil,
         iconType: SettingIconType,
         sfSymbolName: String,
         accentColor: UIColor
     ) {
         self.type = type
         self.title = title
-        self.selectedLanguage = selectedLanguage
+        self.trailingText = trailingText
         self.iconType = iconType
         self.sfSymbolName = sfSymbolName
         self.accentColor = accentColor

@@ -25,7 +25,7 @@ final class ActionButton: UIButton {
     private func setupDefaultStyle() {
         backgroundColor = Color.primary
         layer.cornerRadius = 24
-        tintColor = .white
+        tintColor = Color.onPrimary
         titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
     }
 }

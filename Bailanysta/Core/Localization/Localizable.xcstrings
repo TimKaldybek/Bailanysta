@@ -23,13 +23,134 @@
         }
       }
     },
-    "Alerts.Title": {
+    "Alerts.Action.Accept": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alerts"
+            "value": "Accept"
+          }
+        }
+      }
+    },
+    "Alerts.Action.Decline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decline"
+          }
+        }
+      }
+    },
+    "Alerts.Action.Reply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reply"
+          }
+        }
+      }
+    },
+    "Alerts.EarlierThisWeek": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Earlier this week"
+          }
+        }
+      }
+    },
+    "Alerts.MarkAllAsRead": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark all as read"
+          }
+        }
+      }
+    },
+    "Alerts.Message.InvitedBy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invited by %@"
+          }
+        }
+      }
+    },
+    "Alerts.Message.InvitedPrefix": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You have been invited to join the"
+          }
+        }
+      }
+    },
+    "Alerts.Message.InvitedSuffix": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "workspace"
+          }
+        }
+      }
+    },
+    "Alerts.Message.Liked": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "and %d others liked your post"
+          }
+        }
+      }
+    },
+    "Alerts.Message.Mentioned": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mentioned you in a comment on"
+          }
+        }
+      }
+    },
+    "Alerts.Message.Replied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "replied to your thread"
+          }
+        }
+      }
+    },
+    "Alerts.Notifications.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications"
           }
         }
       }
@@ -122,6 +243,17 @@
         }
       }
     },
+    "Cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
     "ChooseCategoriesVC.BuyPremium": {
       "extractionState": "manual",
       "localizations": {
@@ -177,6 +309,39 @@
         }
       }
     },
+    "ComingSoon.Button": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Got it"
+          }
+        }
+      }
+    },
+    "ComingSoon.Message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We're actively working on this section. It'll be ready very soon — thanks for your interest! ;)"
+          }
+        }
+      }
+    },
+    "ComingSoon.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coming Soon"
+          }
+        }
+      }
+    },
     "Continue": {
       "extractionState": "manual",
       "localizations": {
@@ -206,6 +371,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Failed to open settings"
+          }
+        }
+      }
+    },
+    "Feed.AppName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta"
           }
         }
       }
@@ -272,6 +448,83 @@
           "stringUnit": {
             "state": "translated",
             "value": "What's happening?"
+          }
+        }
+      }
+    },
+    "FeedPost.AddMedia": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add media"
+          }
+        }
+      }
+    },
+    "FeedPost.Category.Design": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Design"
+          }
+        }
+      }
+    },
+    "FeedPost.Category.General": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "General"
+          }
+        }
+      }
+    },
+    "FeedPost.Category.Tech": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tech"
+          }
+        }
+      }
+    },
+    "FeedPost.Category.Updates": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates"
+          }
+        }
+      }
+    },
+    "FeedPost.Placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's on your mind?"
+          }
+        }
+      }
+    },
+    "FeedPost.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create Post"
           }
         }
       }
@@ -540,6 +793,94 @@
         }
       }
     },
+    "Profile.EditProfile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Profile"
+          }
+        }
+      }
+    },
+    "Profile.Share": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share"
+          }
+        }
+      }
+    },
+    "Profile.Stat.Followers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Followers"
+          }
+        }
+      }
+    },
+    "Profile.Stat.Following": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Following"
+          }
+        }
+      }
+    },
+    "Profile.Stat.Posts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posts"
+          }
+        }
+      }
+    },
+    "Profile.Tab.Likes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Likes"
+          }
+        }
+      }
+    },
+    "Profile.Tab.Posts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posts"
+          }
+        }
+      }
+    },
+    "Profile.Tab.Replies": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replies"
+          }
+        }
+      }
+    },
     "Profile.Title": {
       "extractionState": "manual",
       "localizations": {
@@ -595,6 +936,72 @@
         }
       }
     },
+    "Search.Clear": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clear"
+          }
+        }
+      }
+    },
+    "Search.Follow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow"
+          }
+        }
+      }
+    },
+    "Search.Following": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Following"
+          }
+        }
+      }
+    },
+    "Search.Placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search Bailanysta..."
+          }
+        }
+      }
+    },
+    "Search.RecentSearches": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recent Searches"
+          }
+        }
+      }
+    },
+    "Search.SuggestedForYou": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggested for you"
+          }
+        }
+      }
+    },
     "Search.Title": {
       "extractionState": "manual",
       "localizations": {
@@ -602,6 +1009,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search"
+          }
+        }
+      }
+    },
+    "Search.Trending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trending"
+          }
+        }
+      }
+    },
+    "Search.TrendingNow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trending Now"
           }
         }
       }
@@ -679,6 +1108,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Settings"
+          }
+        }
+      }
+    },
+    "SettingsVC.Appearance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appearance"
+          }
+        }
+      }
+    },
+    "SettingsVC.Appearance.Dark": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dark"
+          }
+        }
+      }
+    },
+    "SettingsVC.Appearance.Light": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light"
+          }
+        }
+      }
+    },
+    "SettingsVC.Appearance.System": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
           }
         }
       }

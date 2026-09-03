@@ -11,15 +11,33 @@ enum TabBarItem: CaseIterable {
     case search
     case alerts
     case profile
-}
 
-enum TabBarStyle {
-    static let barBackground = UIColor(hex: 0xFBFAFE)
-    static let selectedColor = Color.primary
-    static let unselectedColor = UIColor(hex: 0x8B8896)
-    static let pillBackground = UIColor(hex: 0xE9E6F8)
-    static let shadowColor = UIColor(hex: 0x2A2440)
-    static let composeBackground = Color.accentIndigo
+    fileprivate var title: String {
+        switch self {
+        case .feed: "Feed.Tab.Feed".localized
+        case .search: "Feed.Tab.Search".localized
+        case .alerts: "Feed.Tab.Alerts".localized
+        case .profile: "Feed.Tab.Profile".localized
+        }
+    }
+
+    fileprivate var selectedIconName: String {
+        switch self {
+        case .feed: "house.fill"
+        case .search: "magnifyingglass"
+        case .alerts: "bell.fill"
+        case .profile: "person.fill"
+        }
+    }
+
+    fileprivate var unselectedIconName: String {
+        switch self {
+        case .feed: "house"
+        case .search: "magnifyingglass"
+        case .alerts: "bell"
+        case .profile: "person"
+        }
+    }
 }
 
 final class TabBarView: UIView {
@@ -48,9 +66,9 @@ final class TabBarView: UIView {
     private func setupUI() {
         backgroundColor = .clear
 
-        containerView.backgroundColor = TabBarStyle.barBackground
+        containerView.backgroundColor = Color.surface
         containerView.layer.cornerRadius = 28
-        containerView.layer.shadowColor = TabBarStyle.shadowColor.cgColor
+        containerView.layer.shadowColor = Color.shadow.cgColor
         containerView.layer.shadowOpacity = 0.12
         containerView.layer.shadowRadius = 12
         containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -59,53 +77,37 @@ final class TabBarView: UIView {
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
 
-        let feedButton = TabBarItemButton(
-            title: "Feed.Tab.Feed".localized,
-            selectedIconName: "house.fill",
-            unselectedIconName: "house"
-        )
-        let searchButton = TabBarItemButton(
-            title: "Feed.Tab.Search".localized,
-            selectedIconName: "magnifyingglass",
-            unselectedIconName: "magnifyingglass"
-        )
-        let centerSpacer = UIView()
-        let alertsButton = TabBarItemButton(
-            title: "Feed.Tab.Alerts".localized,
-            selectedIconName: "bell.fill",
-            unselectedIconName: "bell"
-        )
-        let profileButton = TabBarItemButton(
-            title: "Feed.Tab.Profile".localized,
-            selectedIconName: "person.fill",
-            unselectedIconName: "person"
-        )
+        let items = TabBarItem.allCases
+        items.enumerated().forEach { index, item in
+            if index == items.count / 2 {
+                stackView.addArrangedSubview(UIView())
+            }
 
-        itemButtons = [
-            .feed: feedButton,
-            .search: searchButton,
-            .alerts: alertsButton,
-            .profile: profileButton
-        ]
+            let button = TabBarItemButton(
+                title: item.title,
+                selectedIconName: item.selectedIconName,
+                unselectedIconName: item.unselectedIconName
+            )
+            button.addAction(UIAction { [weak self] _ in
+                self?.select(item)
+                self?.onTabSelected?(item)
+            }, for: .touchUpInside)
 
-        feedButton.addTarget(self, action: #selector(feedTapped), for: .touchUpInside)
-        searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
-        alertsButton.addTarget(self, action: #selector(alertsTapped), for: .touchUpInside)
-        profileButton.addTarget(self, action: #selector(profileTapped), for: .touchUpInside)
-
-        [feedButton, searchButton, centerSpacer, alertsButton, profileButton].forEach {
-            stackView.addArrangedSubview($0)
+            itemButtons[item] = button
+            stackView.addArrangedSubview(button)
         }
 
-        composeButton.backgroundColor = TabBarStyle.composeBackground
+        composeButton.backgroundColor = Color.primary
         composeButton.layer.cornerRadius = 29
-        composeButton.tintColor = .white
+        composeButton.tintColor = Color.onPrimary
         composeButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        composeButton.layer.shadowColor = TabBarStyle.shadowColor.cgColor
+        composeButton.layer.shadowColor = Color.shadow.cgColor
         composeButton.layer.shadowOpacity = 0.25
         composeButton.layer.shadowRadius = 8
         composeButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        composeButton.addTarget(self, action: #selector(composeTapped), for: .touchUpInside)
+        composeButton.addAction(UIAction { [weak self] _ in
+            self?.onComposeTapped?()
+        }, for: .touchUpInside)
 
         addSubview(containerView)
         containerView.addSubview(stackView)
@@ -121,7 +123,6 @@ final class TabBarView: UIView {
         stackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(8)
             $0.top.bottom.equalToSuperview()
-            $0.height.equalTo(56)
         }
         composeButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -134,29 +135,5 @@ final class TabBarView: UIView {
         itemButtons.forEach { key, button in
             button.setSelected(key == tab)
         }
-    }
-
-    @objc private func feedTapped() {
-        select(.feed)
-        onTabSelected?(.feed)
-    }
-
-    @objc private func searchTapped() {
-        select(.search)
-        onTabSelected?(.search)
-    }
-
-    @objc private func alertsTapped() {
-        select(.alerts)
-        onTabSelected?(.alerts)
-    }
-
-    @objc private func profileTapped() {
-        select(.profile)
-        onTabSelected?(.profile)
-    }
-
-    @objc private func composeTapped() {
-        onComposeTapped?()
     }
 }
