@@ -33,3 +33,7 @@ open Bailanysta.xcodeproj
 | Изображения | Kingfisher |
 | Аналитика / шаринг | Facebook SDK |
 | Управление зависимостями | Swift Package Manager |
+
+<img width="1254" height="771" alt="йцу" src="https://github.com/user-attachments/assets/77de4ac8-5e29-4df2-ba1f-3e99bc51bc5f" />
+
+
