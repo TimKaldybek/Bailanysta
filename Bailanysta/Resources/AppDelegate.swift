@@ -1,17 +1,17 @@
 //
 //  AppDelegate.swift
-//  Kolesa Team
 //
-//  Created by Timur Kaldybek on 08.08.2024.
 //
 
 import UIKit
 import FirebaseCore
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        configureGoogleSignIn()
         setupNavigationBarBackButton()
 
         NotificationManager.shared.requestPermissionAndSchedule()
@@ -42,6 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return image?.withAlignmentRectInsets(UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0))
     }()
     
+}
+
+// MARK: - Setup Google Sign-In
+private extension AppDelegate {
+    /// Reads the OAuth client ID from `GoogleService-Info.plist` (via `FirebaseApp.options`) so
+    /// `GIDSignIn` doesn't need it hardcoded anywhere in the `Auth` module.
+    private func configureGoogleSignIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
+    }
 }
 
 //MARK: - Setup UIAppearance

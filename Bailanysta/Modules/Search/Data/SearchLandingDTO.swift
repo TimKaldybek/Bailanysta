@@ -14,6 +14,8 @@ struct TrendingTopicDTO {
     let category: String
     let title: String
     let subtitle: String
+    /// Firestore `imageURL`; `nil` — карточка остаётся с одним градиентным фоном
+    let imageURL: String?
 }
 
 struct SuggestedUserDTO {
@@ -21,4 +23,6 @@ struct SuggestedUserDTO {
     let name: String
     let handle: String
     let avatarImageName: String
+    /// Firestore `avatarURL`; `nil` — используется `avatarImageName`
+    let avatarURL: String?
 }

@@ -2,7 +2,6 @@
 //  ModuleFactory.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 13.11.2024.
 //
 
 import Foundation
@@ -19,7 +18,13 @@ final class ModuleFactory {
         let dataProvider = FeedPostsDataProvider(service: service)
         let likeService = FeedLikeService()
         let likeDataProvider = FeedLikeDataProvider(service: likeService)
-        let interactor = FeedInteractor(dataProvider: dataProvider, likeDataProvider: likeDataProvider)
+        let composerService = FeedComposerService()
+        let composerDataProvider = FeedComposerDataProvider(service: composerService)
+        let interactor = FeedInteractor(
+            dataProvider: dataProvider,
+            likeDataProvider: likeDataProvider,
+            composerDataProvider: composerDataProvider
+        )
         let viewDataFactory = FeedViewDataFactory()
         let presenter = FeedPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
         let viewController = FeedViewController(presenter: presenter)
@@ -104,5 +109,29 @@ final class ModuleFactory {
     static func createComingSoonModule() -> ComingSoonViewController {
         let presenter = ComingSoonPresenter()
         return ComingSoonViewController(presenter: presenter)
+    }
+
+    static func createLoginModule() -> LoginViewController {
+        let service = AuthService()
+        let dataProvider = AuthDataProvider(service: service)
+        let interactor = AuthInteractor(dataProvider: dataProvider)
+        let viewDataFactory = LoginViewDataFactory()
+        let presenter = LoginPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = LoginViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
+    }
+
+    static func createSignUpModule() -> SignUpViewController {
+        let service = AuthService()
+        let dataProvider = AuthDataProvider(service: service)
+        let interactor = AuthInteractor(dataProvider: dataProvider)
+        let viewDataFactory = SignUpViewDataFactory()
+        let presenter = SignUpPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = SignUpViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
     }
 }

@@ -12,8 +12,8 @@ struct FeedPostSubmissionDataProvider {
         self.service = service
     }
 
-    func submit(_ draft: FeedPostDraft) async -> Bool {
-        await service.submit(Self.map(draft))
+    func submit(_ draft: FeedPostDraft) async throws {
+        try await service.submit(Self.map(draft))
     }
 
     private static func map(_ draft: FeedPostDraft) -> FeedPostSubmissionDTO {
@@ -26,11 +26,7 @@ struct FeedPostSubmissionDataProvider {
 
     private static func map(_ attachment: FeedPostAttachment) -> FeedPostAttachmentDTO {
         let data = attachment.image.jpegData(compressionQuality: Constants.jpegCompressionQuality) ?? Data()
-        return FeedPostAttachmentDTO(
-            fileName: "\(attachment.id.uuidString).jpg",
-            mimeType: "image/jpeg",
-            base64Data: data.base64EncodedString()
-        )
+        return FeedPostAttachmentDTO(fileName: "\(attachment.id.uuidString).jpg", imageData: data)
     }
 }
 

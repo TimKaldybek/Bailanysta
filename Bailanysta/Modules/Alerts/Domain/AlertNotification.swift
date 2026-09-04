@@ -8,22 +8,12 @@ import Foundation
 struct AlertNotification: Hashable {
     let id: UUID
     let kind: AlertNotificationKind
-    let avatarSystemImageName: String
-    let badgeSystemImageName: String?
-    let timeAgoText: String
+    let createdAt: Date?
     let isRecent: Bool
     let isUnread: Bool
 
     func markingAsRead() -> AlertNotification {
-        AlertNotification(
-            id: id,
-            kind: kind,
-            avatarSystemImageName: avatarSystemImageName,
-            badgeSystemImageName: badgeSystemImageName,
-            timeAgoText: timeAgoText,
-            isRecent: isRecent,
-            isUnread: false
-        )
+        AlertNotification(id: id, kind: kind, createdAt: createdAt, isRecent: isRecent, isUnread: false)
     }
 }
 

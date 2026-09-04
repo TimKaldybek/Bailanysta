@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FeedComposeView: UIView {
 
@@ -19,7 +20,7 @@ final class FeedComposeView: UIView {
     }()
 
     private let avatarImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "person.fill"))
+        let iv = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
         iv.tintColor = Color.primary
         iv.contentMode = .scaleAspectFit
         return iv
@@ -58,6 +59,15 @@ final class FeedComposeView: UIView {
 
     required init?(coder: NSCoder) {
         nil
+    }
+
+    func configure(with viewData: FeedComposerViewData) {
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
     }
 
     private func setupUI() {

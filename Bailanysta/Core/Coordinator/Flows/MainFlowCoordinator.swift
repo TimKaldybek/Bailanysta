@@ -2,7 +2,6 @@
 //  MainFlowCoordinator.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 13.11.2024.
 //
 
 import UIKit

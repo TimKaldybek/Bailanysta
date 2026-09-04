@@ -2,7 +2,6 @@
 //  Coordinatorfactory.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 13.11.2024.
 //
 
 import UIKit
@@ -46,5 +45,9 @@ final class CoordinatorFactory {
 
     static func commentsCoordinator(navigationController: UINavigationController, postID: UUID) -> CommentsCoordinator {
         CommentsCoordinator(navigationController: navigationController, postID: postID)
+    }
+
+    static func authCoordinator(navigationController: UINavigationController) -> AuthCoordinator {
+        AuthCoordinator(navigationController: navigationController)
     }
 }

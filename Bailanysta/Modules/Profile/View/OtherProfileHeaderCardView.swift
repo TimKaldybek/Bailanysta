@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 /// Карточка чужого профиля: аватар, имя, тэглайн, Follow/Message, статистика и таб-бар (Posts/Likes/Replies)
 final class OtherProfileHeaderCardView: UIView {
@@ -120,7 +121,12 @@ final class OtherProfileHeaderCardView: UIView {
     // MARK: - Public
 
     func configure(with viewData: OtherProfileHeaderViewData, selectedTab: ProfileTab) {
-        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
         nameLabel.setText(viewData.name, size: 22, weight: .bold, textColor: Color.label)
         taglineLabel.setText(viewData.tagline, size: 15, weight: .regular, textColor: Color.labelSecondary)
 

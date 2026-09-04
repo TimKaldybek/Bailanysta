@@ -2,8 +2,6 @@
 //  SettingsPresenter.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 09.12.2024.
-//
 
 import UIKit
 
@@ -38,6 +36,13 @@ final class SettingsPresenter {
                 title: "SettingsVC.Notifications".localized,
                 iconType: .arrow,
                 sfSymbolName: "bell.fill",
+                accentColor: Color.accentRed
+            ),
+            SettingModel(
+                type: .logout,
+                title: "SettingsVC.Logout".localized,
+                iconType: .arrow,
+                sfSymbolName: "rectangle.portrait.and.arrow.right",
                 accentColor: Color.accentRed
             )
         ]

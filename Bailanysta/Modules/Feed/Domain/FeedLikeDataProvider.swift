@@ -12,8 +12,8 @@ struct FeedLikeDataProvider {
         self.service = service
     }
 
-    func toggleLike(postID: UUID) async -> FeedPost? {
-        guard let dto = await service.toggleLike(postID: postID.uuidString) else { return nil }
+    func toggleLike(postID: UUID, isLiked: Bool) async throws -> FeedPost {
+        let dto = try await service.toggleLike(postID: postID.uuidString, isLiked: isLiked)
         return Self.map(dto)
     }
 
@@ -23,9 +23,11 @@ struct FeedLikeDataProvider {
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
-            timeAgoText: dto.timeAgoText,
+            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
+            createdAt: dto.createdAt,
             text: dto.text,
             attachmentImageName: dto.attachmentImageName,
+            attachmentImageURL: dto.attachmentImageURL.flatMap(URL.init(string:)),
             likesCount: dto.likesCount,
             isLiked: dto.isLiked,
             commentsCount: dto.commentsCount

@@ -10,7 +10,7 @@ final class FeedPostInteractor {
         self.dataProvider = dataProvider
     }
 
-    func submit(_ draft: FeedPostDraft) async -> Bool {
-        await dataProvider.submit(draft)
+    func submit(_ draft: FeedPostDraft) async throws {
+        try await dataProvider.submit(draft)
     }
 }

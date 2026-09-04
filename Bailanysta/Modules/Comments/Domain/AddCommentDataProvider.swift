@@ -12,8 +12,8 @@ struct AddCommentDataProvider {
         self.service = service
     }
 
-    func addComment(postID: UUID, text: String) async -> Comment? {
-        guard let dto = await service.addComment(postID: postID.uuidString, text: text) else { return nil }
+    func addComment(postID: UUID, text: String) async throws -> Comment {
+        let dto = try await service.addComment(postID: postID.uuidString, text: text)
         return Self.map(dto)
     }
 
@@ -23,7 +23,8 @@ struct AddCommentDataProvider {
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
-            timeAgoText: dto.timeAgoText,
+            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
+            createdAt: dto.createdAt,
             text: dto.text
         )
     }

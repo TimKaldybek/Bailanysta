@@ -3,6 +3,8 @@
 //  Bailanysta
 //
 
+import Foundation
+
 struct FeedPostSubmissionDTO {
     let text: String
     let category: String
@@ -11,6 +13,5 @@ struct FeedPostSubmissionDTO {
 
 struct FeedPostAttachmentDTO {
     let fileName: String
-    let mimeType: String
-    let base64Data: String
+    let imageData: Data
 }

@@ -22,12 +22,21 @@
                                     <constraint firstAttribute="height" constant="256" id="iL3-75-Fr7"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bailanysta bolaiyq" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0w-1E-oam">
+                                <rect key="frame" x="100" y="733" width="193" height="27"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <color key="textColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.070405003711367889" green="0.069427430785080485" blue="0.085027156770229317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="uPP-KH-VWq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="2EI-en-Zng"/>
+                            <constraint firstItem="z0w-1E-oam" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="4JA-a4-URK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z0w-1E-oam" secondAttribute="trailing" constant="100" id="63I-Wa-Pgh"/>
                             <constraint firstItem="uPP-KH-VWq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="eCU-PQ-cpr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="z0w-1E-oam" secondAttribute="bottom" constant="24" id="ykb-n8-HRb"/>
                         </constraints>
                     </view>
                 </viewController>

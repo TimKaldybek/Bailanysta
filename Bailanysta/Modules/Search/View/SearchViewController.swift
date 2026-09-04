@@ -69,6 +69,10 @@ extension SearchViewController: SearchViewInput {
     func display(_ viewData: SearchViewData) {
         recentSearchesView.configure(items: viewData.recentSearches)
         dataSource.reload(trendingTopics: viewData.trendingTopics, suggestedUsers: viewData.suggestedUsers)
+
+        if let errorMessage = viewData.errorMessage {
+            showAlert(title: "Error".localized, message: errorMessage)
+        }
     }
 }
 

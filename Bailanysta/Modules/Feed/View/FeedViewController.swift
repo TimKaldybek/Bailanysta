@@ -12,6 +12,7 @@ final class FeedViewController: UIViewController {
     var composeButtonTapped: (() -> Void)?
     var postAuthorTapped: ((String) -> Void)?
     var commentsTapped: ((UUID) -> Void)?
+    var shareTapped: ((String) -> Void)?
 
     private let presenter: FeedPresenter
     private let collectionView: UICollectionView
@@ -27,6 +28,9 @@ final class FeedViewController: UIViewController {
         },
         onCommentsTapped: { [weak self] postID in
             self?.commentsTapped?(postID)
+        },
+        onShareTapped: { [weak self] viewData in
+            self?.shareTapped?(viewData.text)
         }
     )
 
@@ -85,6 +89,15 @@ final class FeedViewController: UIViewController {
 extension FeedViewController: FeedViewInput {
     func display(_ viewData: FeedViewData) {
         dataSource.reload(posts: viewData.posts)
+        composeView.configure(with: viewData.composer)
+
+        if let errorMessage = viewData.errorMessage {
+            showAlert(title: "Error".localized, message: errorMessage)
+        }
+    }
+
+    func endRefreshing() {
+        collectionView.refreshControl?.endRefreshing()
     }
 }
 
@@ -111,6 +124,12 @@ private extension FeedViewController {
         composeView.onComposeTapped = { [weak self] in
             self?.composeButtonTapped?()
         }
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addAction(UIAction { [weak self] _ in
+            self?.presenter.refresh()
+        }, for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
 
     func setupConstraints() {

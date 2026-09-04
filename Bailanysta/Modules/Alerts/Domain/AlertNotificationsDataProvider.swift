@@ -12,19 +12,38 @@ struct AlertNotificationsDataProvider {
         self.service = service
     }
 
-    func loadData() async -> [AlertNotification] {
-        let dtos = await service.loadData()
-        return dtos.map(Self.map)
+    /// Wraps the Data-layer `Result<[AlertNotificationDTO], Error>` stream into the Domain-layer's
+    /// `[AlertNotification]`, mirroring `FeedPostsDataProvider.observePosts()`.
+    func observeNotifications() -> AsyncStream<Result<[AlertNotification], Error>> {
+        AsyncStream { continuation in
+            let task = Task {
+                for await result in service.observeNotifications() {
+                    switch result {
+                    case .success(let dtos):
+                        continuation.yield(.success(dtos.map(Self.map)))
+                    case .failure(let error):
+                        continuation.yield(.failure(error))
+                    }
+                }
+                continuation.finish()
+            }
+
+            continuation.onTermination = { _ in
+                task.cancel()
+            }
+        }
+    }
+
+    func markAllAsRead(ids: [UUID]) async throws {
+        try await service.markAllAsRead(notificationIDs: ids.map(\.uuidString))
     }
 
     private static func map(_ dto: AlertNotificationDTO) -> AlertNotification {
         AlertNotification(
             id: UUID(uuidString: dto.id) ?? UUID(),
             kind: kind(from: dto),
-            avatarSystemImageName: dto.avatarSystemImageName,
-            badgeSystemImageName: dto.badgeSystemImageName,
-            timeAgoText: dto.timeAgoText,
-            isRecent: dto.isRecent,
+            createdAt: dto.createdAt,
+            isRecent: isRecent(dto.createdAt),
             isUnread: dto.isUnread
         )
     }
@@ -54,5 +73,15 @@ struct AlertNotificationsDataProvider {
                 quote: dto.quote ?? ""
             )
         }
+    }
+
+    /// "Recent" (undivided section) vs "Earlier this week" — a notification within the last day.
+    private static func isRecent(_ date: Date?) -> Bool {
+        guard let date else { return false }
+        return Date().timeIntervalSince(date) < Constants.recentWindow
+    }
+
+    private enum Constants {
+        static let recentWindow: TimeInterval = 24 * 60 * 60
     }
 }

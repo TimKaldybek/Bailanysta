@@ -38,7 +38,11 @@ final class ProfileDataSource {
             [.header(ProfileHeaderCellViewData(header: viewData.header, selectedTab: viewData.selectedTab))],
             toSection: .header
         )
-        snapshot.appendItems(viewData.items.map { .post($0) }, toSection: .posts)
+        if viewData.items.isEmpty {
+            snapshot.appendItems([.empty(viewData.emptyStateMessage)], toSection: .posts)
+        } else {
+            snapshot.appendItems(viewData.items.map { .post($0) }, toSection: .posts)
+        }
         diffableDataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -63,6 +67,9 @@ private extension ProfileDataSource {
             cell.configure(with: viewData)
             cell.onAvatarTapped = { onAvatarTapped(viewData) }
         }
+        let emptyStateCell = UICollectionView.CellRegistration<ProfileEmptyStateCell, String> { cell, _, message in
+            cell.configure(with: message)
+        }
 
         return UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>(
             collectionView: collectionView
@@ -72,6 +79,8 @@ private extension ProfileDataSource {
                 return cv.dequeueConfiguredReusableCell(using: headerCell, for: indexPath, item: viewData)
             case .post(let viewData):
                 return cv.dequeueConfiguredReusableCell(using: postCell, for: indexPath, item: viewData)
+            case .empty(let message):
+                return cv.dequeueConfiguredReusableCell(using: emptyStateCell, for: indexPath, item: message)
             }
         }
     }

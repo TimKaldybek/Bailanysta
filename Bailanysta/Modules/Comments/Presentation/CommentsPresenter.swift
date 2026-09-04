@@ -25,8 +25,14 @@ final class CommentsPresenter {
 
     func load() {
         Task { @MainActor in
-            comments = await interactor.loadData(postID: postID)
-            pushViewData()
+            do {
+                comments = try await interactor.loadData(postID: postID)
+                pushViewData()
+            } catch {
+                // A genuine read failure is a no-op against `comments` — keep the last-known-good
+                // list (or the empty state) on screen instead of crashing.
+                pushViewData(errorMessage: "Comments.Error.Load".localized)
+            }
         }
     }
 
@@ -43,11 +49,15 @@ final class CommentsPresenter {
                 view?.setComposerEnabled(true)
             }
 
-            guard let newComment = await interactor.addComment(postID: postID, text: trimmed) else { return }
-
-            comments.append(newComment)
-            pushViewData()
-            view?.clearComposerInput()
+            do {
+                let newComment = try await interactor.addComment(postID: postID, text: trimmed)
+                comments.append(newComment)
+                pushViewData()
+                view?.clearComposerInput()
+            } catch {
+                // Don't lose the user's typed text on a failed send — the composer keeps its input.
+                pushViewData(errorMessage: "Comments.Error.Send".localized)
+            }
         }
     }
 }
@@ -55,7 +65,7 @@ final class CommentsPresenter {
 // MARK: - Private
 
 private extension CommentsPresenter {
-    func pushViewData() {
-        view?.display(viewDataFactory.createViewData(comments: comments))
+    func pushViewData(errorMessage: String? = nil) {
+        view?.display(viewDataFactory.createViewData(comments: comments, errorMessage: errorMessage))
     }
 }

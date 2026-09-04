@@ -24,8 +24,12 @@ final class SearchPresenter {
 
     func load() {
         Task { @MainActor in
-            model = await interactor.loadData()
-            pushViewData()
+            do {
+                model = try await interactor.loadData()
+                pushViewData()
+            } catch {
+                pushViewData(errorMessage: "Search.Error.Load".localized)
+            }
         }
     }
 
@@ -56,8 +60,12 @@ final class SearchPresenter {
 // MARK: - Private
 
 private extension SearchPresenter {
-    func pushViewData() {
-        let viewData = viewDataFactory.createViewData(model: model, recentSearches: recentSearches)
+    func pushViewData(errorMessage: String? = nil) {
+        let viewData = viewDataFactory.createViewData(
+            model: model,
+            recentSearches: recentSearches,
+            errorMessage: errorMessage
+        )
         view?.display(viewData)
     }
 

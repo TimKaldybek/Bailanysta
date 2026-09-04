@@ -11,6 +11,8 @@ struct OtherProfileUser: Hashable {
     let handle: String
     let tagline: String
     let avatarImageName: String
+    /// Storage download URL, если пользователь загрузил аватар; `nil` — используется `avatarImageName`
+    let avatarURL: URL?
     let followersCount: Int
     let followingCount: Int
     let postsCount: Int

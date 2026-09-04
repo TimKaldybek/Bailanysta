@@ -2,7 +2,6 @@
 //  SettingsCoordinator.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 09.12.2024.
 //
 
 import UIKit
@@ -44,7 +43,28 @@ final class SettingsCoordinator: Coordinator {
             navigationController.present(activityViewController, animated: true)
         case .notifications:
             handleNotificationsTap()
+        case .logout:
+            showLogoutConfirmation()
         }
+    }
+
+    private func showLogoutConfirmation() {
+        let alert = UIAlertController(
+            title: "SettingsVC.LogoutConfirmation.Title".localized,
+            message: "SettingsVC.LogoutConfirmation.Message".localized,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "SettingsVC.Logout".localized, style: .destructive) { [weak self] _ in
+            do {
+                try SessionManager.shared.signOut()
+            } catch {
+                self?.showAlert(title: "Error".localized, message: "Auth.Error.Generic".localized)
+            }
+        })
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel))
+
+        navigationController.present(alert, animated: true)
     }
 
     private func showAppearancePicker() {

@@ -10,7 +10,7 @@ final class OtherProfileInteractor {
         self.dataProvider = dataProvider
     }
 
-    func loadData(handle: String) async -> OtherProfileModel {
-        await dataProvider.loadData(handle: handle)
+    func loadData(handle: String) async throws -> OtherProfileModel {
+        try await dataProvider.loadData(handle: handle)
     }
 }

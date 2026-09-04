@@ -2,7 +2,6 @@
 //  UIImage+GIF.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 19.11.2024.
 //
 
 import UIKit

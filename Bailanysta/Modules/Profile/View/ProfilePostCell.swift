@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class ProfilePostCell: UICollectionViewCell {
     static let reuseIdentifier = "ProfilePostCell"
@@ -75,6 +76,7 @@ final class ProfilePostCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        avatarImageView.kf.cancelDownloadTask()
         avatarImageView.image = nil
         authorNameLabel.text = nil
         handleTimeLabel.text = nil
@@ -86,7 +88,12 @@ final class ProfilePostCell: UICollectionViewCell {
     }
 
     func configure(with viewData: ProfilePostViewData) {
-        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
         authorNameLabel.setText(viewData.authorName, size: 17, weight: .bold, textColor: Color.label)
         handleTimeLabel.setText(viewData.handleTimeText, size: 14, weight: .regular, textColor: Color.labelSecondary)
         bodyLabel.setText(viewData.text, size: 17, weight: .regular, textColor: Color.label)

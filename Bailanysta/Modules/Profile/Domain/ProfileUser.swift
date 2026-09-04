@@ -12,6 +12,8 @@ struct ProfileUser: Hashable {
     let roleTitle: String
     let bio: String
     let avatarImageName: String
+    /// Storage download URL, если пользователь загрузил аватар; `nil` — используется `avatarImageName`
+    let avatarURL: URL?
     let postsCount: Int
     let followersCount: Int
     let followingCount: Int

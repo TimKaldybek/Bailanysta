@@ -3,6 +3,8 @@
 //  Bailanysta
 //
 
+import Foundation
+
 struct OtherProfileViewData {
     let header: OtherProfileHeaderViewData
     let selectedTab: ProfileTab
@@ -11,6 +13,7 @@ struct OtherProfileViewData {
 
 struct OtherProfileHeaderViewData {
     let avatarImageName: String
+    let avatarURL: URL?
     let name: String
     let tagline: String
     let followersCountText: String

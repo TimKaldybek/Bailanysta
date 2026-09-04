@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 /// Карточка профиля: аватар, имя, био, кнопки действий, статистика и таб-бар (Posts/Replies/Likes)
 final class ProfileHeaderCardView: UIView {
@@ -25,6 +26,7 @@ final class ProfileHeaderCardView: UIView {
         let iv = UIImageView()
         iv.tintColor = Color.primary
         iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -40,7 +42,7 @@ final class ProfileHeaderCardView: UIView {
 
     private let editProfileButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Profile.EditProfile".localized, for: .normal)
+        button.setTitle("Profile.ChangePhoto".localized, for: .normal)
         button.setTitleColor(Color.onPrimary, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         button.backgroundColor = Color.primary
@@ -121,7 +123,12 @@ final class ProfileHeaderCardView: UIView {
     // MARK: - Public
 
     func configure(with viewData: ProfileHeaderViewData, selectedTab: ProfileTab) {
-        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
         nameLabel.setText(viewData.name, size: 22, weight: .bold, textColor: Color.label)
         handleRoleLabel.setText(viewData.handleAndRole, size: 14, weight: .regular, textColor: Color.labelSecondary)
         bioLabel.setText(viewData.bio, size: 15, weight: .regular, textColor: Color.labelSecondary)
@@ -184,7 +191,7 @@ private extension ProfileHeaderCardView {
         }
         avatarImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.size.equalTo(40)
+            $0.size.equalTo(60)
         }
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(avatarContainer.snp.bottom).offset(16)

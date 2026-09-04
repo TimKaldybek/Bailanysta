@@ -5,12 +5,11 @@
 
 import UIKit
 import SnapKit
+import PhotosUI
 
 final class ProfileViewController: UIViewController {
 
     var settingsButtonTapped: (() -> Void)?
-    /// Пока не подключён координатором — экрана редактирования профиля в приложении ещё нет
-    var editProfileTapped: (() -> Void)?
     var shareTapped: ((String) -> Void)?
     var postAuthorTapped: ((String) -> Void)?
 
@@ -18,7 +17,7 @@ final class ProfileViewController: UIViewController {
     private lazy var dataSource: ProfileDataSource = ProfileDataSource(
         collectionView: collectionView,
         onEditProfileTapped: { [weak self] in
-            self?.editProfileTapped?()
+            self?.presentAvatarPicker()
         },
         onShareTapped: { [weak self] handle in
             self?.shareTapped?(handle)
@@ -85,12 +84,35 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: ProfileViewInput {
     func display(_ viewData: ProfileViewData) {
         dataSource.reload(viewData)
+
+        if let errorMessage = viewData.errorMessage {
+            showAlert(title: "Error".localized, message: errorMessage)
+        }
+    }
+
+    func endRefreshing() {
+        collectionView.refreshControl?.endRefreshing()
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
 extension ProfileViewController: UICollectionViewDelegate {}
+
+// MARK: - PHPickerViewControllerDelegate
+
+extension ProfileViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        guard let result = results.first else { return }
+
+        Task { @MainActor in
+            guard let image = await Self.loadImage(from: result),
+                  let imageData = image.jpegData(compressionQuality: Constants.jpegCompressionQuality) else { return }
+            presenter.avatarPicked(imageData)
+        }
+    }
+}
 
 // MARK: - Private
 
@@ -106,6 +128,12 @@ private extension ProfileViewController {
         settingsButton.addAction(UIAction { [weak self] _ in
             self?.settingsButtonTapped?()
         }, for: .touchUpInside)
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addAction(UIAction { [weak self] _ in
+            self?.presenter.refresh()
+        }, for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
 
     func setupConstraints() {
@@ -136,8 +164,31 @@ private extension ProfileViewController {
         return button
     }
 
+    func presentAvatarPicker() {
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+
+    static func loadImage(from result: PHPickerResult) async -> UIImage? {
+        await withCheckedContinuation { continuation in
+            guard result.itemProvider.canLoadObject(ofClass: UIImage.self) else {
+                continuation.resume(returning: nil)
+                return
+            }
+            result.itemProvider.loadObject(ofClass: UIImage.self) { object, _ in
+                continuation.resume(returning: object as? UIImage)
+            }
+        }
+    }
+
     enum Constants {
         /// Высота реального таб-бара (`TabBarView`), под которым живёт этот экран как один из табов
         static let tabBarHeight: CGFloat = 96
+        static let jpegCompressionQuality: CGFloat = 0.8
     }
 }

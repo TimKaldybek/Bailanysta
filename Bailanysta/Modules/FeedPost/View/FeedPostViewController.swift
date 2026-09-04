@@ -17,6 +17,12 @@ final class FeedPostViewController: UIViewController {
     private var maxCharacterCount = Int.max
     private var remainingAttachmentSlots = 0
 
+    /// Last attachment set actually rendered — lets `display(_:)` skip rebuilding the (expensive,
+    /// full-resolution image) thumbnail row on pushes that only changed unrelated form state, e.g.
+    /// every keystroke in the text view.
+    private var renderedAttachmentIDs: [UUID] = []
+    private var renderedIsAddPhotoEnabled = false
+
     // MARK: - Header
 
     private let titleLabel: UILabel = {
@@ -206,7 +212,11 @@ extension FeedPostViewController: FeedPostViewInput {
             style(button, isSelected: categoryViewData.isSelected)
         }
 
-        updateAttachments(viewData)
+        updateAttachmentsIfNeeded(viewData)
+
+        if let errorMessage = viewData.errorMessage {
+            showAlert(title: "Error".localized, message: errorMessage)
+        }
     }
 
     func closeAfterPosting() {
@@ -304,7 +314,14 @@ private extension FeedPostViewController {
         }
     }
 
-    func updateAttachments(_ viewData: FeedPostFormViewData) {
+    func updateAttachmentsIfNeeded(_ viewData: FeedPostFormViewData) {
+        let attachmentIDs = viewData.attachments.map(\.id)
+        guard attachmentIDs != renderedAttachmentIDs || viewData.isAddPhotoEnabled != renderedIsAddPhotoEnabled else {
+            return
+        }
+        renderedAttachmentIDs = attachmentIDs
+        renderedIsAddPhotoEnabled = viewData.isAddPhotoEnabled
+
         attachmentsStackView.arrangedSubviews.forEach {
             attachmentsStackView.removeArrangedSubview($0)
             $0.removeFromSuperview()

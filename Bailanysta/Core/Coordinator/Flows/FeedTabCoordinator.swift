@@ -33,8 +33,16 @@ final class FeedTabCoordinator: Coordinator {
         vc.commentsTapped = { [weak self] postID in
             self?.showComments(postID: postID)
         }
+        vc.shareTapped = { [weak self] text in
+            self?.presentShareSheet(text: text, from: vc)
+        }
 
         navigationController.viewControllers = [vc]
+    }
+
+    private func presentShareSheet(text: String, from viewController: UIViewController) {
+        let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        viewController.present(activityViewController, animated: true)
     }
 
     private func showComments(postID: UUID) {
@@ -45,6 +53,11 @@ final class FeedTabCoordinator: Coordinator {
 
     private func showOtherProfile(handle: String) {
         let vc = ModuleFactory.createOtherProfileModule(handle: handle)
+
+        vc.backButtonTapped = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+
         navigationController.pushViewController(vc, animated: true)
     }
 

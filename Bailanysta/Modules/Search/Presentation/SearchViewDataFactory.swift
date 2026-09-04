@@ -4,13 +4,14 @@
 //
 
 struct SearchViewDataFactory {
-    func createViewData(model: SearchModel, recentSearches: [String]) -> SearchViewData {
+    func createViewData(model: SearchModel, recentSearches: [String], errorMessage: String? = nil) -> SearchViewData {
         SearchViewData(
             recentSearches: recentSearches.enumerated().map { index, text in
                 RecentSearchViewData(id: "\(index)-\(text)", text: text)
             },
             trendingTopics: model.trendingTopics.map(Self.map),
-            suggestedUsers: model.suggestedUsers.map(Self.map)
+            suggestedUsers: model.suggestedUsers.map(Self.map),
+            errorMessage: errorMessage
         )
     }
 
@@ -19,7 +20,8 @@ struct SearchViewDataFactory {
             id: topic.id,
             metaText: "\(topic.rank) • \(topic.category) • \("Search.Trending".localized)",
             title: topic.title,
-            subtitle: topic.subtitle
+            subtitle: topic.subtitle,
+            imageURL: topic.imageURL
         )
     }
 
@@ -29,6 +31,7 @@ struct SearchViewDataFactory {
             name: user.name,
             handle: user.handle,
             avatarImageName: user.avatarImageName,
+            avatarURL: user.avatarURL,
             followButtonTitle: user.isFollowing ? "Search.Following".localized : "Search.Follow".localized,
             isFollowing: user.isFollowing
         )

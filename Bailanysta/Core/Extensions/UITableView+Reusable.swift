@@ -2,7 +2,6 @@
 //  UITableView+Reusable.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 06.12.2024.
 //
 
 import Foundation

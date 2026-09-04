@@ -34,6 +34,11 @@ final class ProfileTabCoordinator: Coordinator {
 
     private func showOtherProfile(handle: String) {
         let vc = ModuleFactory.createOtherProfileModule(handle: handle)
+
+        vc.backButtonTapped = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+
         navigationController.pushViewController(vc, animated: true)
     }
 

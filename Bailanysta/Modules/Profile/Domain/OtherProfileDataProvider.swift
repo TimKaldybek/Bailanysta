@@ -12,8 +12,8 @@ struct OtherProfileDataProvider {
         self.service = service
     }
 
-    func loadData(handle: String) async -> OtherProfileModel {
-        let dto = await service.loadUser(handle: handle)
+    func loadData(handle: String) async throws -> OtherProfileModel {
+        let dto = try await service.loadUser(handle: handle)
         return OtherProfileModel(
             user: Self.map(dto.user),
             posts: dto.posts.map(Self.map),
@@ -29,6 +29,7 @@ struct OtherProfileDataProvider {
             handle: dto.handle,
             tagline: dto.tagline,
             avatarImageName: dto.avatarImageName,
+            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
             followersCount: dto.followersCount,
             followingCount: dto.followingCount,
             postsCount: dto.postsCount,
@@ -42,7 +43,8 @@ struct OtherProfileDataProvider {
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
-            timeAgoText: dto.timeAgoText,
+            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
+            createdAt: dto.createdAt,
             text: dto.text,
             attachmentImageName: dto.attachmentImageName,
             commentsCount: dto.commentsCount,

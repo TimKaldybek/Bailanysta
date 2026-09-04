@@ -19,6 +19,7 @@ final class OtherProfilePresenter {
             handle: "",
             tagline: "",
             avatarImageName: "person.crop.circle.fill",
+            avatarURL: nil,
             followersCount: 0,
             followingCount: 0,
             postsCount: 0,
@@ -40,7 +41,12 @@ final class OtherProfilePresenter {
 
     func load() {
         Task { @MainActor in
-            model = await interactor.loadData(handle: handle)
+            // Only overwrites `model` on a successful read (including the valid "no matching
+            // document" empty state) — a genuine read failure is a no-op, keeping the
+            // last-known-good `model`.
+            if let loadedModel = try? await interactor.loadData(handle: handle) {
+                model = loadedModel
+            }
             pushViewData()
         }
     }

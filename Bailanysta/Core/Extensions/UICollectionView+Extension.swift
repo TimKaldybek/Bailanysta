@@ -1,8 +1,6 @@
 //
 //  UICollectionView+Extension.swift
-//  Kolesa Team
 //
-//  Created by Timur Kaldybek on 08.11.2024.
 //
 
 import UIKit

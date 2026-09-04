@@ -60,13 +60,13 @@ final class FeedPostPresenter {
         pushViewData()
 
         Task { @MainActor in
-            let success = await interactor.submit(draft)
-            isSubmitting = false
-
-            if success {
+            do {
+                try await interactor.submit(draft)
+                isSubmitting = false
                 view?.closeAfterPosting()
-            } else {
-                pushViewData()
+            } catch {
+                isSubmitting = false
+                pushViewData(errorMessage: "FeedPost.Error.Generic".localized)
             }
         }
     }
@@ -79,8 +79,8 @@ private extension FeedPostPresenter {
         !draft.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    func pushViewData() {
-        let viewData = viewDataFactory.createViewData(draft, isSubmitting: isSubmitting)
+    func pushViewData(errorMessage: String? = nil) {
+        let viewData = viewDataFactory.createViewData(draft, isSubmitting: isSubmitting, errorMessage: errorMessage)
         view?.display(viewData)
     }
 }

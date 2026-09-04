@@ -122,6 +122,17 @@
         }
       }
     },
+    "Alerts.Message.LikedSingle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "liked your post"
+          }
+        }
+      }
+    },
     "Alerts.Message.Mentioned": {
       "extractionState": "manual",
       "localizations": {
@@ -243,6 +254,237 @@
         }
       }
     },
+    "Auth.Error.Generic": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Something went wrong. Please try again."
+          }
+        }
+      }
+    },
+    "Auth.Error.InvalidEmail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please enter a valid email address."
+          }
+        }
+      }
+    },
+    "Auth.Error.InvalidInput": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please enter your email and password."
+          }
+        }
+      }
+    },
+    "Auth.Error.MissingFields": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please fill in all fields."
+          }
+        }
+      }
+    },
+    "Auth.Error.PasswordTooShort": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password must be at least 6 characters."
+          }
+        }
+      }
+    },
+    "Auth.Login.ContinueAsGuestButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue as Guest"
+          }
+        }
+      }
+    },
+    "Auth.Login.GoogleButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in with Google"
+          }
+        }
+      }
+    },
+    "Auth.Login.SignInButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign In"
+          }
+        }
+      }
+    },
+    "Auth.Login.SignUpPrompt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Don't have an account? Sign Up"
+          }
+        }
+      }
+    },
+    "Auth.Login.SigningInButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signing In…"
+          }
+        }
+      }
+    },
+    "Auth.Login.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to continue to Bailanysta."
+          }
+        }
+      }
+    },
+    "Auth.Login.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome Back"
+          }
+        }
+      }
+    },
+    "Auth.Shared.EmailPlaceholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        }
+      }
+    },
+    "Auth.Shared.OrDivider": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "or"
+          }
+        }
+      }
+    },
+    "Auth.Shared.PasswordPlaceholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password"
+          }
+        }
+      }
+    },
+    "Auth.SignUp.HandlePlaceholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Handle"
+          }
+        }
+      }
+    },
+    "Auth.SignUp.NamePlaceholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
+        }
+      }
+    },
+    "Auth.SignUp.SignUpButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign Up"
+          }
+        }
+      }
+    },
+    "Auth.SignUp.SigningUpButton": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signing Up…"
+          }
+        }
+      }
+    },
+    "Auth.SignUp.Subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tell us a bit about yourself to get started."
+          }
+        }
+      }
+    },
+    "Auth.SignUp.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create Account"
+          }
+        }
+      }
+    },
     "Cancel": {
       "extractionState": "manual",
       "localizations": {
@@ -353,6 +595,28 @@
         }
       }
     },
+    "Comments.Error.Load": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load comments. Please try again."
+          }
+        }
+      }
+    },
+    "Comments.Error.Send": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't post your comment. Please try again."
+          }
+        }
+      }
+    },
     "Comments.Placeholder": {
       "extractionState": "manual",
       "localizations": {
@@ -415,6 +679,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bailanysta"
+          }
+        }
+      }
+    },
+    "Feed.Error.Like": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't update your like. Please try again."
+          }
+        }
+      }
+    },
+    "Feed.Error.Load": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load the feed. Please try again."
           }
         }
       }
@@ -547,6 +833,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Updates"
+          }
+        }
+      }
+    },
+    "FeedPost.Error.Generic": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't post. Please try again."
           }
         }
       }
@@ -881,13 +1178,57 @@
         }
       }
     },
-    "Profile.EditProfile": {
+    "Profile.ChangePhoto": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Profile"
+            "value": "Change Photo"
+          }
+        }
+      }
+    },
+    "Profile.Empty.Likes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No liked posts yet."
+          }
+        }
+      }
+    },
+    "Profile.Empty.Posts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No posts yet."
+          }
+        }
+      }
+    },
+    "Profile.Empty.Replies": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No replies yet."
+          }
+        }
+      }
+    },
+    "Profile.Error.AvatarUpload": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't update your avatar. Please try again."
           }
         }
       }
@@ -899,6 +1240,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Message"
+          }
+        }
+      }
+    },
+    "Profile.Placeholder.Bio": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No bio yet."
           }
         }
       }
@@ -1053,6 +1405,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Clear"
+          }
+        }
+      }
+    },
+    "Search.Error.Load": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load search. Please try again."
           }
         }
       }
@@ -1284,6 +1647,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "Interface language"
+          }
+        }
+      }
+    },
+    "SettingsVC.Logout": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log Out"
+          }
+        }
+      }
+    },
+    "SettingsVC.LogoutConfirmation.Message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Are you sure you want to log out?"
+          }
+        }
+      }
+    },
+    "SettingsVC.LogoutConfirmation.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log Out"
           }
         }
       }

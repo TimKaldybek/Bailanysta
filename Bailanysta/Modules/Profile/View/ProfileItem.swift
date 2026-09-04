@@ -6,4 +6,5 @@
 enum ProfileItem: Hashable {
     case header(ProfileHeaderCellViewData)
     case post(ProfilePostViewData)
+    case empty(String)
 }

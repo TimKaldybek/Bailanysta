@@ -3,9 +3,60 @@
 //  Bailanysta
 //
 
+import FirebaseFirestore
+
+/// Reads the Search landing screen's editorial content from Firestore. Mirrors
+/// `FeedPostsService`'s read/mapping style.
 final class SearchLandingService {
-    func loadData() async -> SearchLandingDTO {
-        Constants.mockData
+    private let firestore: Firestore
+
+    init(firestore: Firestore = Firestore.firestore()) {
+        self.firestore = firestore
+    }
+
+    func loadData() async throws -> SearchLandingDTO {
+        async let trendingTopics = fetchTrendingTopics()
+        async let suggestedUsers = fetchSuggestedUsers()
+        return SearchLandingDTO(trendingTopics: try await trendingTopics, suggestedUsers: try await suggestedUsers)
+    }
+}
+
+// MARK: - Private
+
+private extension SearchLandingService {
+    func fetchTrendingTopics() async throws -> [TrendingTopicDTO] {
+        let snapshot = try await firestore.collection(Constants.trendingTopicsCollection)
+            .order(by: "rank")
+            .getDocuments()
+        return snapshot.documents.map(Self.mapTrendingTopic)
+    }
+
+    func fetchSuggestedUsers() async throws -> [SuggestedUserDTO] {
+        let snapshot = try await firestore.collection(Constants.suggestedUsersCollection).getDocuments()
+        return snapshot.documents.map(Self.mapSuggestedUser)
+    }
+
+    static func mapTrendingTopic(_ document: QueryDocumentSnapshot) -> TrendingTopicDTO {
+        let data = document.data()
+        return TrendingTopicDTO(
+            id: document.documentID,
+            rank: data["rank"] as? Int ?? 0,
+            category: data["category"] as? String ?? "",
+            title: data["title"] as? String ?? "",
+            subtitle: data["subtitle"] as? String ?? "",
+            imageURL: data["imageURL"] as? String
+        )
+    }
+
+    static func mapSuggestedUser(_ document: QueryDocumentSnapshot) -> SuggestedUserDTO {
+        let data = document.data()
+        return SuggestedUserDTO(
+            id: document.documentID,
+            name: data["name"] as? String ?? "",
+            handle: data["handle"] as? String ?? "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: data["avatarURL"] as? String
+        )
     }
 }
 
@@ -13,51 +64,8 @@ final class SearchLandingService {
 
 private extension SearchLandingService {
     enum Constants {
-        /// Локальный источник данных на время отсутствия бэкенда
-        static let mockData = SearchLandingDTO(
-            trendingTopics: [
-                TrendingTopicDTO(
-                    id: "quantum-computing",
-                    rank: 1,
-                    category: "Technology",
-                    title: "Quantum Computing",
-                    subtitle: "The race for supremacy in processing power."
-                ),
-                TrendingTopicDTO(
-                    id: "generative-art",
-                    rank: 2,
-                    category: "Art",
-                    title: "Generative Art",
-                    subtitle: "How algorithms redefine visual creativity."
-                ),
-                TrendingTopicDTO(
-                    id: "remote-work-future",
-                    rank: 3,
-                    category: "Business",
-                    title: "Remote Work Future",
-                    subtitle: "How global teams are adapting to async collaboration."
-                )
-            ],
-            suggestedUsers: [
-                SuggestedUserDTO(
-                    id: "erost_design",
-                    name: "Elena Rostova",
-                    handle: "@erost_design",
-                    avatarImageName: "person.crop.circle.fill"
-                ),
-                SuggestedUserDTO(
-                    id: "mv_quantum",
-                    name: "Marcus Vance",
-                    handle: "@mv_quantum",
-                    avatarImageName: "person.crop.circle.fill"
-                ),
-                SuggestedUserDTO(
-                    id: "voidsys_art",
-                    name: "Void_Sys",
-                    handle: "@voidsys_art",
-                    avatarImageName: "person.crop.circle.fill"
-                )
-            ]
-        )
+        static let trendingTopicsCollection = "trendingTopics"
+        static let suggestedUsersCollection = "suggestedUsers"
+        static let defaultAvatarImageName = "person.crop.circle.fill"
     }
 }

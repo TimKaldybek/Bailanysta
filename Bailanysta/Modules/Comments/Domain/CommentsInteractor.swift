@@ -14,11 +14,11 @@ final class CommentsInteractor {
         self.addCommentDataProvider = addCommentDataProvider
     }
 
-    func loadData(postID: UUID) async -> [Comment] {
-        await dataProvider.loadData(postID: postID)
+    func loadData(postID: UUID) async throws -> [Comment] {
+        try await dataProvider.loadData(postID: postID)
     }
 
-    func addComment(postID: UUID, text: String) async -> Comment? {
-        await addCommentDataProvider.addComment(postID: postID, text: text)
+    func addComment(postID: UUID, text: String) async throws -> Comment {
+        try await addCommentDataProvider.addComment(postID: postID, text: text)
     }
 }

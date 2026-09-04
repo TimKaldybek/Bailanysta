@@ -16,6 +16,7 @@ struct FeedPostFormViewData {
     let remainingAttachmentSlots: Int
     let isPostEnabled: Bool
     let isSubmitting: Bool
+    let errorMessage: String?
 }
 
 struct FeedPostCategoryViewData {

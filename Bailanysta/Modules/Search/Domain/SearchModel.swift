@@ -3,6 +3,8 @@
 //  Bailanysta
 //
 
+import Foundation
+
 struct SearchModel {
     var trendingTopics: [TrendingTopic]
     var suggestedUsers: [SuggestedUser]
@@ -14,6 +16,7 @@ struct TrendingTopic {
     let category: String
     let title: String
     let subtitle: String
+    let imageURL: URL?
 }
 
 struct SuggestedUser {
@@ -21,5 +24,6 @@ struct SuggestedUser {
     let name: String
     let handle: String
     let avatarImageName: String
+    let avatarURL: URL?
     var isFollowing: Bool
 }

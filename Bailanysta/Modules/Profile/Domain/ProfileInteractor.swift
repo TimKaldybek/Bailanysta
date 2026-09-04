@@ -3,6 +3,8 @@
 //  Bailanysta
 //
 
+import Foundation
+
 final class ProfileInteractor {
     private let dataProvider: ProfileDataProvider
 
@@ -10,7 +12,11 @@ final class ProfileInteractor {
         self.dataProvider = dataProvider
     }
 
-    func loadData() async -> ProfileModel {
-        await dataProvider.loadData()
+    func loadData() async throws -> ProfileModel {
+        try await dataProvider.loadData()
+    }
+
+    func uploadAvatar(imageData: Data) async throws {
+        try await dataProvider.uploadAvatar(imageData: imageData)
     }
 }

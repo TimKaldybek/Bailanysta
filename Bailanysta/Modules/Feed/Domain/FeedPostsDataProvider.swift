@@ -12,9 +12,29 @@ struct FeedPostsDataProvider {
         self.service = service
     }
 
-    func loadData() async -> [FeedPost] {
-        let dtos = await service.loadData()
+    func loadData() async throws -> [FeedPost] {
+        let dtos = try await service.loadData()
         return dtos.map(Self.map)
+    }
+    
+    func observePosts() -> AsyncStream<Result<[FeedPost], Error>> {
+        AsyncStream { continuation in
+            let task = Task {
+                for await result in service.observePosts() {
+                    switch result {
+                    case .success(let dtos):
+                        continuation.yield(.success(dtos.map(Self.map)))
+                    case .failure(let error):
+                        continuation.yield(.failure(error))
+                    }
+                }
+                continuation.finish()
+            }
+
+            continuation.onTermination = { _ in
+                task.cancel()
+            }
+        }
     }
 
     private static func map(_ dto: FeedPostDTO) -> FeedPost {
@@ -23,9 +43,11 @@ struct FeedPostsDataProvider {
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
-            timeAgoText: dto.timeAgoText,
+            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
+            createdAt: dto.createdAt,
             text: dto.text,
             attachmentImageName: dto.attachmentImageName,
+            attachmentImageURL: dto.attachmentImageURL.flatMap(URL.init(string:)),
             likesCount: dto.likesCount,
             isLiked: dto.isLiked,
             commentsCount: dto.commentsCount

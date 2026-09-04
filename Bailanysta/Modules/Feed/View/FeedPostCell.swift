@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FeedPostCell: UICollectionViewCell {
     static let reuseIdentifier = "FeedPostCell"
@@ -12,6 +13,7 @@ final class FeedPostCell: UICollectionViewCell {
     var onAvatarTapped: (() -> Void)?
     var onLikeTapped: (() -> Void)?
     var onCommentsTapped: (() -> Void)?
+    var onShareTapped: (() -> Void)?
 
     private let cardView: UIView = {
         let view = UIView()
@@ -74,24 +76,33 @@ final class FeedPostCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        avatarImageView.kf.cancelDownloadTask()
         avatarImageView.image = nil
         authorNameLabel.text = nil
         handleTimeLabel.text = nil
         bodyLabel.text = nil
         attachmentView.isHidden = true
+        attachmentView.configure(with: nil)
         onAvatarTapped = nil
         onLikeTapped = nil
         onCommentsTapped = nil
+        onShareTapped = nil
     }
 
     func configure(with viewData: FeedPostViewData) {
-        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
         authorNameLabel.setText(viewData.authorName, size: 17, weight: .bold, textColor: Color.label)
         handleTimeLabel.setText(viewData.handleTimeText, size: 14, weight: .regular, textColor: Color.labelSecondary)
         bodyLabel.setText(viewData.text, size: 17, weight: .regular, textColor: Color.label)
 
-        let hasAttachment = viewData.attachmentImageName != nil
+        let hasAttachment = viewData.attachmentImageURL != nil
         attachmentView.isHidden = !hasAttachment
+        attachmentView.configure(with: viewData.attachmentImageURL)
         attachmentView.snp.remakeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(bodyLabel.snp.bottom).offset(hasAttachment ? 14 : 0)
@@ -122,6 +133,7 @@ final class FeedPostCell: UICollectionViewCell {
 
         likesView.onTap = { [weak self] in self?.onLikeTapped?() }
         commentsView.onTap = { [weak self] in self?.onCommentsTapped?() }
+        shareView.onTap = { [weak self] in self?.onShareTapped?() }
     }
 
     @objc private func handleAvatarTapped() {

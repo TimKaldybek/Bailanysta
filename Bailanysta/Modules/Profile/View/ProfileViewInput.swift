@@ -5,4 +5,5 @@
 
 protocol ProfileViewInput: AnyObject {
     func display(_ viewData: ProfileViewData)
+    func endRefreshing()
 }

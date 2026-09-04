@@ -12,8 +12,8 @@ struct CommentsDataProvider {
         self.service = service
     }
 
-    func loadData(postID: UUID) async -> [Comment] {
-        let dtos = await service.loadData(postID: postID.uuidString)
+    func loadData(postID: UUID) async throws -> [Comment] {
+        let dtos = try await service.loadData(postID: postID.uuidString)
         return dtos.map(Self.map)
     }
 
@@ -23,7 +23,8 @@ struct CommentsDataProvider {
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
-            timeAgoText: dto.timeAgoText,
+            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
+            createdAt: dto.createdAt,
             text: dto.text
         )
     }

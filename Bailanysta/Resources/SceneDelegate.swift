@@ -1,11 +1,10 @@
 //
 //  SceneDelegate.swift
-//  Kolesa Team
 //
-//  Created by Timur Kaldybek on 08.08.2024.
 //
 
 import UIKit
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -24,6 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
     }
     
+    /// Routes the OAuth redirect back into `GIDSignIn` so it can complete an in-flight
+    /// `signIn(withPresenting:)` call started from `LoginViewController`.
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        GIDSignIn.sharedInstance.handle(url)
+    }
+
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

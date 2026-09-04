@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class CommentCell: UICollectionViewCell {
     static let reuseIdentifier = "CommentCell"
@@ -45,6 +46,7 @@ final class CommentCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        avatarImageView.kf.cancelDownloadTask()
         avatarImageView.image = nil
         authorNameLabel.text = nil
         handleTimeLabel.text = nil
@@ -52,7 +54,12 @@ final class CommentCell: UICollectionViewCell {
     }
 
     func configure(with viewData: CommentViewData) {
-        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
         authorNameLabel.setText(viewData.authorName, size: 15, weight: .bold, textColor: Color.label)
         handleTimeLabel.setText(viewData.handleTimeText, size: 13, weight: .regular, textColor: Color.labelSecondary)
         bodyLabel.setText(viewData.text, size: 15, weight: .regular, textColor: Color.label)

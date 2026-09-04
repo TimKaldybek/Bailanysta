@@ -56,7 +56,7 @@ private extension FeedEngagementView {
 
     func setupConstraints() {
         iconImageView.snp.makeConstraints {
-            $0.leading.centerY.equalToSuperview()
+            $0.leading.top.bottom.equalToSuperview()
             $0.size.equalTo(20)
         }
         countLabel.snp.makeConstraints {

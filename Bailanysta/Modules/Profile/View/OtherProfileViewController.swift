@@ -9,6 +9,7 @@ import SnapKit
 final class OtherProfileViewController: UIViewController {
 
     var settingsButtonTapped: (() -> Void)?
+    var backButtonTapped: (() -> Void)?
     /// Пока не подключён координатором — экрана сообщений в приложении ещё нет
     var messageTapped: (() -> Void)?
 
@@ -26,6 +27,7 @@ final class OtherProfileViewController: UIViewController {
     }()
 
     private let settingsButton = OtherProfileViewController.makeHeaderButton(systemImageName: "gearshape.fill")
+    private let backButton = OtherProfileViewController.makeHeaderButton(systemImageName: "chevron.left")
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -66,6 +68,8 @@ final class OtherProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 }
 
@@ -82,6 +86,10 @@ extension OtherProfileViewController: OtherProfileViewInput {
 
 extension OtherProfileViewController: UICollectionViewDelegate {}
 
+// MARK: - UIGestureRecognizerDelegate
+
+extension OtherProfileViewController: UIGestureRecognizerDelegate {}
+
 // MARK: - Private
 
 private extension OtherProfileViewController {
@@ -89,13 +97,17 @@ private extension OtherProfileViewController {
     func setupUI() {
         view.backgroundColor = Color.background
 
-        [titleLabel, settingsButton].forEach { headerView.addSubview($0) }
+        [backButton, titleLabel, settingsButton].forEach { headerView.addSubview($0) }
         view.addSubview(headerView)
         view.addSubview(otherProfileHeaderCardView)
         view.addSubview(collectionView)
 
         settingsButton.addAction(UIAction { [weak self] _ in
             self?.settingsButtonTapped?()
+        }, for: .touchUpInside)
+
+        backButton.addAction(UIAction { [weak self] _ in
+            self?.backButtonTapped?()
         }, for: .touchUpInside)
 
         otherProfileHeaderCardView.onFollowTapped = { [weak self] in
@@ -114,8 +126,13 @@ private extension OtherProfileViewController {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(56)
         }
-        titleLabel.snp.makeConstraints {
+        backButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
+            $0.centerY.equalTo(settingsButton)
+            $0.size.equalTo(32)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalTo(backButton.snp.trailing).offset(8)
             $0.centerY.equalTo(settingsButton)
         }
         settingsButton.snp.makeConstraints {

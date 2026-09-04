@@ -8,6 +8,8 @@ import Foundation
 struct CommentsViewData {
     let comments: [CommentViewData]
     let isEmpty: Bool
+    /// One-off failure message (e.g. load/send failed) — `nil` when there's nothing to show
+    let errorMessage: String?
 }
 
 struct CommentViewData: Hashable {
@@ -15,5 +17,6 @@ struct CommentViewData: Hashable {
     let authorName: String
     let handleTimeText: String
     let avatarImageName: String
+    let avatarURL: URL?
     let text: String
 }

@@ -10,7 +10,7 @@ final class SearchInteractor {
         self.dataProvider = dataProvider
     }
 
-    func loadData() async -> SearchModel {
-        await dataProvider.loadData()
+    func loadData() async throws -> SearchModel {
+        try await dataProvider.loadData()
     }
 }

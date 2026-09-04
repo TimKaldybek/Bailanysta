@@ -3,10 +3,14 @@
 //  Bailanysta
 //
 
+import Foundation
+
 struct SearchViewData {
     let recentSearches: [RecentSearchViewData]
     let trendingTopics: [TrendingTopicViewData]
     let suggestedUsers: [SuggestedUserViewData]
+    /// One-off failure message (e.g. load failed) — `nil` when there's nothing to show
+    let errorMessage: String?
 }
 
 struct RecentSearchViewData: Hashable {
@@ -20,6 +24,7 @@ struct TrendingTopicViewData: Hashable {
     let metaText: String
     let title: String
     let subtitle: String
+    let imageURL: URL?
 }
 
 struct SuggestedUserViewData: Hashable {
@@ -27,6 +32,7 @@ struct SuggestedUserViewData: Hashable {
     let name: String
     let handle: String
     let avatarImageName: String
+    let avatarURL: URL?
     let followButtonTitle: String
     let isFollowing: Bool
 }

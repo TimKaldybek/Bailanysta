@@ -6,7 +6,7 @@
 import Foundation
 
 struct FeedPostFormViewDataFactory {
-    func createViewData(_ draft: FeedPostDraft, isSubmitting: Bool) -> FeedPostFormViewData {
+    func createViewData(_ draft: FeedPostDraft, isSubmitting: Bool, errorMessage: String? = nil) -> FeedPostFormViewData {
         let categories = FeedPostCategory.allCases.map { category in
             FeedPostCategoryViewData(
                 title: Self.title(for: category),
@@ -32,7 +32,8 @@ struct FeedPostFormViewDataFactory {
             isAddPhotoEnabled: !isSubmitting && remainingAttachmentSlots > 0,
             remainingAttachmentSlots: remainingAttachmentSlots,
             isPostEnabled: !isSubmitting && !trimmedText.isEmpty,
-            isSubmitting: isSubmitting
+            isSubmitting: isSubmitting,
+            errorMessage: errorMessage
         )
     }
 

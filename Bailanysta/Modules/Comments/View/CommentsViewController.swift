@@ -75,7 +75,10 @@ final class CommentsViewController: UIViewController {
         let keyboardFrameInView = view.convert(keyboardFrameValue.cgRectValue, from: nil)
         let overlap = max(0, view.bounds.maxY - keyboardFrameInView.minY - view.safeAreaInsets.bottom)
 
-        composeBottomConstraint?.update(offset: -(12 + overlap))
+        // Без клавиатуры отступ должен освобождать кастомный таббар (сам не входит в safe area
+        // этого экрана — он рисуется поверх, как сосед по иерархии `TabBarContainerViewController`);
+        // с клавиатурой она выше таббара и полностью его перекрывает, поэтому берём максимум.
+        composeBottomConstraint?.update(offset: -(12 + max(overlap, Constants.tabBarHeight)))
 
         UIView.animate(withDuration: duration, delay: 0, options: animationOptions) {
             self.view.layoutIfNeeded()
@@ -89,6 +92,10 @@ extension CommentsViewController: CommentsViewInput {
     func display(_ viewData: CommentsViewData) {
         dataSource.reload(comments: viewData.comments)
         emptyStateLabel.isHidden = !viewData.isEmpty
+
+        if let errorMessage = viewData.errorMessage {
+            showAlert(title: "Error".localized, message: errorMessage)
+        }
     }
 
     func setComposerEnabled(_ isEnabled: Bool) {
@@ -124,7 +131,8 @@ private extension CommentsViewController {
         }
         composeView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            composeBottomConstraint = $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-12).constraint
+            composeBottomConstraint = $0.bottom.equalTo(view.safeAreaLayoutGuide)
+                .offset(-(Constants.tabBarHeight + 12)).constraint
         }
     }
 
@@ -141,5 +149,11 @@ private extension CommentsViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+    }
+
+    enum Constants {
+        /// Высота реального таб-бара (`TabBarView`), под которым живёт этот экран — он пушится в тот же
+        /// per-tab `UINavigationController`, что embedded внутри `TabBarContainerViewController`
+        static let tabBarHeight: CGFloat = 96
     }
 }

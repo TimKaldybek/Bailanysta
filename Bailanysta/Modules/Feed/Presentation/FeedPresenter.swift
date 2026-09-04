@@ -12,7 +12,12 @@ final class FeedPresenter {
     private let viewDataFactory: FeedViewDataFactory
 
     private var posts: [FeedPost] = []
+    private var composer = FeedComposer(name: "", avatarImageName: "person.crop.circle.fill", avatarURL: nil)
     private var likeRequestsInFlight: Set<UUID> = []
+
+    /// Guards against starting a second live listener — `load()` may be called more than once
+    /// (e.g. repeated `viewDidLoad`s aren't expected, but this keeps the guarantee explicit).
+    private var observeTask: Task<Void, Never>?
 
     init(interactor: FeedInteractor, viewDataFactory: FeedViewDataFactory) {
         self.interactor = interactor
@@ -21,24 +26,55 @@ final class FeedPresenter {
 
     // MARK: - Public
 
-    func load() {
+      func load() {
+        loadComposer()
+
+        guard observeTask == nil else { return }
+        observeTask = Task { @MainActor [weak self] in
+            guard let self else { return }
+            for await result in interactor.observePosts() {
+                switch result {
+                case .success(let posts):
+                    self.posts = posts
+                    pushViewData()
+                case .failure:
+                    pushViewData(errorMessage: "Feed.Error.Load".localized)
+                }
+            }
+        }
+    }
+
+    func refresh() {
         Task { @MainActor in
-            posts = await interactor.loadData()
-            pushViewData()
+            do {
+                posts = try await interactor.loadData()
+                pushViewData()
+            } catch {
+                pushViewData(errorMessage: "Feed.Error.Load".localized)
+            }
+            view?.endRefreshing()
         }
     }
 
     func likeTapped(postID: UUID) {
         guard likeRequestsInFlight.insert(postID).inserted else { return }
+        guard let index = posts.firstIndex(where: { $0.id == postID }) else {
+            likeRequestsInFlight.remove(postID)
+            return
+        }
+        let isLiked = posts[index].isLiked
 
         Task { @MainActor in
             defer { likeRequestsInFlight.remove(postID) }
 
-            guard let updated = await interactor.toggleLike(postID: postID),
-                  let index = posts.firstIndex(where: { $0.id == postID }) else { return }
-
-            posts[index] = updated
-            pushViewData()
+            do {
+                let updated = try await interactor.toggleLike(postID: postID, isLiked: isLiked)
+                guard let index = posts.firstIndex(where: { $0.id == postID }) else { return }
+                posts[index] = updated
+                pushViewData()
+            } catch {
+                pushViewData(errorMessage: "Feed.Error.Like".localized)
+            }
         }
     }
 }
@@ -46,8 +82,21 @@ final class FeedPresenter {
 // MARK: - Private
 
 private extension FeedPresenter {
-    func pushViewData() {
-        let viewData = viewDataFactory.createViewData(posts: posts)
+    /// One-shot load — the compose bar's avatar doesn't need live-reactivity, unlike the posts list.
+    func loadComposer() {
+        Task { @MainActor in
+            do {
+                composer = try await interactor.loadComposer()
+                pushViewData()
+            } catch {
+                // A failed composer read isn't user-facing — the compose bar just keeps its
+                // default placeholder avatar.
+            }
+        }
+    }
+
+    func pushViewData(errorMessage: String? = nil) {
+        let viewData = viewDataFactory.createViewData(posts: posts, composer: composer, errorMessage: errorMessage)
         view?.display(viewData)
     }
 }

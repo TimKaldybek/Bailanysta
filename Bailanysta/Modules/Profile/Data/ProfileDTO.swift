@@ -3,6 +3,8 @@
 //  Bailanysta
 //
 
+import Foundation
+
 struct ProfileUserDTO {
     let id: String
     let name: String
@@ -10,6 +12,8 @@ struct ProfileUserDTO {
     let roleTitle: String
     let bio: String
     let avatarImageName: String
+    /// Storage download URL, если пользователь загрузил аватар; `nil` — используется `avatarImageName`
+    let avatarURL: String?
     let postsCount: Int
     let followersCount: Int
     let followingCount: Int
@@ -20,7 +24,11 @@ struct ProfilePostDTO {
     let authorName: String
     let authorHandle: String
     let avatarImageName: String
-    let timeAgoText: String
+    /// Storage download URL аватара автора; `nil` — используется `avatarImageName`
+    let avatarURL: String?
+    /// Raw creation date — formatting into a relative "time ago" string happens in the
+    /// Presentation layer (`ViewDataFactory`), not here
+    let createdAt: Date?
     let text: String
     let attachmentImageName: String?
     let commentsCount: Int
@@ -36,4 +44,9 @@ struct ProfileDTO {
     let posts: [ProfilePostDTO]
     let replies: [ProfilePostDTO]
     let likes: [ProfilePostDTO]
+}
+
+/// Данные для загрузки нового аватара — картинка уже сконвертирована в JPEG на уровне `DataProvider`
+struct ProfileAvatarUploadDTO {
+    let imageData: Data
 }

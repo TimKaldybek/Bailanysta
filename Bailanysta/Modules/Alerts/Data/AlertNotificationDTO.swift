@@ -6,7 +6,7 @@
 import Foundation
 
 struct AlertNotificationDTO {
-    enum Kind {
+    enum Kind: String {
         case mention
         case like
         case invite
@@ -15,10 +15,8 @@ struct AlertNotificationDTO {
 
     let id: String
     let kind: Kind
-    let avatarSystemImageName: String
-    let badgeSystemImageName: String?
-    let timeAgoText: String
-    let isRecent: Bool
+    /// Raw creation date — formatted into a relative "time ago" string by `AlertsViewDataFactory`
+    let createdAt: Date?
     let isUnread: Bool
 
     let actorName: String?

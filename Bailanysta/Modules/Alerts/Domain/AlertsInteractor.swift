@@ -3,6 +3,8 @@
 //  Bailanysta
 //
 
+import Foundation
+
 final class AlertsInteractor {
     private let dataProvider: AlertNotificationsDataProvider
 
@@ -10,7 +12,12 @@ final class AlertsInteractor {
         self.dataProvider = dataProvider
     }
 
-    func loadData() async -> [AlertNotification] {
-        await dataProvider.loadData()
+    /// Live-updating notifications — stays open for the module's lifetime, see `AlertsPresenter.load()`.
+    func observeNotifications() -> AsyncStream<Result<[AlertNotification], Error>> {
+        dataProvider.observeNotifications()
+    }
+
+    func markAllAsRead(ids: [UUID]) async throws {
+        try await dataProvider.markAllAsRead(ids: ids)
     }
 }

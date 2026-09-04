@@ -5,6 +5,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class SuggestedUserCell: UICollectionViewCell {
     static let reuseIdentifier = "SuggestedUserCell"
@@ -47,13 +48,19 @@ final class SuggestedUserCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        avatarImageView.kf.cancelDownloadTask()
         avatarImageView.image = nil
         nameLabel.text = nil
         handleLabel.text = nil
     }
 
     func configure(with viewData: SuggestedUserViewData) {
-        avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        if let avatarURL = viewData.avatarURL {
+            avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
+        } else {
+            avatarImageView.kf.cancelDownloadTask()
+            avatarImageView.image = UIImage(systemName: viewData.avatarImageName)
+        }
         nameLabel.setText(viewData.name, size: 15, weight: .semibold, textColor: Color.label)
         handleLabel.setText(viewData.handle, size: 13, weight: .regular, textColor: Color.labelSecondary)
         followButton.setTitle(viewData.followButtonTitle, for: .normal)

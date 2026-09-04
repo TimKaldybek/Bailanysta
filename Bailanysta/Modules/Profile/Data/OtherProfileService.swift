@@ -3,13 +3,104 @@
 //  Bailanysta
 //
 
+import FirebaseFirestore
 import Foundation
 
+/// Looks a user up by `handle` in Firestore and reads their `posts`. A stale/bad handle (no
+/// matching `users` document) is a real, non-error state — it's mapped to an empty/default
+/// profile rather than treated as a failure.
 final class OtherProfileService {
-    /// Мультипользовательского бэкенда пока нет — независимо от переданного `handle`
-    /// возвращаются одни и те же мок-данные "Elena Rostova"
-    func loadUser(handle: String) async -> OtherProfileDTO {
-        Constants.mockOtherProfile
+    private let firestore: Firestore
+
+    init(firestore: Firestore = Firestore.firestore()) {
+        self.firestore = firestore
+    }
+
+    /// - Throws: only on a genuine read failure (e.g. transient network error) — a handle with no
+    ///   matching `users` document is a valid state and returns an empty-profile DTO instead of
+    ///   throwing.
+    func loadUser(handle: String) async throws -> OtherProfileDTO {
+        guard let document = try await findUserDocument(handle: handle) else {
+            return OtherProfileDTO(user: Self.emptyUser(), posts: [], likes: [], replies: [])
+        }
+
+        let posts = try await loadPosts(authorId: document.documentID)
+        let user = Self.mapUser(id: document.documentID, data: document.data(), postsCount: posts.count)
+
+        return OtherProfileDTO(user: user, posts: posts, likes: [], replies: [])
+    }
+}
+
+// MARK: - Private
+
+private extension OtherProfileService {
+    /// A handle with no matching document is a valid empty state (`return nil`), a Firestore read
+    /// error is a genuine failure and propagates (`throw`) so the caller can keep its last-known-good data.
+    func findUserDocument(handle: String) async throws -> QueryDocumentSnapshot? {
+        let snapshot = try await firestore.collection(Constants.usersCollection)
+            .whereField("handle", isEqualTo: handle)
+            .limit(to: 1)
+            .getDocuments()
+        return snapshot.documents.first
+    }
+
+    func loadPosts(authorId: String) async throws -> [ProfilePostDTO] {
+        let snapshot = try await firestore.collection(Constants.postsCollection)
+            .whereField("authorId", isEqualTo: authorId)
+            .order(by: "createdAt", descending: true)
+            .getDocuments()
+        return snapshot.documents.map(Self.mapPost)
+    }
+
+    static func emptyUser() -> OtherProfileUserDTO {
+        OtherProfileUserDTO(
+            id: UUID().uuidString,
+            name: "",
+            handle: "",
+            tagline: "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: nil,
+            followersCount: 0,
+            followingCount: 0,
+            postsCount: 0,
+            isFollowing: false
+        )
+    }
+
+    static func mapUser(id: String, data: [String: Any], postsCount: Int) -> OtherProfileUserDTO {
+        OtherProfileUserDTO(
+            id: id,
+            name: data["name"] as? String ?? "",
+            handle: data["handle"] as? String ?? "",
+            tagline: "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: data["avatarURL"] as? String,
+            followersCount: 0,
+            followingCount: 0,
+            postsCount: postsCount,
+            isFollowing: false
+        )
+    }
+
+    static func mapPost(_ document: QueryDocumentSnapshot) -> ProfilePostDTO {
+        let data = document.data()
+
+        return ProfilePostDTO(
+            id: document.documentID,
+            authorName: data["authorName"] as? String ?? "",
+            authorHandle: data["authorHandle"] as? String ?? "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: data["authorAvatarURL"] as? String,
+            createdAt: (data["createdAt"] as? Timestamp)?.dateValue(),
+            text: data["text"] as? String ?? "",
+            // attachmentImageURL пока не рендерится — вложения постов вне скоупа этой миграции
+            attachmentImageName: nil,
+            commentsCount: data["commentsCount"] as? Int ?? 0,
+            repostsCount: data["repostsCount"] as? Int ?? 0,
+            likesCount: data["likesCount"] as? Int ?? 0,
+            viewsCount: data["viewsCount"] as? Int ?? 0,
+            replyingToHandle: nil
+        )
     }
 }
 
@@ -17,50 +108,8 @@ final class OtherProfileService {
 
 private extension OtherProfileService {
     enum Constants {
-        static let mockOtherProfile = OtherProfileDTO(
-            user: OtherProfileUserDTO(
-                id: UUID().uuidString,
-                name: "Elena Rostova",
-                handle: "@elena_rostova",
-                tagline: "Digital Architect & UI Enthusiast. Designing for effortless precision.",
-                avatarImageName: "person.crop.circle.fill",
-                followersCount: 1_248,
-                followingCount: 342,
-                postsCount: 89,
-                isFollowing: false
-            ),
-            posts: [
-                ProfilePostDTO(
-                    id: UUID().uuidString,
-                    authorName: "Elena Rostova",
-                    authorHandle: "@elena_rostova",
-                    avatarImageName: "person.crop.circle.fill",
-                    timeAgoText: "2h ago",
-                    text: "Just finished migrating our design system to a token-based architecture. The shift towards tonal layering instead of heavy drop shadows makes the UI feel incredibly lightweight and airy. #DesignSystems #UIUX",
-                    attachmentImageName: nil,
-                    commentsCount: 18,
-                    repostsCount: 0,
-                    likesCount: 124,
-                    viewsCount: 0,
-                    replyingToHandle: nil
-                ),
-                ProfilePostDTO(
-                    id: UUID().uuidString,
-                    authorName: "Elena Rostova",
-                    authorHandle: "@elena_rostova",
-                    avatarImageName: "person.crop.circle.fill",
-                    timeAgoText: "Yesterday",
-                    text: "Loving the new workspace setup. White surfaces against natural wood really embody that modern corporate aesthetic we've been aiming for.",
-                    attachmentImageName: "other_profile_post_workspace_preview",
-                    commentsCount: 0,
-                    repostsCount: 0,
-                    likesCount: 0,
-                    viewsCount: 0,
-                    replyingToHandle: nil
-                )
-            ],
-            likes: [],
-            replies: []
-        )
+        static let usersCollection = "users"
+        static let postsCollection = "posts"
+        static let defaultAvatarImageName = "person.crop.circle.fill"
     }
 }

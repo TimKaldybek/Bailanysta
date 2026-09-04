@@ -3,11 +3,143 @@
 //  Bailanysta
 //
 
+import FirebaseFirestore
+import FirebaseStorage
 import Foundation
 
+/// Reads the signed-in user's `users/{uid}` document and their `posts` from Firestore, and
+/// uploads a new avatar image to Storage. An anonymous "Continue as Guest" session (a valid
+/// `SessionManager.shared.currentUserID`, but no `users/{uid}` document written on sign-up) is a
+/// real, non-error state — it's mapped to an empty/default profile rather than treated as a failure.
 final class ProfileService {
-    func loadData() async -> ProfileDTO {
-        Constants.mockProfile
+    private let firestore: Firestore
+    private let storage: Storage
+
+    init(firestore: Firestore = Firestore.firestore(), storage: Storage = Storage.storage()) {
+        self.firestore = firestore
+        self.storage = storage
+    }
+
+    /// - Throws: only on a genuine read failure (e.g. transient network error) — a missing
+    ///   `users/{uid}` document (anonymous guest session) is a valid state and returns an
+    ///   empty-profile DTO instead of throwing.
+    func loadData() async throws -> ProfileDTO {
+        guard let uid = SessionManager.shared.currentUserID else {
+            return ProfileDTO(user: Self.emptyUser(id: ""), posts: [], replies: [], likes: [])
+        }
+
+        let posts = try await loadPosts(authorId: uid)
+        let user = try await loadUser(uid: uid, postsCount: posts.count)
+
+        return ProfileDTO(user: user, posts: posts, replies: [], likes: [])
+    }
+
+    func uploadAvatar(_ dto: ProfileAvatarUploadDTO) async throws -> URL {
+        guard let uid = SessionManager.shared.currentUserID else {
+            throw ProfileServiceError.notSignedIn
+        }
+
+        let reference = storage.reference().child("avatars/\(uid).jpg")
+        try await put(dto.imageData, to: reference)
+        let url = try await reference.downloadURL()
+
+        try await firestore.collection(Constants.usersCollection).document(uid)
+            .setData(["avatarURL": url.absoluteString], merge: true)
+
+        return url
+    }
+}
+
+// MARK: - Errors
+
+enum ProfileServiceError: Error {
+    case notSignedIn
+}
+
+// MARK: - Private
+
+private extension ProfileService {
+    /// A missing document is a valid empty state (`return`), a Firestore read error is a genuine
+    /// failure and propagates (`throw`) so the caller can keep its last-known-good data.
+    func loadUser(uid: String, postsCount: Int) async throws -> ProfileUserDTO {
+        let snapshot = try await firestore.collection(Constants.usersCollection).document(uid).getDocument()
+        guard snapshot.exists, let data = snapshot.data() else {
+            return Self.emptyUser(id: uid)
+        }
+        return Self.mapUser(id: uid, data: data, postsCount: postsCount)
+    }
+
+    func loadPosts(authorId: String) async throws -> [ProfilePostDTO] {
+        let snapshot = try await firestore.collection(Constants.postsCollection)
+            .whereField("authorId", isEqualTo: authorId)
+            .order(by: "createdAt", descending: true)
+            .getDocuments()
+        return snapshot.documents.map(Self.mapPost)
+    }
+
+    /// Оборачивает closure-based `StorageReference.putData` в `async throws`, т.к. используемая
+    /// версия FirebaseStorage не предоставляет async-перегрузку для загрузки данных
+    func put(_ data: Data, to reference: StorageReference) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            reference.putData(data, metadata: nil) { _, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: ())
+                }
+            }
+        }
+    }
+
+    static func emptyUser(id: String) -> ProfileUserDTO {
+        ProfileUserDTO(
+            id: id,
+            name: "",
+            handle: "",
+            roleTitle: "",
+            bio: "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: nil,
+            postsCount: 0,
+            followersCount: 0,
+            followingCount: 0
+        )
+    }
+
+    static func mapUser(id: String, data: [String: Any], postsCount: Int) -> ProfileUserDTO {
+        ProfileUserDTO(
+            id: id,
+            name: data["name"] as? String ?? "",
+            handle: data["handle"] as? String ?? "",
+            roleTitle: "",
+            bio: "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: data["avatarURL"] as? String,
+            postsCount: postsCount,
+            followersCount: 0,
+            followingCount: 0
+        )
+    }
+
+    static func mapPost(_ document: QueryDocumentSnapshot) -> ProfilePostDTO {
+        let data = document.data()
+
+        return ProfilePostDTO(
+            id: document.documentID,
+            authorName: data["authorName"] as? String ?? "",
+            authorHandle: data["authorHandle"] as? String ?? "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: data["authorAvatarURL"] as? String,
+            createdAt: (data["createdAt"] as? Timestamp)?.dateValue(),
+            text: data["text"] as? String ?? "",
+            // attachmentImageURL пока не рендерится — вложения постов вне скоупа этой миграции
+            attachmentImageName: nil,
+            commentsCount: data["commentsCount"] as? Int ?? 0,
+            repostsCount: data["repostsCount"] as? Int ?? 0,
+            likesCount: data["likesCount"] as? Int ?? 0,
+            viewsCount: data["viewsCount"] as? Int ?? 0,
+            replyingToHandle: nil
+        )
     }
 }
 
@@ -15,112 +147,8 @@ final class ProfileService {
 
 private extension ProfileService {
     enum Constants {
-        /// Локальный источник данных профиля на время отсутствия бэкенда
-        static let mockProfile = ProfileDTO(user: mockUser, posts: mockPosts, replies: mockReplies, likes: mockLikes)
-
-        static let mockUser = ProfileUserDTO(
-            id: UUID().uuidString,
-            name: "Alex Chen",
-            handle: "@alexc_designs",
-            roleTitle: "Digital Creator",
-            bio: "Exploring the intersection of modern minimalism and interactive design. Always looking for the next creative spark. ✨",
-            avatarImageName: "person.crop.circle.fill",
-            postsCount: 142,
-            followersCount: 8400,
-            followingCount: 642
-        )
-
-        static let mockPosts: [ProfilePostDTO] = [
-            ProfilePostDTO(
-                id: UUID().uuidString,
-                authorName: "Alex Chen",
-                authorHandle: "@alexc_designs",
-                avatarImageName: "person.crop.circle.fill",
-                timeAgoText: "Just now",
-                text: "Just deployed the new visual token system for our upcoming platform refresh. The transition from heavy shadows to subtle tonal layering is making everything feel so much lighter and faster. What do you think of this aesthetic? 🎨✨",
-                attachmentImageName: "profile_post_token_system_preview",
-                commentsCount: 0,
-                repostsCount: 0,
-                likesCount: 0,
-                viewsCount: 12,
-                replyingToHandle: nil
-            ),
-            ProfilePostDTO(
-                id: UUID().uuidString,
-                authorName: "Alex Chen",
-                authorHandle: "@alexc_designs",
-                avatarImageName: "person.crop.circle.fill",
-                timeAgoText: "2h",
-                text: "Whitespace is not empty space; it is structural material.",
-                attachmentImageName: nil,
-                commentsCount: 3,
-                repostsCount: 1,
-                likesCount: 24,
-                viewsCount: 156,
-                replyingToHandle: nil
-            )
-        ]
-
-        static let mockReplies: [ProfilePostDTO] = [
-            ProfilePostDTO(
-                id: UUID().uuidString,
-                authorName: "Alex Chen",
-                authorHandle: "@alexc_designs",
-                avatarImageName: "person.crop.circle.fill",
-                timeAgoText: "45m",
-                text: "Totally agree — tonal layering also reads better in dark mode since you're not fighting harsh shadow contrast.",
-                attachmentImageName: nil,
-                commentsCount: 1,
-                repostsCount: 0,
-                likesCount: 8,
-                viewsCount: 64,
-                replyingToHandle: "@marina.codes"
-            ),
-            ProfilePostDTO(
-                id: UUID().uuidString,
-                authorName: "Alex Chen",
-                authorHandle: "@alexc_designs",
-                avatarImageName: "person.crop.circle.fill",
-                timeAgoText: "5h",
-                text: "Figma variables + Swift enums, one source of truth. Happy to share the token pipeline if you're curious.",
-                attachmentImageName: nil,
-                commentsCount: 2,
-                repostsCount: 0,
-                likesCount: 15,
-                viewsCount: 98,
-                replyingToHandle: "@devon.builds"
-            )
-        ]
-
-        static let mockLikes: [ProfilePostDTO] = [
-            ProfilePostDTO(
-                id: UUID().uuidString,
-                authorName: "Marina Lopez",
-                authorHandle: "@marina.codes",
-                avatarImageName: "person.crop.circle.fill",
-                timeAgoText: "1h",
-                text: "Shipped dark mode across the whole design system today. Every token now flips automatically — no more one-off overrides. 🌙",
-                attachmentImageName: nil,
-                commentsCount: 6,
-                repostsCount: 2,
-                likesCount: 132,
-                viewsCount: 940,
-                replyingToHandle: nil
-            ),
-            ProfilePostDTO(
-                id: UUID().uuidString,
-                authorName: "Devon Park",
-                authorHandle: "@devon.builds",
-                avatarImageName: "person.crop.circle.fill",
-                timeAgoText: "1d",
-                text: "Compositional layout + diffable data sources is the combo I wish I'd learned years ago. Everything else feels like fighting the framework.",
-                attachmentImageName: nil,
-                commentsCount: 4,
-                repostsCount: 1,
-                likesCount: 87,
-                viewsCount: 512,
-                replyingToHandle: nil
-            )
-        ]
+        static let usersCollection = "users"
+        static let postsCollection = "posts"
+        static let defaultAvatarImageName = "person.crop.circle.fill"
     }
 }

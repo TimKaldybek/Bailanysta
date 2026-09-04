@@ -2,7 +2,6 @@
 //  UIViewController+CustomNavigationBar.swift
 //  Bailanysta
 //
-//  Created by Timur Kaldybek on 15.11.2024.
 //
 
 import UIKit
