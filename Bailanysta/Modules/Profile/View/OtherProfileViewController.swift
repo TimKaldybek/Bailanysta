@@ -10,8 +10,6 @@ final class OtherProfileViewController: UIViewController {
 
     var settingsButtonTapped: (() -> Void)?
     var backButtonTapped: (() -> Void)?
-    /// Пока не подключён координатором — экрана сообщений в приложении ещё нет
-    var messageTapped: (() -> Void)?
 
     private let presenter: OtherProfilePresenter
     private let collectionView: UICollectionView
@@ -77,7 +75,7 @@ final class OtherProfileViewController: UIViewController {
 
 extension OtherProfileViewController: OtherProfileViewInput {
     func display(_ viewData: OtherProfileViewData) {
-        otherProfileHeaderCardView.configure(with: viewData.header, selectedTab: viewData.selectedTab)
+        otherProfileHeaderCardView.configure(with: viewData.header, selectedTab: viewData.selectedTab, isLoading: viewData.isLoading)
         dataSource.reload(items: viewData.items)
 
         if let errorMessage = viewData.errorMessage {
@@ -118,7 +116,7 @@ private extension OtherProfileViewController {
             self?.presenter.toggleFollow()
         }
         otherProfileHeaderCardView.onMessageTapped = { [weak self] in
-            self?.messageTapped?()
+            self?.showComingSoonSheet()
         }
         otherProfileHeaderCardView.onTabSelected = { [weak self] tab in
             self?.presenter.selectTab(tab)

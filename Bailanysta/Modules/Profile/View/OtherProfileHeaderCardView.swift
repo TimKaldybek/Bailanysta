@@ -30,7 +30,10 @@ final class OtherProfileHeaderCardView: UIView {
         return iv
     }()
 
+    private let avatarSkeleton = SkeletonView(cornerRadius: 40)
+
     private let nameLabel = UILabel()
+    private let nameSkeleton = SkeletonView()
 
     private let taglineLabel: UILabel = {
         let label = UILabel()
@@ -38,12 +41,25 @@ final class OtherProfileHeaderCardView: UIView {
         label.textAlignment = .center
         return label
     }()
+    private let taglineSkeleton = SkeletonView()
 
     private let followButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         button.layer.cornerRadius = 20
         return button
+    }()
+    private let followButtonSkeleton = SkeletonView(cornerRadius: 20)
+
+    /// Wraps `followButton`+`followButtonSkeleton` so the loading toggle doesn't hide an arranged
+    /// subview of `buttonsStack` directly — a `UIStackView` collapses hidden arranged subviews,
+    /// which would shift `messageButtonContainer` while loading.
+    private lazy var followButtonContainer: UIView = {
+        let view = UIView()
+        [followButton, followButtonSkeleton].forEach { view.addSubview($0) }
+        followButton.snp.makeConstraints { $0.edges.equalToSuperview() }
+        followButtonSkeleton.snp.makeConstraints { $0.edges.equalToSuperview() }
+        return view
     }()
 
     private let messageButton: UIButton = {
@@ -55,9 +71,18 @@ final class OtherProfileHeaderCardView: UIView {
         button.layer.cornerRadius = 20
         return button
     }()
+    private let messageButtonSkeleton = SkeletonView(cornerRadius: 20)
+
+    private lazy var messageButtonContainer: UIView = {
+        let view = UIView()
+        [messageButton, messageButtonSkeleton].forEach { view.addSubview($0) }
+        messageButton.snp.makeConstraints { $0.edges.equalToSuperview() }
+        messageButtonSkeleton.snp.makeConstraints { $0.edges.equalToSuperview() }
+        return view
+    }()
 
     private lazy var buttonsStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [followButton, messageButton])
+        let stack = UIStackView(arrangedSubviews: [followButtonContainer, messageButtonContainer])
         stack.axis = .horizontal
         stack.alignment = .fill
         stack.spacing = 12
@@ -121,7 +146,7 @@ final class OtherProfileHeaderCardView: UIView {
 
     // MARK: - Public
 
-    func configure(with viewData: OtherProfileHeaderViewData, selectedTab: ProfileTab) {
+    func configure(with viewData: OtherProfileHeaderViewData, selectedTab: ProfileTab, isLoading: Bool) {
         if let avatarURL = viewData.avatarURL {
             avatarImageView.kf.setImage(with: avatarURL, placeholder: UIImage(systemName: viewData.avatarImageName))
         } else {
@@ -138,6 +163,8 @@ final class OtherProfileHeaderCardView: UIView {
         followButton.setTitle(viewData.followButtonTitle, for: .normal)
         followButton.backgroundColor = viewData.isFollowing ? Color.primaryMuted : Color.primary
         followButton.setTitleColor(viewData.isFollowing ? Color.primary : Color.onPrimary, for: .normal)
+
+        updateLoadingAppearance(isLoading)
 
         self.selectedTab = selectedTab
         updateTabAppearance(animated: false)
@@ -165,8 +192,8 @@ private extension OtherProfileHeaderCardView {
         avatarContainer.addSubview(avatarImageView)
 
         [
-            avatarContainer, nameLabel, taglineLabel, buttonsStack,
-            statsStack, divider, tabsStack, tabIndicatorView
+            avatarContainer, avatarSkeleton, nameLabel, nameSkeleton, taglineLabel, taglineSkeleton,
+            buttonsStack, statsStack, divider, tabsStack, tabIndicatorView
         ].forEach { addSubview($0) }
 
         followButton.addAction(UIAction { [weak self] _ in
@@ -194,23 +221,38 @@ private extension OtherProfileHeaderCardView {
         avatarImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        avatarSkeleton.snp.makeConstraints {
+            $0.edges.equalTo(avatarContainer)
+        }
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(avatarContainer.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
+        nameSkeleton.snp.makeConstraints {
+            $0.top.equalTo(avatarContainer.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(140)
+            $0.height.equalTo(18)
+        }
         taglineLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(4)
             $0.leading.trailing.equalToSuperview().inset(24)
+        }
+        taglineSkeleton.snp.makeConstraints {
+            $0.top.equalTo(nameSkeleton.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(180)
+            $0.height.equalTo(14)
         }
         buttonsStack.snp.makeConstraints {
             $0.top.equalTo(taglineLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(40)
         }
-        followButton.snp.makeConstraints {
+        followButtonContainer.snp.makeConstraints {
             $0.width.equalTo(140)
         }
-        messageButton.snp.makeConstraints {
+        messageButtonContainer.snp.makeConstraints {
             $0.width.equalTo(110)
         }
         statsStack.snp.makeConstraints {
@@ -234,6 +276,24 @@ private extension OtherProfileHeaderCardView {
             $0.leading.equalTo(postsTabButton)
             $0.width.equalTo(postsTabButton)
         }
+    }
+
+    /// Toggles between the shimmering placeholders and the real avatar/name/tagline/buttons/stat
+    /// values — the tab bar and stat captions are static and never skeletonized.
+    func updateLoadingAppearance(_ isLoading: Bool) {
+        avatarContainer.isHidden = isLoading
+        avatarSkeleton.isHidden = !isLoading
+        nameLabel.isHidden = isLoading
+        nameSkeleton.isHidden = !isLoading
+        taglineLabel.isHidden = isLoading
+        taglineSkeleton.isHidden = !isLoading
+        followButton.isHidden = isLoading
+        followButtonSkeleton.isHidden = !isLoading
+        messageButton.isHidden = isLoading
+        messageButtonSkeleton.isHidden = !isLoading
+        followersStatView.setLoading(isLoading)
+        followingStatView.setLoading(isLoading)
+        postsStatView.setLoading(isLoading)
     }
 
     func handleTabTapped(_ tab: ProfileTab) {
@@ -292,9 +352,26 @@ private extension OtherProfileHeaderCardView {
 private final class OtherProfileStatView: UIView {
     let valueLabel = UILabel()
     let captionLabel = UILabel()
+    private let valueSkeleton = SkeletonView()
+
+    /// Wraps `valueLabel`+`valueSkeleton` so the loading toggle doesn't hide an arranged subview
+    /// of `stack` directly — a `UIStackView` would otherwise collapse the hidden value and shift
+    /// `captionLabel` up.
+    private lazy var valueContainer: UIView = {
+        let view = UIView()
+        [valueLabel, valueSkeleton].forEach { view.addSubview($0) }
+        valueLabel.snp.makeConstraints { $0.edges.equalToSuperview() }
+        valueSkeleton.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalTo(32)
+            $0.height.equalTo(18)
+        }
+        view.snp.makeConstraints { $0.height.equalTo(22) }
+        return view
+    }()
 
     private lazy var stack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [valueLabel, captionLabel])
+        let stack = UIStackView(arrangedSubviews: [valueContainer, captionLabel])
         stack.axis = .vertical
         stack.alignment = .center
         stack.spacing = 2
@@ -311,4 +388,9 @@ private final class OtherProfileStatView: UIView {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
+
+    func setLoading(_ isLoading: Bool) {
+        valueLabel.isHidden = isLoading
+        valueSkeleton.isHidden = !isLoading
+    }
 }

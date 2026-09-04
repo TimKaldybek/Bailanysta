@@ -32,6 +32,9 @@ final class OtherProfilePresenter {
     private var selectedTab: ProfileTab = .posts
     /// Guards against a second follow/unfollow request firing while one is already in flight.
     private var isTogglingFollow = false
+    /// `true` until the first load (success or failure) has arrived — shows the screen's
+    /// skeleton state until then. Never re-enabled by `selectTab`/`toggleFollow`.
+    private var isLoading = true
 
     init(handle: String, interactor: OtherProfileInteractor, viewDataFactory: OtherProfileViewDataFactory) {
         self.handle = handle
@@ -42,6 +45,7 @@ final class OtherProfilePresenter {
     // MARK: - Public
 
     func load() {
+        pushViewData()
         Task { @MainActor in
             // Only overwrites `model` on a successful read (including the valid "no matching
             // document" empty state) — a genuine read failure is a no-op, keeping the
@@ -49,6 +53,7 @@ final class OtherProfilePresenter {
             if let loadedModel = try? await interactor.loadData(handle: handle) {
                 model = loadedModel
             }
+            isLoading = false
             pushViewData()
         }
     }
@@ -87,7 +92,12 @@ final class OtherProfilePresenter {
 
 private extension OtherProfilePresenter {
     func pushViewData(errorMessage: String? = nil) {
-        let viewData = viewDataFactory.createViewData(model: model, selectedTab: selectedTab, errorMessage: errorMessage)
+        let viewData = viewDataFactory.createViewData(
+            model: model,
+            selectedTab: selectedTab,
+            isLoading: isLoading,
+            errorMessage: errorMessage
+        )
         view?.display(viewData)
     }
 }

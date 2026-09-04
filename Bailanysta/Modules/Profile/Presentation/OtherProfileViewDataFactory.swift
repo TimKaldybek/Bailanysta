@@ -9,17 +9,27 @@ struct OtherProfileViewDataFactory {
     func createViewData(
         model: OtherProfileModel,
         selectedTab: ProfileTab,
+        isLoading: Bool,
         errorMessage: String? = nil
     ) -> OtherProfileViewData {
         OtherProfileViewData(
             header: Self.mapHeader(model.user),
             selectedTab: selectedTab,
-            items: items(for: selectedTab, model: model).map(Self.mapPost),
+            items: Self.items(for: selectedTab, model: model, isLoading: isLoading),
+            isLoading: isLoading,
             errorMessage: errorMessage
         )
     }
 
-    private func items(for tab: ProfileTab, model: OtherProfileModel) -> [ProfilePost] {
+    private static func items(for tab: ProfileTab, model: OtherProfileModel, isLoading: Bool) -> [OtherProfileItem] {
+        let posts = rawItems(for: tab, model: model)
+        guard isLoading && posts.isEmpty else {
+            return posts.map { .post(mapPost($0)) }
+        }
+        return (0..<Constants.skeletonCount).map { .skeleton($0) }
+    }
+
+    private static func rawItems(for tab: ProfileTab, model: OtherProfileModel) -> [ProfilePost] {
         switch tab {
         case .posts: return model.posts
         case .likes: return model.likes
@@ -78,5 +88,9 @@ struct OtherProfileViewDataFactory {
         formatter.numberStyle = .decimal
         formatter.usesGroupingSeparator = true
         return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
+
+    private enum Constants {
+        static let skeletonCount = 3
     }
 }

@@ -15,10 +15,10 @@ final class OtherProfileDataSource {
 
     // MARK: - Public
 
-    func reload(items: [ProfilePostViewData]) {
+    func reload(items: [OtherProfileItem]) {
         var snapshot = NSDiffableDataSourceSnapshot<OtherProfileSection, OtherProfileItem>()
         snapshot.appendSections(OtherProfileSection.allCases)
-        snapshot.appendItems(items.map { .post($0) }, toSection: .posts)
+        snapshot.appendItems(items, toSection: .posts)
         diffableDataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -34,6 +34,7 @@ private extension OtherProfileDataSource {
             cell.configure(with: viewData)
             cell.onAvatarTapped = { onAvatarTapped(viewData) }
         }
+        let skeletonCell = UICollectionView.CellRegistration<ProfilePostSkeletonCell, Int> { _, _, _ in }
 
         return UICollectionViewDiffableDataSource<OtherProfileSection, OtherProfileItem>(
             collectionView: collectionView
@@ -41,6 +42,8 @@ private extension OtherProfileDataSource {
             switch item {
             case .post(let viewData):
                 return cv.dequeueConfiguredReusableCell(using: postCell, for: indexPath, item: viewData)
+            case .skeleton(let index):
+                return cv.dequeueConfiguredReusableCell(using: skeletonCell, for: indexPath, item: index)
             }
         }
     }
