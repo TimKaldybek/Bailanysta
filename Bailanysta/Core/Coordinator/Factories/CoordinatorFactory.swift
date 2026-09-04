@@ -43,4 +43,8 @@ final class CoordinatorFactory {
     static func feedPostCoordinator(navigationController: UINavigationController) -> FeedPostCoordinator {
         FeedPostCoordinator(navigationController: navigationController)
     }
+
+    static func commentsCoordinator(navigationController: UINavigationController, postID: UUID) -> CommentsCoordinator {
+        CommentsCoordinator(navigationController: navigationController, postID: postID)
+    }
 }

@@ -9,6 +9,10 @@ import SnapKit
 final class FeedPostCell: UICollectionViewCell {
     static let reuseIdentifier = "FeedPostCell"
 
+    var onAvatarTapped: (() -> Void)?
+    var onLikeTapped: (() -> Void)?
+    var onCommentsTapped: (() -> Void)?
+
     private let cardView: UIView = {
         let view = UIView()
         view.backgroundColor = Color.surface
@@ -75,6 +79,9 @@ final class FeedPostCell: UICollectionViewCell {
         handleTimeLabel.text = nil
         bodyLabel.text = nil
         attachmentView.isHidden = true
+        onAvatarTapped = nil
+        onLikeTapped = nil
+        onCommentsTapped = nil
     }
 
     func configure(with viewData: FeedPostViewData) {
@@ -95,7 +102,7 @@ final class FeedPostCell: UICollectionViewCell {
             }
         }
 
-        likesView.configure(systemImageName: "heart", countText: viewData.formattedLikesCount)
+        likesView.configure(systemImageName: "heart", countText: viewData.formattedLikesCount, isActive: viewData.isLiked)
         commentsView.configure(systemImageName: "bubble.left", countText: viewData.formattedCommentsCount)
         shareView.configure(systemImageName: "square.and.arrow.up", countText: nil)
     }
@@ -109,6 +116,16 @@ final class FeedPostCell: UICollectionViewCell {
             attachmentView, divider, footerStack
         ].forEach { cardView.addSubview($0) }
         contentView.addSubview(cardView)
+
+        avatarContainer.isUserInteractionEnabled = true
+        avatarContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAvatarTapped)))
+
+        likesView.onTap = { [weak self] in self?.onLikeTapped?() }
+        commentsView.onTap = { [weak self] in self?.onCommentsTapped?() }
+    }
+
+    @objc private func handleAvatarTapped() {
+        onAvatarTapped?()
     }
 
     private func setupConstraints() {

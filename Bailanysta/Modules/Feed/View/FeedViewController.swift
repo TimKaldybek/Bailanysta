@@ -10,10 +10,25 @@ final class FeedViewController: UIViewController {
 
     var settingsButtonTapped: (() -> Void)?
     var composeButtonTapped: (() -> Void)?
+    var postAuthorTapped: ((String) -> Void)?
+    var commentsTapped: ((UUID) -> Void)?
 
     private let presenter: FeedPresenter
-    private let dataSource: FeedDataSource
     private let collectionView: UICollectionView
+
+    /// `lazy`, а не `let`: замыкание захватывает `self`, что запрещено до вызова `super.init()`
+    private lazy var dataSource = FeedDataSource(
+        collectionView: collectionView,
+        onAvatarTapped: { [weak self] viewData in
+            self?.postAuthorTapped?(viewData.authorHandle)
+        },
+        onLikeTapped: { [weak self] postID in
+            self?.presenter.likeTapped(postID: postID)
+        },
+        onCommentsTapped: { [weak self] postID in
+            self?.commentsTapped?(postID)
+        }
+    )
 
     private let headerView: UIView = {
         let view = UIView()
@@ -40,7 +55,6 @@ final class FeedViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         self.collectionView = collectionView
-        self.dataSource = FeedDataSource(collectionView: collectionView)
 
         super.init(nibName: nil, bundle: nil)
 

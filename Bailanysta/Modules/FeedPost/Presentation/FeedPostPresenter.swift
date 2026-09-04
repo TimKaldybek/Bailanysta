@@ -3,13 +3,16 @@
 //  Bailanysta
 //
 
+import UIKit
+
 final class FeedPostPresenter {
     weak var view: FeedPostViewInput?
 
     private let interactor: FeedPostInteractor
     private let viewDataFactory: FeedPostFormViewDataFactory
 
-    private var draft = FeedPostDraft(text: "", category: .design)
+    private var draft = FeedPostDraft(text: "", category: .design, images: [])
+    private var isSubmitting = false
 
     init(interactor: FeedPostInteractor, viewDataFactory: FeedPostFormViewDataFactory) {
         self.interactor = interactor
@@ -34,11 +37,36 @@ final class FeedPostPresenter {
         pushViewData()
     }
 
+    func imagesPicked(_ images: [UIImage]) {
+        let availableSlots = FeedPostFormViewDataFactory.Constants.maxAttachments - draft.images.count
+        guard availableSlots > 0 else { return }
+
+        let newAttachments = images.prefix(availableSlots).map { FeedPostAttachment(image: $0) }
+        draft.images.append(contentsOf: newAttachments)
+        pushViewData()
+    }
+
+    func removeAttachment(at index: Int) {
+        guard draft.images.indices.contains(index) else { return }
+
+        draft.images.remove(at: index)
+        pushViewData()
+    }
+
     func postButtonTapped() {
+        guard !isSubmitting, isTextValid else { return }
+
+        isSubmitting = true
+        pushViewData()
+
         Task { @MainActor in
             let success = await interactor.submit(draft)
+            isSubmitting = false
+
             if success {
                 view?.closeAfterPosting()
+            } else {
+                pushViewData()
             }
         }
     }
@@ -47,8 +75,12 @@ final class FeedPostPresenter {
 // MARK: - Private
 
 private extension FeedPostPresenter {
+    var isTextValid: Bool {
+        !draft.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
     func pushViewData() {
-        let viewData = viewDataFactory.createViewData(draft)
+        let viewData = viewDataFactory.createViewData(draft, isSubmitting: isSubmitting)
         view?.display(viewData)
     }
 }

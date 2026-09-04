@@ -55,10 +55,11 @@ final class SearchViewController: UIViewController {
         recentSearchesView.onChipTapped = { [weak self] text in
             self?.searchBarView.setText(text)
         }
-
-        Task { @MainActor in
-            await presenter.load()
-        }
+        presenter.load()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 

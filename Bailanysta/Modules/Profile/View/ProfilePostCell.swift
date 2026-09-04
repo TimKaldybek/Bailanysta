@@ -9,6 +9,8 @@ import SnapKit
 final class ProfilePostCell: UICollectionViewCell {
     static let reuseIdentifier = "ProfilePostCell"
 
+    var onAvatarTapped: (() -> Void)?
+
     private let cardView: UIView = {
         let view = UIView()
         view.backgroundColor = Color.surface
@@ -77,6 +79,7 @@ final class ProfilePostCell: UICollectionViewCell {
         handleTimeLabel.text = nil
         bodyLabel.text = nil
         attachmentView.isHidden = true
+        onAvatarTapped = nil
     }
 
     func configure(with viewData: ProfilePostViewData) {
@@ -113,6 +116,13 @@ final class ProfilePostCell: UICollectionViewCell {
             attachmentView, divider, footerStack
         ].forEach { cardView.addSubview($0) }
         contentView.addSubview(cardView)
+
+        avatarContainer.isUserInteractionEnabled = true
+        avatarContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAvatarTapped)))
+    }
+
+    @objc private func handleAvatarTapped() {
+        onAvatarTapped?()
     }
 
     private func setupConstraints() {

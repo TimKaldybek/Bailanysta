@@ -9,12 +9,20 @@ import SnapKit
 final class ProfileViewController: UIViewController {
 
     var settingsButtonTapped: (() -> Void)?
+    /// Пока не подключён координатором — экрана редактирования профиля в приложении ещё нет
     var editProfileTapped: (() -> Void)?
-    var shareTapped: (() -> Void)?
+    var shareTapped: ((String) -> Void)?
+    var postAuthorTapped: ((String) -> Void)?
 
     private let presenter: ProfilePresenter
-    private let dataSource: ProfileDataSource
     private let collectionView: UICollectionView
+
+    /// `lazy`, а не `let`: замыкание захватывает `self`, что запрещено до вызова `super.init()`
+    private lazy var dataSource = ProfileDataSource(collectionView: collectionView, onAvatarTapped: { [weak self] viewData in
+        self?.postAuthorTapped?(viewData.authorHandle)
+    })
+
+    private var shareHandle = ""
 
     private let headerView: UIView = {
         let view = UIView()
@@ -41,7 +49,6 @@ final class ProfileViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         self.collectionView = collectionView
-        self.dataSource = ProfileDataSource(collectionView: collectionView)
 
         super.init(nibName: nil, bundle: nil)
 
@@ -71,6 +78,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: ProfileViewInput {
     func display(_ viewData: ProfileViewData) {
+        shareHandle = viewData.header.handle
         profileHeaderCardView.configure(with: viewData.header, selectedTab: viewData.selectedTab)
         dataSource.reload(items: viewData.items)
     }
@@ -100,7 +108,8 @@ private extension ProfileViewController {
             self?.editProfileTapped?()
         }
         profileHeaderCardView.onShareTapped = { [weak self] in
-            self?.shareTapped?()
+            guard let self else { return }
+            self.shareTapped?(self.shareHandle)
         }
         profileHeaderCardView.onTabSelected = { [weak self] tab in
             self?.presenter.selectTab(tab)

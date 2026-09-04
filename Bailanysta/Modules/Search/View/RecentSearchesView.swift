@@ -53,7 +53,8 @@ final class RecentSearchesView: UIView {
         }
         flowView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(12)
         }
     }
 

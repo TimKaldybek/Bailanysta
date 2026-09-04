@@ -27,6 +27,7 @@ struct FeedPostsDataProvider {
             text: dto.text,
             attachmentImageName: dto.attachmentImageName,
             likesCount: dto.likesCount,
+            isLiked: dto.isLiked,
             commentsCount: dto.commentsCount
         )
     }

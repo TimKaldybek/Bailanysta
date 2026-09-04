@@ -26,6 +26,7 @@ struct ProfileViewDataFactory {
         ProfileHeaderViewData(
             avatarImageName: user.avatarImageName,
             name: user.name,
+            handle: user.handle,
             handleAndRole: "\(user.handle) • \(user.roleTitle)",
             bio: user.bio,
             postsCountText: "\(user.postsCount)",
@@ -38,6 +39,7 @@ struct ProfileViewDataFactory {
         ProfilePostViewData(
             id: post.id,
             authorName: post.authorName,
+            authorHandle: post.authorHandle,
             handleTimeText: "\(post.authorHandle) • \(post.timeAgoText)",
             text: post.text,
             attachmentImageName: post.attachmentImageName,

@@ -6,7 +6,7 @@
 import Foundation
 
 struct FeedPostFormViewDataFactory {
-    func createViewData(_ draft: FeedPostDraft) -> FeedPostFormViewData {
+    func createViewData(_ draft: FeedPostDraft, isSubmitting: Bool) -> FeedPostFormViewData {
         let categories = FeedPostCategory.allCases.map { category in
             FeedPostCategoryViewData(
                 title: Self.title(for: category),
@@ -14,10 +14,25 @@ struct FeedPostFormViewDataFactory {
             )
         }
 
+        let attachments = draft.images.map {
+            FeedPostAttachmentViewData(id: $0.id, image: $0.image)
+        }
+
+        let remainingCharacters = Constants.maxCharacterCount - draft.text.count
+        let remainingAttachmentSlots = max(0, Constants.maxAttachments - draft.images.count)
+        let trimmedText = draft.text.trimmingCharacters(in: .whitespacesAndNewlines)
+
         return FeedPostFormViewData(
             categories: categories,
+            attachments: attachments,
             characterCountText: "\(draft.text.count)/\(Constants.maxCharacterCount)",
-            isPostEnabled: !draft.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            isCharacterCountNearLimit: remainingCharacters <= Constants.nearLimitThreshold,
+            maxCharacterCount: Constants.maxCharacterCount,
+            attachmentsCountText: "\(draft.images.count)/\(Constants.maxAttachments)",
+            isAddPhotoEnabled: !isSubmitting && remainingAttachmentSlots > 0,
+            remainingAttachmentSlots: remainingAttachmentSlots,
+            isPostEnabled: !isSubmitting && !trimmedText.isEmpty,
+            isSubmitting: isSubmitting
         )
     }
 
@@ -40,5 +55,7 @@ struct FeedPostFormViewDataFactory {
 extension FeedPostFormViewDataFactory {
     enum Constants {
         static let maxCharacterCount = 500
+        static let maxAttachments = 4
+        static let nearLimitThreshold = 20
     }
 }

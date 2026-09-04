@@ -9,6 +9,8 @@ import SnapKit
 /// Иконка + опциональный счётчик в футере поста (лайки/комментарии/шеринг)
 final class FeedEngagementView: UIView {
 
+    var onTap: (() -> Void)?
+
     private let iconImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -27,9 +29,17 @@ final class FeedEngagementView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
 
-    func configure(systemImageName: String, countText: String?) {
-        iconImageView.image = UIImage(systemName: systemImageName)
-        countLabel.setText(countText, size: 14, weight: .regular, textColor: Color.labelSecondary)
+    @objc private func handleTap() {
+        onTap?()
+    }
+
+    func configure(systemImageName: String, countText: String?, isActive: Bool = false) {
+        let tintColor = isActive ? Color.accentRed : Color.labelSecondary
+        let resolvedImageName = isActive ? systemImageName + ".fill" : systemImageName
+
+        iconImageView.image = UIImage(systemName: resolvedImageName)
+        iconImageView.tintColor = tintColor
+        countLabel.setText(countText, size: 14, weight: .regular, textColor: tintColor)
         countLabel.isHidden = countText == nil
     }
 }
@@ -39,6 +49,9 @@ final class FeedEngagementView: UIView {
 private extension FeedEngagementView {
     func setupSubviews() {
         [iconImageView, countLabel].forEach { addSubview($0) }
+
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
 
     func setupConstraints() {

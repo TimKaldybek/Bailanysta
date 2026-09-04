@@ -342,6 +342,39 @@
         }
       }
     },
+    "Comments.Empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No comments yet. Be the first to comment!"
+          }
+        }
+      }
+    },
+    "Comments.Placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a comment..."
+          }
+        }
+      }
+    },
+    "Comments.Title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comments"
+          }
+        }
+      }
+    },
     "Continue": {
       "extractionState": "manual",
       "localizations": {
@@ -463,6 +496,17 @@
         }
       }
     },
+    "FeedPost.Category": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category"
+          }
+        }
+      }
+    },
     "FeedPost.Category.Design": {
       "extractionState": "manual",
       "localizations": {
@@ -507,6 +551,17 @@
         }
       }
     },
+    "FeedPost.Photos": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos"
+          }
+        }
+      }
+    },
     "FeedPost.Placeholder": {
       "extractionState": "manual",
       "localizations": {
@@ -514,6 +569,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "What's on your mind?"
+          }
+        }
+      }
+    },
+    "FeedPost.Posting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posting…"
+          }
+        }
+      }
+    },
+    "FeedPost.RemovePhoto": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove photo"
           }
         }
       }
@@ -793,6 +870,17 @@
         }
       }
     },
+    "Profile.AppName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta"
+          }
+        }
+      }
+    },
     "Profile.EditProfile": {
       "extractionState": "manual",
       "localizations": {
@@ -800,6 +888,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit Profile"
+          }
+        }
+      }
+    },
+    "Profile.Message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Message"
           }
         }
       }

@@ -67,6 +67,11 @@ enum Color {
     /// Layer shadow color — pair with a per-view `shadowOpacity`, this token is fully opaque.
     static let shadow = dynamic(light: neutral, dark: .black)
 
+    /// Translucent dark scrim for controls overlaid on photo/media content (e.g. a remove button
+    /// drawn on top of a picked image thumbnail). Theme-agnostic by design — it sits on top of
+    /// arbitrary image content, not app surfaces, so it doesn't invert between light and dark.
+    static let overlayScrim = UIColor.black.withAlphaComponent(0.55)
+
     // MARK: - Decorative icon accents (e.g. the Settings list)
 
     static let accentBlue = UIColor.systemBlue

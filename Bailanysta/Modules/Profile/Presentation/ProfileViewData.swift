@@ -14,6 +14,7 @@ struct ProfileViewData {
 struct ProfileHeaderViewData {
     let avatarImageName: String
     let name: String
+    let handle: String
     /// Готовая для отображения строка "@handle • Role"
     let handleAndRole: String
     let bio: String
@@ -25,6 +26,7 @@ struct ProfileHeaderViewData {
 struct ProfilePostViewData: Hashable {
     let id: UUID
     let authorName: String
+    let authorHandle: String
     /// Готовая для отображения строка "@handle • time"
     let handleTimeText: String
     let text: String

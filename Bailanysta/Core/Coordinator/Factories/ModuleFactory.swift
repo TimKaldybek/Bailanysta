@@ -5,6 +5,8 @@
 //  Created by Timur Kaldybek on 13.11.2024.
 //
 
+import Foundation
+
 final class ModuleFactory {
     static func createSettingsModule() -> SettingsViewController {
         let presenter = SettingsPresenter()
@@ -15,7 +17,9 @@ final class ModuleFactory {
     static func createFeedModule() -> FeedViewController {
         let service = FeedPostsService()
         let dataProvider = FeedPostsDataProvider(service: service)
-        let interactor = FeedInteractor(dataProvider: dataProvider)
+        let likeService = FeedLikeService()
+        let likeDataProvider = FeedLikeDataProvider(service: likeService)
+        let interactor = FeedInteractor(dataProvider: dataProvider, likeDataProvider: likeDataProvider)
         let viewDataFactory = FeedViewDataFactory()
         let presenter = FeedPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
         let viewController = FeedViewController(presenter: presenter)
@@ -60,6 +64,18 @@ final class ModuleFactory {
         return viewController
     }
 
+    static func createOtherProfileModule(handle: String) -> OtherProfileViewController {
+        let service = OtherProfileService()
+        let dataProvider = OtherProfileDataProvider(service: service)
+        let interactor = OtherProfileInteractor(dataProvider: dataProvider)
+        let viewDataFactory = OtherProfileViewDataFactory()
+        let presenter = OtherProfilePresenter(handle: handle, interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = OtherProfileViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
+    }
+
     static func createFeedPostModule() -> FeedPostViewController {
         let service = FeedPostSubmissionService()
         let dataProvider = FeedPostSubmissionDataProvider(service: service)
@@ -67,6 +83,19 @@ final class ModuleFactory {
         let viewDataFactory = FeedPostFormViewDataFactory()
         let presenter = FeedPostPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
         let viewController = FeedPostViewController(presenter: presenter)
+        presenter.view = viewController
+
+        return viewController
+    }
+
+    static func createCommentsModule(postID: UUID) -> CommentsViewController {
+        let service = CommentsService()
+        let dataProvider = CommentsDataProvider(service: service)
+        let addCommentDataProvider = AddCommentDataProvider(service: service)
+        let interactor = CommentsInteractor(dataProvider: dataProvider, addCommentDataProvider: addCommentDataProvider)
+        let viewDataFactory = CommentsViewDataFactory()
+        let presenter = CommentsPresenter(postID: postID, interactor: interactor, viewDataFactory: viewDataFactory)
+        let viewController = CommentsViewController(presenter: presenter)
         presenter.view = viewController
 
         return viewController

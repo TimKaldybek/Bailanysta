@@ -9,8 +9,8 @@ final class ProfileDataSource {
 
     private let diffableDataSource: UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>
 
-    init(collectionView: UICollectionView) {
-        diffableDataSource = Self.makeDataSource(collectionView: collectionView)
+    init(collectionView: UICollectionView, onAvatarTapped: @escaping (ProfilePostViewData) -> Void) {
+        diffableDataSource = Self.makeDataSource(collectionView: collectionView, onAvatarTapped: onAvatarTapped)
     }
 
     // MARK: - Public
@@ -30,9 +30,13 @@ final class ProfileDataSource {
 // MARK: - Private
 
 private extension ProfileDataSource {
-    static func makeDataSource(collectionView: UICollectionView) -> UICollectionViewDiffableDataSource<ProfileSection, ProfileItem> {
+    static func makeDataSource(
+        collectionView: UICollectionView,
+        onAvatarTapped: @escaping (ProfilePostViewData) -> Void
+    ) -> UICollectionViewDiffableDataSource<ProfileSection, ProfileItem> {
         let postCell = UICollectionView.CellRegistration<ProfilePostCell, ProfilePostViewData> { cell, _, viewData in
             cell.configure(with: viewData)
+            cell.onAvatarTapped = { onAvatarTapped(viewData) }
         }
 
         return UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>(

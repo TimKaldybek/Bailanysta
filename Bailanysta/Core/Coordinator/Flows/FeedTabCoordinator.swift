@@ -12,6 +12,7 @@ final class FeedTabCoordinator: Coordinator {
 
     private var settingsCoordinator: SettingsCoordinator?
     private var feedPostCoordinator: FeedPostCoordinator?
+    private var commentsCoordinator: CommentsCoordinator?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -26,8 +27,25 @@ final class FeedTabCoordinator: Coordinator {
         vc.composeButtonTapped = { [weak self] in
             self?.presentCreatePost()
         }
+        vc.postAuthorTapped = { [weak self] handle in
+            self?.showOtherProfile(handle: handle)
+        }
+        vc.commentsTapped = { [weak self] postID in
+            self?.showComments(postID: postID)
+        }
 
         navigationController.viewControllers = [vc]
+    }
+
+    private func showComments(postID: UUID) {
+        let coordinator = CoordinatorFactory.commentsCoordinator(navigationController: navigationController, postID: postID)
+        commentsCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private func showOtherProfile(handle: String) {
+        let vc = ModuleFactory.createOtherProfileModule(handle: handle)
+        navigationController.pushViewController(vc, animated: true)
     }
 
     private func showSettings() {

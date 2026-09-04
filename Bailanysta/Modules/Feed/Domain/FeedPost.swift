@@ -14,6 +14,7 @@ struct FeedPost: Hashable {
     let text: String
     let attachmentImageName: String?
     let likesCount: Int
+    let isLiked: Bool
     let commentsCount: Int
 
     init(
@@ -25,6 +26,7 @@ struct FeedPost: Hashable {
         text: String,
         attachmentImageName: String? = nil,
         likesCount: Int = 0,
+        isLiked: Bool = false,
         commentsCount: Int = 0
     ) {
         self.id = id
@@ -35,6 +37,7 @@ struct FeedPost: Hashable {
         self.text = text
         self.attachmentImageName = attachmentImageName
         self.likesCount = likesCount
+        self.isLiked = isLiked
         self.commentsCount = commentsCount
     }
 }

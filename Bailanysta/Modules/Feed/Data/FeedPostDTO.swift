@@ -14,5 +14,6 @@ struct FeedPostDTO {
     let text: String
     let attachmentImageName: String?
     let likesCount: Int
+    let isLiked: Bool
     let commentsCount: Int
 }

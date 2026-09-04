@@ -14,12 +14,14 @@ struct FeedViewDataFactory {
         FeedPostViewData(
             id: post.id,
             authorName: post.authorName,
+            authorHandle: post.authorHandle,
             handleTimeText: "\(post.authorHandle) • \(post.timeAgoText)",
             text: post.text,
             attachmentImageName: post.attachmentImageName,
             avatarImageName: post.avatarImageName,
             formattedLikesCount: formattedCount(post.likesCount),
-            formattedCommentsCount: formattedCount(post.commentsCount)
+            formattedCommentsCount: formattedCount(post.commentsCount),
+            isLiked: post.isLiked
         )
     }
 

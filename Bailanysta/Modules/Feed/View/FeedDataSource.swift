@@ -9,8 +9,18 @@ final class FeedDataSource {
 
     private let diffableDataSource: UICollectionViewDiffableDataSource<FeedSection, FeedItem>
 
-    init(collectionView: UICollectionView) {
-        diffableDataSource = Self.makeDataSource(collectionView: collectionView)
+    init(
+        collectionView: UICollectionView,
+        onAvatarTapped: @escaping (FeedPostViewData) -> Void,
+        onLikeTapped: @escaping (UUID) -> Void,
+        onCommentsTapped: @escaping (UUID) -> Void
+    ) {
+        diffableDataSource = Self.makeDataSource(
+            collectionView: collectionView,
+            onAvatarTapped: onAvatarTapped,
+            onLikeTapped: onLikeTapped,
+            onCommentsTapped: onCommentsTapped
+        )
     }
 
     // MARK: - Public
@@ -30,9 +40,17 @@ final class FeedDataSource {
 // MARK: - Private
 
 private extension FeedDataSource {
-    static func makeDataSource(collectionView: UICollectionView) -> UICollectionViewDiffableDataSource<FeedSection, FeedItem> {
+    static func makeDataSource(
+        collectionView: UICollectionView,
+        onAvatarTapped: @escaping (FeedPostViewData) -> Void,
+        onLikeTapped: @escaping (UUID) -> Void,
+        onCommentsTapped: @escaping (UUID) -> Void
+    ) -> UICollectionViewDiffableDataSource<FeedSection, FeedItem> {
         let postCell = UICollectionView.CellRegistration<FeedPostCell, FeedPostViewData> { cell, _, viewData in
             cell.configure(with: viewData)
+            cell.onAvatarTapped = { onAvatarTapped(viewData) }
+            cell.onLikeTapped = { onLikeTapped(viewData.id) }
+            cell.onCommentsTapped = { onCommentsTapped(viewData.id) }
         }
 
         return UICollectionViewDiffableDataSource<FeedSection, FeedItem>(
