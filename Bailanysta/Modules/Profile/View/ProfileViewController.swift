@@ -10,7 +10,7 @@ final class ProfileViewController: UIViewController {
 
     var settingsButtonTapped: (() -> Void)?
     var editProfileTapped: (() -> Void)?
-    var shareTapped: (() -> Void)?
+    var shareTapped: ((String) -> Void)?
 
     private let presenter: ProfilePresenter
     private let dataSource: ProfileDataSource
@@ -30,8 +30,6 @@ final class ProfileViewController: UIViewController {
         return label
     }()
 
-    private let profileHeaderCardView = ProfileHeaderCardView()
-
     // MARK: - Init
 
     init(presenter: ProfilePresenter) {
@@ -41,7 +39,18 @@ final class ProfileViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         self.collectionView = collectionView
-        self.dataSource = ProfileDataSource(collectionView: collectionView)
+        self.dataSource = ProfileDataSource(
+            collectionView: collectionView,
+            onEditProfileTapped: { [weak self] in
+                self?.editProfileTapped?()
+            },
+            onShareTapped: { [weak self] handle in
+                self?.shareTapped?(handle)
+            },
+            onTabSelected: { [weak presenter] tab in
+                presenter?.selectTab(tab)
+            }
+        )
 
         super.init(nibName: nil, bundle: nil)
 
@@ -71,8 +80,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: ProfileViewInput {
     func display(_ viewData: ProfileViewData) {
-        profileHeaderCardView.configure(with: viewData.header, selectedTab: viewData.selectedTab)
-        dataSource.reload(items: viewData.items)
+        dataSource.reload(viewData)
     }
 }
 
@@ -89,22 +97,11 @@ private extension ProfileViewController {
 
         [titleLabel, settingsButton].forEach { headerView.addSubview($0) }
         view.addSubview(headerView)
-        view.addSubview(profileHeaderCardView)
         view.addSubview(collectionView)
 
         settingsButton.addAction(UIAction { [weak self] _ in
             self?.settingsButtonTapped?()
         }, for: .touchUpInside)
-
-        profileHeaderCardView.onEditProfileTapped = { [weak self] in
-            self?.editProfileTapped?()
-        }
-        profileHeaderCardView.onShareTapped = { [weak self] in
-            self?.shareTapped?()
-        }
-        profileHeaderCardView.onTabSelected = { [weak self] tab in
-            self?.presenter.selectTab(tab)
-        }
     }
 
     func setupConstraints() {
@@ -121,12 +118,8 @@ private extension ProfileViewController {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(32)
         }
-        profileHeaderCardView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
-        }
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(profileHeaderCardView.snp.bottom).offset(12)
+            $0.top.equalTo(headerView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         collectionView.contentInset.bottom = Constants.tabBarHeight

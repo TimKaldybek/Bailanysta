@@ -27,6 +27,8 @@ struct ProfilePostDTO {
     let repostsCount: Int
     let likesCount: Int
     let viewsCount: Int
+    /// Хэндл автора исходного поста — заполнен только для вкладки Replies
+    let replyingToHandle: String?
 }
 
 struct ProfileDTO {

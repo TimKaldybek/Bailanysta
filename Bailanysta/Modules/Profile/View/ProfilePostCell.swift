@@ -37,6 +37,7 @@ final class ProfilePostCell: UICollectionViewCell {
 
     private let authorNameLabel = UILabel()
     private let handleTimeLabel = UILabel()
+    private let replyingToLabel = UILabel()
     private let bodyLabel = UILabel()
 
     private let attachmentView = ProfileAttachmentView()
@@ -75,6 +76,8 @@ final class ProfilePostCell: UICollectionViewCell {
         avatarImageView.image = nil
         authorNameLabel.text = nil
         handleTimeLabel.text = nil
+        replyingToLabel.text = nil
+        replyingToLabel.isHidden = true
         bodyLabel.text = nil
         attachmentView.isHidden = true
     }
@@ -84,6 +87,21 @@ final class ProfilePostCell: UICollectionViewCell {
         authorNameLabel.setText(viewData.authorName, size: 17, weight: .bold, textColor: Color.label)
         handleTimeLabel.setText(viewData.handleTimeText, size: 14, weight: .regular, textColor: Color.labelSecondary)
         bodyLabel.setText(viewData.text, size: 17, weight: .regular, textColor: Color.label)
+
+        let hasReplyingTo = viewData.replyingToText != nil
+        replyingToLabel.isHidden = !hasReplyingTo
+        replyingToLabel.setText(viewData.replyingToText, size: 13, weight: .regular, textColor: Color.labelSecondary)
+        replyingToLabel.snp.remakeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(avatarContainer.snp.bottom).offset(hasReplyingTo ? 12 : 0)
+            if !hasReplyingTo {
+                $0.height.equalTo(0)
+            }
+        }
+        bodyLabel.snp.remakeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(replyingToLabel.snp.bottom).offset(hasReplyingTo ? 6 : 14)
+        }
 
         let hasAttachment = viewData.attachmentImageName != nil
         attachmentView.isHidden = !hasAttachment
@@ -109,7 +127,7 @@ final class ProfilePostCell: UICollectionViewCell {
 
         avatarContainer.addSubview(avatarImageView)
         [
-            avatarContainer, authorNameLabel, handleTimeLabel, bodyLabel,
+            avatarContainer, authorNameLabel, handleTimeLabel, replyingToLabel, bodyLabel,
             attachmentView, divider, footerStack
         ].forEach { cardView.addSubview($0) }
         contentView.addSubview(cardView)
@@ -138,10 +156,7 @@ final class ProfilePostCell: UICollectionViewCell {
             $0.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(authorNameLabel.snp.bottom).offset(2)
         }
-        bodyLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(avatarContainer.snp.bottom).offset(14)
-        }
+        // replyingToLabel и bodyLabel задаются динамически в configure(with:), т.к. зависят от наличия replyingToText
         // attachmentView задаётся динамически в configure(with:), т.к. зависит от наличия вложения
         divider.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)

@@ -11,15 +11,22 @@ struct ProfileViewData {
     let items: [ProfilePostViewData]
 }
 
-struct ProfileHeaderViewData {
+struct ProfileHeaderViewData: Hashable {
     let avatarImageName: String
     let name: String
+    let handle: String
     /// Готовая для отображения строка "@handle • Role"
     let handleAndRole: String
     let bio: String
     let postsCountText: String
     let followersCountText: String
     let followingCountText: String
+}
+
+/// Данные для ячейки карточки профиля: сама карточка + выбранная вкладка (Posts/Replies/Likes)
+struct ProfileHeaderCellViewData: Hashable {
+    let header: ProfileHeaderViewData
+    let selectedTab: ProfileTab
 }
 
 struct ProfilePostViewData: Hashable {
@@ -30,6 +37,8 @@ struct ProfilePostViewData: Hashable {
     let text: String
     let attachmentImageName: String?
     let avatarImageName: String
+    /// "Replying to @handle" — заполнено только для вкладки Replies
+    let replyingToText: String?
     let formattedCommentsCount: String
     let formattedRepostsCount: String
     let formattedLikesCount: String

@@ -22,8 +22,8 @@ final class ProfileTabCoordinator: Coordinator {
         vc.settingsButtonTapped = { [weak self] in
             self?.showSettings()
         }
-        vc.shareTapped = { [weak self] in
-            self?.presentShareSheet(from: vc)
+        vc.shareTapped = { [weak self] handle in
+            self?.presentShareSheet(handle: handle, from: vc)
         }
 
         navigationController.viewControllers = [vc]
@@ -37,8 +37,8 @@ final class ProfileTabCoordinator: Coordinator {
         coordinator.start()
     }
 
-    private func presentShareSheet(from viewController: UIViewController) {
-        let activityViewController = UIActivityViewController(activityItems: ["@alexc_designs"], applicationActivities: nil)
+    private func presentShareSheet(handle: String, from viewController: UIViewController) {
+        let activityViewController = UIActivityViewController(activityItems: [handle], applicationActivities: nil)
         viewController.present(activityViewController, animated: true)
     }
 }

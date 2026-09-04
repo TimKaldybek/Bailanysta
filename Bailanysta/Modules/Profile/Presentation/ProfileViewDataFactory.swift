@@ -26,6 +26,7 @@ struct ProfileViewDataFactory {
         ProfileHeaderViewData(
             avatarImageName: user.avatarImageName,
             name: user.name,
+            handle: user.handle,
             handleAndRole: "\(user.handle) • \(user.roleTitle)",
             bio: user.bio,
             postsCountText: "\(user.postsCount)",
@@ -42,6 +43,7 @@ struct ProfileViewDataFactory {
             text: post.text,
             attachmentImageName: post.attachmentImageName,
             avatarImageName: post.avatarImageName,
+            replyingToText: post.replyingToHandle.map { String(format: "Profile.ReplyingTo".localized, $0) },
             formattedCommentsCount: "\(post.commentsCount)",
             formattedRepostsCount: "\(post.repostsCount)",
             formattedLikesCount: "\(post.likesCount)",
