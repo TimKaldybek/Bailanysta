@@ -8,9 +8,22 @@ import SnapKit
 
 final class SearchViewController: UIViewController {
 
+    /// Тап по фото/имени/логину в блоке "Suggested for you" — открывает профиль по хэндлу
+    var suggestedUserTapped: ((String) -> Void)?
+
     private let presenter: SearchPresenter
-    private let dataSource: SearchDataSource
     private let collectionView: UICollectionView
+
+    /// `lazy`, а не `let`: замыкания захватывают `self`, что запрещено до вызова `super.init()`
+    private lazy var dataSource = SearchDataSource(
+        collectionView: collectionView,
+        onSuggestedUserProfileTapped: { [weak self] viewData in
+            self?.suggestedUserTapped?(viewData.handle)
+        },
+        onSuggestedUserFollowTapped: { [weak self] viewData in
+            self?.presenter.toggleFollow(userID: viewData.id)
+        }
+    )
 
     private let searchBarView = SearchBarView()
     private let recentSearchesView = RecentSearchesView()
@@ -24,7 +37,6 @@ final class SearchViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         self.collectionView = collectionView
-        self.dataSource = SearchDataSource(collectionView: collectionView)
 
         super.init(nibName: nil, bundle: nil)
 
@@ -86,8 +98,10 @@ extension SearchViewController: UICollectionViewDelegate {
         switch item {
         case .trending:
             showComingSoonSheet()
-        case .suggestedUser(let user):
-            presenter.toggleFollow(userID: user.id)
+        case .suggestedUser:
+            // Профиль/фоллоу обрабатываются собственными тап-таргетами `SuggestedUserCell`, а не
+            // выбором ячейки целиком
+            break
         }
     }
 }

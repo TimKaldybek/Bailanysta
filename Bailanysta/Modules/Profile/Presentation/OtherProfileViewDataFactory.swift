@@ -6,11 +6,16 @@
 import Foundation
 
 struct OtherProfileViewDataFactory {
-    func createViewData(model: OtherProfileModel, selectedTab: ProfileTab) -> OtherProfileViewData {
+    func createViewData(
+        model: OtherProfileModel,
+        selectedTab: ProfileTab,
+        errorMessage: String? = nil
+    ) -> OtherProfileViewData {
         OtherProfileViewData(
             header: Self.mapHeader(model.user),
             selectedTab: selectedTab,
-            items: items(for: selectedTab, model: model).map(Self.mapPost)
+            items: items(for: selectedTab, model: model).map(Self.mapPost),
+            errorMessage: errorMessage
         )
     }
 

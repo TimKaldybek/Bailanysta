@@ -30,8 +30,10 @@ final class ProfileService {
 
         let posts = try await loadPosts(authorId: uid)
         let user = try await loadUser(uid: uid, postsCount: posts.count)
+        let replies = await loadReplies(uid: uid)
+        let likes = await loadLikedPosts(uid: uid)
 
-        return ProfileDTO(user: user, posts: posts, replies: [], likes: [])
+        return ProfileDTO(user: user, posts: posts, replies: replies, likes: likes)
     }
 
     func uploadAvatar(_ dto: ProfileAvatarUploadDTO) async throws -> URL {
@@ -77,6 +79,29 @@ private extension ProfileService {
         return snapshot.documents.map(Self.mapPost)
     }
 
+    /// Likes is a secondary, non-critical tab — a genuine read failure degrades to an empty
+    /// array rather than failing the whole profile load.
+    func loadLikedPosts(uid: String) async -> [ProfilePostDTO] {
+        guard let snapshot = try? await firestore.collection(Constants.postsCollection)
+            .whereField("likedByUserIds", arrayContains: uid)
+            .order(by: "createdAt", descending: true)
+            .getDocuments()
+        else { return [] }
+        return snapshot.documents.map(Self.mapPost)
+    }
+
+    /// Replies is a secondary, non-critical tab — a genuine read failure degrades to an empty
+    /// array rather than failing the whole profile load. Uses a collection group query since
+    /// comments live under each post's `comments` subcollection.
+    func loadReplies(uid: String) async -> [ProfilePostDTO] {
+        guard let snapshot = try? await firestore.collectionGroup(Constants.commentsCollectionGroup)
+            .whereField("authorId", isEqualTo: uid)
+            .order(by: "createdAt", descending: true)
+            .getDocuments()
+        else { return [] }
+        return snapshot.documents.map(Self.mapReply)
+    }
+
     /// Оборачивает closure-based `StorageReference.putData` в `async throws`, т.к. используемая
     /// версия FirebaseStorage не предоставляет async-перегрузку для загрузки данных
     func put(_ data: Data, to reference: StorageReference) async throws {
@@ -116,8 +141,8 @@ private extension ProfileService {
             avatarImageName: Constants.defaultAvatarImageName,
             avatarURL: data["avatarURL"] as? String,
             postsCount: postsCount,
-            followersCount: 0,
-            followingCount: 0
+            followersCount: data["followersCount"] as? Int ?? 0,
+            followingCount: data["followingCount"] as? Int ?? 0
         )
     }
 
@@ -141,6 +166,28 @@ private extension ProfileService {
             replyingToHandle: nil
         )
     }
+
+    /// A comment document, displayed as a `ProfilePost` on the Replies tab — a reply has no
+    /// engagement counters of its own in this schema and no attachments.
+    static func mapReply(_ document: QueryDocumentSnapshot) -> ProfilePostDTO {
+        let data = document.data()
+
+        return ProfilePostDTO(
+            id: document.documentID,
+            authorName: data["authorName"] as? String ?? "",
+            authorHandle: data["authorHandle"] as? String ?? "",
+            avatarImageName: Constants.defaultAvatarImageName,
+            avatarURL: data["authorAvatarURL"] as? String,
+            createdAt: (data["createdAt"] as? Timestamp)?.dateValue(),
+            text: data["text"] as? String ?? "",
+            attachmentImageName: nil,
+            commentsCount: 0,
+            repostsCount: 0,
+            likesCount: 0,
+            viewsCount: 0,
+            replyingToHandle: data["postAuthorHandle"] as? String
+        )
+    }
 }
 
 // MARK: - Constants
@@ -149,6 +196,7 @@ private extension ProfileService {
     enum Constants {
         static let usersCollection = "users"
         static let postsCollection = "posts"
+        static let commentsCollectionGroup = "comments"
         static let defaultAvatarImageName = "person.crop.circle.fill"
     }
 }

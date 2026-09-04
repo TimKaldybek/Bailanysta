@@ -2288,6 +2288,17 @@
           }
         }
       }
+    },
+    "Profile.Error.Follow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't update follow status. Please try again."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

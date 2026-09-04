@@ -33,6 +33,7 @@ final class CommentsService {
         }
 
         let author = try await loadAuthor(uid: uid)
+        let postAuthorHandle = await loadPostAuthorHandle(postID: postID)
         let createdAt = Date()
 
         let reference = try await commentsCollection(postID: postID).addDocument(data: [
@@ -40,6 +41,7 @@ final class CommentsService {
             "authorName": author.name,
             "authorHandle": author.handle,
             "authorAvatarURL": author.avatarURL as Any,
+            "postAuthorHandle": postAuthorHandle as Any,
             "text": text,
             "createdAt": FieldValue.serverTimestamp()
         ])
@@ -96,6 +98,15 @@ private extension CommentsService {
             handle: data["handle"] as? String ?? "",
             avatarURL: data["avatarURL"] as? String
         )
+    }
+
+    /// Best-effort denormalization of the parent post's author handle onto the new comment, for
+    /// the Profile Replies tab's "Replying to @handle" UI — a failed read (or missing field) must
+    /// never block the comment write, so it degrades to `nil`.
+    func loadPostAuthorHandle(postID: String) async -> String? {
+        guard let snapshot = try? await firestore.collection(Constants.postsCollection).document(postID).getDocument()
+        else { return nil }
+        return snapshot.data()?["authorHandle"] as? String
     }
 
     /// Best-effort — a failed notification write must never fail the comment itself, so errors

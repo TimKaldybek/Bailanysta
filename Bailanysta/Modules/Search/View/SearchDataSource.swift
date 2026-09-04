@@ -9,8 +9,16 @@ final class SearchDataSource {
 
     private var diffableDataSource: UICollectionViewDiffableDataSource<SearchSection, SearchItem>!
 
-    init(collectionView: UICollectionView) {
-        configure(collectionView: collectionView)
+    init(
+        collectionView: UICollectionView,
+        onSuggestedUserProfileTapped: @escaping (SuggestedUserViewData) -> Void,
+        onSuggestedUserFollowTapped: @escaping (SuggestedUserViewData) -> Void
+    ) {
+        configure(
+            collectionView: collectionView,
+            onSuggestedUserProfileTapped: onSuggestedUserProfileTapped,
+            onSuggestedUserFollowTapped: onSuggestedUserFollowTapped
+        )
     }
 
     // MARK: - Public
@@ -31,12 +39,18 @@ final class SearchDataSource {
 // MARK: - Private
 
 private extension SearchDataSource {
-    func configure(collectionView: UICollectionView) {
+    func configure(
+        collectionView: UICollectionView,
+        onSuggestedUserProfileTapped: @escaping (SuggestedUserViewData) -> Void,
+        onSuggestedUserFollowTapped: @escaping (SuggestedUserViewData) -> Void
+    ) {
         let trendingCell = UICollectionView.CellRegistration<TrendingTopicCell, TrendingTopicViewData> { cell, _, viewData in
             cell.configure(with: viewData)
         }
         let suggestedCell = UICollectionView.CellRegistration<SuggestedUserCell, SuggestedUserViewData> { cell, _, viewData in
             cell.configure(with: viewData)
+            cell.onProfileTapped = { onSuggestedUserProfileTapped(viewData) }
+            cell.onFollowTapped = { onSuggestedUserFollowTapped(viewData) }
         }
         let sectionHeader = UICollectionView.SupplementaryRegistration<SearchSectionHeaderView>(
             elementKind: UICollectionView.elementKindSectionHeader

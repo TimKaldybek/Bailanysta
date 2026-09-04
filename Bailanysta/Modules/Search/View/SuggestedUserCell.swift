@@ -10,6 +10,10 @@ import Kingfisher
 final class SuggestedUserCell: UICollectionViewCell {
     static let reuseIdentifier = "SuggestedUserCell"
 
+    /// Тап по фото, имени или логину — открывает профиль пользователя
+    var onProfileTapped: (() -> Void)?
+    var onFollowTapped: (() -> Void)?
+
     private let avatarContainer: UIView = {
         let view = UIView()
         view.backgroundColor = Color.primaryMuted
@@ -32,8 +36,6 @@ final class SuggestedUserCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         button.layer.cornerRadius = 16
-        // Тап обрабатывается по всей ячейке через didSelectItemAt, а не самой кнопкой
-        button.isUserInteractionEnabled = false
         return button
     }()
 
@@ -52,6 +54,8 @@ final class SuggestedUserCell: UICollectionViewCell {
         avatarImageView.image = nil
         nameLabel.text = nil
         handleLabel.text = nil
+        onProfileTapped = nil
+        onFollowTapped = nil
     }
 
     func configure(with viewData: SuggestedUserViewData) {
@@ -71,6 +75,16 @@ final class SuggestedUserCell: UICollectionViewCell {
     private func setupSubviews() {
         avatarContainer.addSubview(avatarImageView)
         [avatarContainer, nameLabel, handleLabel, followButton].forEach { contentView.addSubview($0) }
+
+        [avatarContainer, nameLabel, handleLabel].forEach {
+            $0.isUserInteractionEnabled = true
+            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleProfileTapped)))
+        }
+        followButton.addAction(UIAction { [weak self] _ in self?.onFollowTapped?() }, for: .touchUpInside)
+    }
+
+    @objc private func handleProfileTapped() {
+        onProfileTapped?()
     }
 
     private func setupConstraints() {

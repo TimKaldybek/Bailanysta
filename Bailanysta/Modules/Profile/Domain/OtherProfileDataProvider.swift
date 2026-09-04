@@ -22,9 +22,15 @@ struct OtherProfileDataProvider {
         )
     }
 
+    /// Delegates to the `Service` and passes the resulting new `isFollowing` state straight
+    /// through — nothing to map, this is an action, not a DTO read.
+    func toggleFollow(targetUid: String, isFollowing: Bool) async throws -> Bool {
+        try await service.toggleFollow(targetUid: targetUid, isFollowing: isFollowing)
+    }
+
     private static func map(_ dto: OtherProfileUserDTO) -> OtherProfileUser {
         OtherProfileUser(
-            id: UUID(uuidString: dto.id) ?? UUID(),
+            uid: dto.id,
             name: dto.name,
             handle: dto.handle,
             tagline: dto.tagline,

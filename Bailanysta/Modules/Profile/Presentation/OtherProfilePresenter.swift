@@ -14,7 +14,7 @@ final class OtherProfilePresenter {
 
     private var model = OtherProfileModel(
         user: OtherProfileUser(
-            id: UUID(),
+            uid: "",
             name: "",
             handle: "",
             tagline: "",
@@ -30,6 +30,8 @@ final class OtherProfilePresenter {
         replies: []
     )
     private var selectedTab: ProfileTab = .posts
+    /// Guards against a second follow/unfollow request firing while one is already in flight.
+    private var isTogglingFollow = false
 
     init(handle: String, interactor: OtherProfileInteractor, viewDataFactory: OtherProfileViewDataFactory) {
         self.handle = handle
@@ -56,17 +58,36 @@ final class OtherProfilePresenter {
         pushViewData()
     }
 
+    /// Waits for the Firestore write to confirm before flipping the UI — mirrors
+    /// `FeedPresenter.likeTapped`'s "wait for the result, then update" approach rather than an
+    /// instant local flip with a rollback on failure.
     func toggleFollow() {
-        model.user.isFollowing.toggle()
-        pushViewData()
+        guard !isTogglingFollow else { return }
+        isTogglingFollow = true
+
+        let targetUid = model.user.uid
+        let wasFollowing = model.user.isFollowing
+
+        Task { @MainActor in
+            defer { isTogglingFollow = false }
+
+            do {
+                let isFollowing = try await interactor.toggleFollow(targetUid: targetUid, isFollowing: wasFollowing)
+                model.user.isFollowing = isFollowing
+                model.user.followersCount += isFollowing ? 1 : -1
+                pushViewData()
+            } catch {
+                pushViewData(errorMessage: "Profile.Error.Follow".localized)
+            }
+        }
     }
 }
 
 // MARK: - Private
 
 private extension OtherProfilePresenter {
-    func pushViewData() {
-        let viewData = viewDataFactory.createViewData(model: model, selectedTab: selectedTab)
+    func pushViewData(errorMessage: String? = nil) {
+        let viewData = viewDataFactory.createViewData(model: model, selectedTab: selectedTab, errorMessage: errorMessage)
         view?.display(viewData)
     }
 }

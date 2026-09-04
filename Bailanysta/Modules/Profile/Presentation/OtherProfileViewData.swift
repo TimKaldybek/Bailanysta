@@ -9,6 +9,8 @@ struct OtherProfileViewData {
     let header: OtherProfileHeaderViewData
     let selectedTab: ProfileTab
     let items: [ProfilePostViewData]
+    /// One-off failure message (e.g. follow/unfollow failed) — `nil` when there's nothing to show
+    let errorMessage: String?
 }
 
 struct OtherProfileHeaderViewData {

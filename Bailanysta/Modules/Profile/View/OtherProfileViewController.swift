@@ -79,6 +79,10 @@ extension OtherProfileViewController: OtherProfileViewInput {
     func display(_ viewData: OtherProfileViewData) {
         otherProfileHeaderCardView.configure(with: viewData.header, selectedTab: viewData.selectedTab)
         dataSource.reload(items: viewData.items)
+
+        if let errorMessage = viewData.errorMessage {
+            showAlert(title: "Error".localized, message: errorMessage)
+        }
     }
 }
 
