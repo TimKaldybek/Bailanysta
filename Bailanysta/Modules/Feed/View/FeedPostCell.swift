@@ -20,6 +20,12 @@ final class FeedPostCell: UICollectionViewCell {
     private let avatarTapGesture = UITapGestureRecognizer()
     private let cardTapGesture = UITapGestureRecognizer()
 
+    /// Last voice message URL actually configured into `voicePlayerView` — a like toggle or live
+    /// Firestore update re-pushes this post's `ViewData` on every change, and without this guard
+    /// `configure(with:)` would recreate the `AVPlayer` (resetting any in-progress playback) even
+    /// when the voice message itself hasn't changed.
+    private var renderedVoiceMessageURL: URL?
+
     private let cardView: UIView = {
         let view = UIView()
         view.backgroundColor = Color.surface
@@ -52,6 +58,7 @@ final class FeedPostCell: UICollectionViewCell {
     private let bodyLabel = UILabel()
 
     private let attachmentView = FeedAttachmentView()
+    private let voicePlayerView = VoiceMessagePlayerView()
 
     private let divider: UIView = {
         let view = UIView()
@@ -89,6 +96,9 @@ final class FeedPostCell: UICollectionViewCell {
         bodyLabel.text = nil
         attachmentView.isHidden = true
         attachmentView.configure(with: nil)
+        voicePlayerView.isHidden = true
+        voicePlayerView.stopPlayback()
+        renderedVoiceMessageURL = nil
         onAvatarTapped = nil
         onLikeTapped = nil
         onCommentsTapped = nil
@@ -120,6 +130,22 @@ final class FeedPostCell: UICollectionViewCell {
             }
         }
 
+        let hasVoiceMessage = viewData.voiceMessage != nil
+        voicePlayerView.isHidden = !hasVoiceMessage
+        if let voiceMessage = viewData.voiceMessage {
+            if voiceMessage.url != renderedVoiceMessageURL {
+                renderedVoiceMessageURL = voiceMessage.url
+                voicePlayerView.configure(url: voiceMessage.url, duration: voiceMessage.duration)
+            }
+        } else {
+            renderedVoiceMessageURL = nil
+        }
+        voicePlayerView.snp.remakeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(attachmentView.snp.bottom).offset(hasVoiceMessage ? 14 : 0)
+            $0.height.equalTo(hasVoiceMessage ? Constants.voicePlayerHeight : 0)
+        }
+
         likesView.configure(systemImageName: "heart", countText: viewData.formattedLikesCount, isActive: viewData.isLiked)
         commentsView.configure(systemImageName: "bubble.left", countText: viewData.formattedCommentsCount)
         shareView.configure(systemImageName: "square.and.arrow.up", countText: nil)
@@ -131,7 +157,7 @@ final class FeedPostCell: UICollectionViewCell {
         avatarContainer.addSubview(avatarImageView)
         [
             avatarContainer, authorNameLabel, handleTimeLabel, bodyLabel,
-            attachmentView, divider, footerStack
+            attachmentView, voicePlayerView, divider, footerStack
         ].forEach { cardView.addSubview($0) }
         contentView.addSubview(cardView)
 
@@ -187,10 +213,11 @@ final class FeedPostCell: UICollectionViewCell {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(avatarContainer.snp.bottom).offset(14)
         }
-        // attachmentView задаётся динамически в configure(with:), т.к. зависит от наличия вложения
+        // attachmentView и voicePlayerView задаются динамически в configure(with:), т.к. зависят
+        // от наличия вложения/голосового сообщения
         divider.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.top.equalTo(attachmentView.snp.bottom).offset(16)
+            $0.top.equalTo(voicePlayerView.snp.bottom).offset(16)
             $0.height.equalTo(1)
         }
         footerStack.snp.makeConstraints {
@@ -199,5 +226,13 @@ final class FeedPostCell: UICollectionViewCell {
             $0.bottom.equalToSuperview().inset(16)
             $0.height.equalTo(22)
         }
+    }
+}
+
+// MARK: - Constants
+
+private extension FeedPostCell {
+    enum Constants {
+        static let voicePlayerHeight: CGFloat = 48
     }
 }

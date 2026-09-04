@@ -28,6 +28,7 @@ final class FeedPostSubmissionService {
         let author = try await loadAuthor(uid: uid)
         let postId = UUID().uuidString
         let attachmentImageURL = try await uploadAttachment(dto.attachments.first, uid: uid, postId: postId)
+        let voiceMessageURL = try await uploadVoiceMessage(dto.voiceMessage, uid: uid, postId: postId)
 
         let batch = firestore.batch()
 
@@ -40,6 +41,8 @@ final class FeedPostSubmissionService {
             "text": dto.text,
             "category": dto.category,
             "attachmentImageURL": attachmentImageURL as Any,
+            "voiceMessageURL": voiceMessageURL as Any,
+            "voiceMessageDuration": dto.voiceMessage?.duration as Any,
             "createdAt": FieldValue.serverTimestamp(),
             "likesCount": 0,
             "commentsCount": 0,
@@ -98,6 +101,16 @@ private extension FeedPostSubmissionService {
 
         let reference = storage.reference().child("postAttachments/\(uid)/\(postId).jpg")
         try await put(attachment.imageData, to: reference)
+        let url = try await reference.downloadURL()
+        return url.absoluteString
+    }
+
+    /// No voice message recorded results in `nil` rather than a thrown error.
+    func uploadVoiceMessage(_ voiceMessage: FeedPostVoiceMessageDTO?, uid: String, postId: String) async throws -> String? {
+        guard let voiceMessage else { return nil }
+
+        let reference = storage.reference().child("postAttachments/\(uid)/\(postId)_voice.m4a")
+        try await put(voiceMessage.audioData, to: reference)
         let url = try await reference.downloadURL()
         return url.absoluteString
     }

@@ -1404,6 +1404,52 @@
         }
       }
     },
+    "FeedPost.Error.MicrophoneDenied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Microphone access is disabled. Enable it in Settings to record a voice message."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступ к микрофону отключён. Включите его в настройках, чтобы записать голосовое сообщение."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Микрофонға қолжетімділік өшірілген. Дауыстық хабарлама жазу үшін оны параметрлерде қосыңыз."
+          }
+        }
+      }
+    },
+    "FeedPost.Error.RecordingFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't start recording. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось начать запись. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазуды бастау мүмкін болмады. Қайталап көріңіз."
+          }
+        }
+      }
+    },
     "FeedPost.Photos": {
       "extractionState": "manual",
       "localizations": {
@@ -1473,6 +1519,29 @@
         }
       }
     },
+    "FeedPost.RecordVoice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазу"
+          }
+        }
+      }
+    },
     "FeedPost.RemovePhoto": {
       "extractionState": "manual",
       "localizations": {
@@ -1496,6 +1565,29 @@
         }
       }
     },
+    "FeedPost.RemoveVoiceMessage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove voice message"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить голосовое сообщение"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дауыстық хабарламаны жою"
+          }
+        }
+      }
+    },
     "FeedPost.Title": {
       "extractionState": "manual",
       "localizations": {
@@ -1515,6 +1607,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жазба жасау"
+          }
+        }
+      }
+    },
+    "FeedPost.VoiceMessage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voice message"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Голосовое сообщение"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дауыстық хабарлама"
           }
         }
       }
@@ -2044,6 +2159,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Аватарды жаңарту мүмкін болмады. Қайталап көріңіз."
+          }
+        }
+      }
+    },
+    "Profile.Error.Follow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't update follow status. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось обновить статус подписки. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылу мәртебесін жаңарту мүмкін болмады. Қайталап көріңіз."
           }
         }
       }
@@ -2780,29 +2918,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қолданбамен бөлісу"
-          }
-        }
-      }
-    },
-    "Profile.Error.Follow": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Couldn't update follow status. Please try again."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось обновить статус подписки. Попробуйте ещё раз."
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Жазылу мәртебесін жаңарту мүмкін болмады. Қайталап көріңіз."
           }
         }
       }

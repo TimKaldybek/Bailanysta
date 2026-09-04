@@ -36,6 +36,9 @@ struct FeedViewDataFactory {
             handleTimeText: "\(post.authorHandle) • \(timeAgoText(from: post.createdAt))",
             text: post.text,
             attachmentImageURL: post.attachmentImageURL,
+            voiceMessage: post.voiceMessageURL.map {
+                FeedVoiceMessageViewData(url: $0, duration: post.voiceMessageDuration ?? 0)
+            },
             avatarImageName: post.avatarImageName,
             avatarURL: post.avatarURL,
             formattedLikesCount: formattedCount(post.likesCount),
