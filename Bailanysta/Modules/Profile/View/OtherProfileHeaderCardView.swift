@@ -25,7 +25,8 @@ final class OtherProfileHeaderCardView: UIView {
     private let avatarImageView: UIImageView = {
         let iv = UIImageView()
         iv.tintColor = Color.primary
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -191,8 +192,7 @@ private extension OtherProfileHeaderCardView {
             $0.size.equalTo(80)
         }
         avatarImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.size.equalTo(40)
+            $0.edges.equalToSuperview()
         }
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(avatarContainer.snp.bottom).offset(16)

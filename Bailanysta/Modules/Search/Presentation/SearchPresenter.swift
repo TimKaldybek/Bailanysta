@@ -5,13 +5,20 @@
 
 import Foundation
 
+/// Outcome of `SearchPresenter.recordSearch(_:)`, returned synchronously so the ViewController can
+/// decide whether to trigger navigation (the Presenter never navigates itself).
+enum SearchSubmitResult {
+    case empty
+    case searched(String)
+}
+
 final class SearchPresenter {
     weak var view: SearchViewInput?
 
     private let interactor: SearchInteractor
     private let viewDataFactory: SearchViewDataFactory
 
-    private var model = SearchModel(trendingTopics: [], suggestedUsers: [])
+    private var model = SearchModel(trendingTopics: [], suggestedUsers: [], popularHashtags: [])
     private var recentSearches: [String]
 
     init(interactor: SearchInteractor, viewDataFactory: SearchViewDataFactory) {
@@ -33,15 +40,17 @@ final class SearchPresenter {
         }
     }
 
-    func recordSearch(_ text: String) {
+    @discardableResult
+    func recordSearch(_ text: String) -> SearchSubmitResult {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
+        guard !trimmed.isEmpty else { return .empty }
 
         recentSearches.removeAll { $0.caseInsensitiveCompare(trimmed) == .orderedSame }
         recentSearches.insert(trimmed, at: 0)
         recentSearches = Array(recentSearches.prefix(Constants.recentSearchesLimit))
 
         pushViewData()
+        return .searched(trimmed)
     }
 
     func clearRecentSearches() {

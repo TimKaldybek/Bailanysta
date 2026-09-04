@@ -6,7 +6,9 @@
 import Foundation
 
 struct FeedViewData {
-    let posts: [FeedPostViewData]
+    /// Ready-made cell list — either shimmering placeholders or real posts, already resolved by
+    /// `FeedViewDataFactory` so `FeedDataSource` only has to apply it, never decide between them.
+    let items: [FeedItem]
     let composer: FeedComposerViewData
     /// One-off failure message (e.g. load/like failed) — `nil` when there's nothing to show
     let errorMessage: String?

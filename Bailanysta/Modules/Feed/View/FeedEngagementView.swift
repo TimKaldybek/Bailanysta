@@ -11,6 +11,10 @@ final class FeedEngagementView: UIView {
 
     var onTap: (() -> Void)?
 
+    /// Exposed so a containing cell can order its own whole-card tap gesture to `require(toFail:)`
+    /// this one — otherwise both would fire for a tap inside this view.
+    let tapGestureRecognizer = UITapGestureRecognizer()
+
     private let iconImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -51,7 +55,8 @@ private extension FeedEngagementView {
         [iconImageView, countLabel].forEach { addSubview($0) }
 
         isUserInteractionEnabled = true
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        tapGestureRecognizer.addTarget(self, action: #selector(handleTap))
+        addGestureRecognizer(tapGestureRecognizer)
     }
 
     func setupConstraints() {

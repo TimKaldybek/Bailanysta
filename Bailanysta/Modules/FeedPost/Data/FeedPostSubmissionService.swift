@@ -29,12 +29,16 @@ final class FeedPostSubmissionService {
         let postId = UUID().uuidString
         let attachmentImageURL = try await uploadAttachment(dto.attachments.first, uid: uid, postId: postId)
 
-        try await firestore.collection(Constants.postsCollection).document(postId).setData([
+        let batch = firestore.batch()
+
+        let postReference = firestore.collection(Constants.postsCollection).document(postId)
+        batch.setData([
             "authorId": uid,
             "authorName": author.name,
             "authorHandle": author.handle,
             "authorAvatarURL": author.avatarURL as Any,
             "text": dto.text,
+            "category": dto.category,
             "attachmentImageURL": attachmentImageURL as Any,
             "createdAt": FieldValue.serverTimestamp(),
             "likesCount": 0,
@@ -42,7 +46,18 @@ final class FeedPostSubmissionService {
             "repostsCount": 0,
             "viewsCount": 0,
             "likedByUserIds": []
-        ])
+        ], forDocument: postReference)
+
+        for hashtag in Self.extractHashtags(from: dto.text) {
+            let hashtagReference = firestore.collection(Constants.hashtagsCollection).document(hashtag.id)
+            batch.setData([
+                "tag": hashtag.tag,
+                "count": FieldValue.increment(Int64(1)),
+                "lastUsedAt": FieldValue.serverTimestamp()
+            ], forDocument: hashtagReference, merge: true)
+        }
+
+        try await batch.commit()
     }
 }
 
@@ -100,6 +115,37 @@ private extension FeedPostSubmissionService {
             }
         }
     }
+
+    struct ExtractedHashtag {
+        /// Document id in the `hashtags` collection — the tag without its leading `#`
+        let id: String
+        /// Lowercased display/stored form, e.g. `"#design"`
+        let tag: String
+    }
+
+    /// Extracts unique, lowercased `#tag` tokens from post text. Supports Unicode letters/digits/
+    /// underscore so Cyrillic/Kazakh hashtags (e.g. "#дизайн") are matched, not just ASCII.
+    static func extractHashtags(from text: String) -> [ExtractedHashtag] {
+        guard let regex = try? NSRegularExpression(pattern: "#[\\p{L}\\p{N}_]+") else { return [] }
+
+        let range = NSRange(text.startIndex..<text.endIndex, in: text)
+        let matches = regex.matches(in: text, range: range)
+
+        var seenIds = Set<String>()
+        var hashtags: [ExtractedHashtag] = []
+
+        for match in matches {
+            guard let matchRange = Range(match.range, in: text) else { continue }
+
+            let tag = text[matchRange].lowercased()
+            let id = String(tag.dropFirst())
+            guard !id.isEmpty, seenIds.insert(id).inserted else { continue }
+
+            hashtags.append(ExtractedHashtag(id: id, tag: tag))
+        }
+
+        return hashtags
+    }
 }
 
 // MARK: - Constants
@@ -108,5 +154,6 @@ private extension FeedPostSubmissionService {
     enum Constants {
         static let usersCollection = "users"
         static let postsCollection = "posts"
+        static let hashtagsCollection = "hashtags"
     }
 }

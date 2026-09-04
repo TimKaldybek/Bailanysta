@@ -11,6 +11,9 @@ final class ProfilePostCell: UICollectionViewCell {
     static let reuseIdentifier = "ProfilePostCell"
 
     var onAvatarTapped: (() -> Void)?
+    var onCommentsTapped: (() -> Void)?
+    /// Reposts/likes/views/bookmark — none are implemented yet on this screen, all route to the same "coming soon" sheet
+    var onComingSoonEngagementTapped: (() -> Void)?
 
     private let cardView: UIView = {
         let view = UIView()
@@ -85,6 +88,8 @@ final class ProfilePostCell: UICollectionViewCell {
         bodyLabel.text = nil
         attachmentView.isHidden = true
         onAvatarTapped = nil
+        onCommentsTapped = nil
+        onComingSoonEngagementTapped = nil
     }
 
     func configure(with viewData: ProfilePostViewData) {
@@ -144,6 +149,12 @@ final class ProfilePostCell: UICollectionViewCell {
 
         avatarContainer.isUserInteractionEnabled = true
         avatarContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAvatarTapped)))
+
+        commentsView.onTap = { [weak self] in self?.onCommentsTapped?() }
+        repostsView.onTap = { [weak self] in self?.onComingSoonEngagementTapped?() }
+        likesView.onTap = { [weak self] in self?.onComingSoonEngagementTapped?() }
+        viewsView.onTap = { [weak self] in self?.onComingSoonEngagementTapped?() }
+        bookmarkView.onTap = { [weak self] in self?.onComingSoonEngagementTapped?() }
     }
 
     @objc private func handleAvatarTapped() {

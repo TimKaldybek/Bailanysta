@@ -10,6 +10,11 @@ final class SearchViewController: UIViewController {
 
     /// Тап по фото/имени/логину в блоке "Suggested for you" — открывает профиль по хэндлу
     var suggestedUserTapped: ((String) -> Void)?
+    /// Тап по карточке в блоке "Trending" — открывает Feed, предзагруженный постами по теме
+    var trendingTopicTapped: ((String) -> Void)?
+    /// Сабмит поискового запроса (return в поле поиска или тап по chip'у истории) — открывает Feed,
+    /// отфильтрованный по ключевому слову/хэштегу
+    var searchSubmitted: ((String) -> Void)?
 
     private let presenter: SearchPresenter
     private let collectionView: UICollectionView
@@ -27,6 +32,17 @@ final class SearchViewController: UIViewController {
 
     private let searchBarView = SearchBarView()
     private let recentSearchesView = RecentSearchesView()
+    private let popularHashtagsView = PopularHashtagsView()
+
+    /// Stacks the collapsible Recent Searches / Popular Hashtags blocks above `collectionView` —
+    /// hiding an arranged subview via `isHidden` collapses its space automatically, so any number
+    /// of these blocks can appear/disappear without remaking `collectionView`'s constraints
+    private let collapsibleBlocksStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 20
+        return stack
+    }()
 
     // MARK: - Init
 
@@ -56,7 +72,7 @@ final class SearchViewController: UIViewController {
         setupConstraints()
 
         searchBarView.onSubmit = { [weak self] text in
-            self?.presenter.recordSearch(text)
+            self?.submitSearch(text)
         }
         searchBarView.onMicTapped = { [weak self] in
             self?.showComingSoonSheet()
@@ -66,6 +82,11 @@ final class SearchViewController: UIViewController {
         }
         recentSearchesView.onChipTapped = { [weak self] text in
             self?.searchBarView.setText(text)
+            self?.submitSearch(text)
+        }
+        popularHashtagsView.onChipTapped = { [weak self] tag in
+            self?.searchBarView.setText(tag)
+            self?.submitSearch(tag)
         }
         presenter.load()
     }
@@ -80,6 +101,11 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: SearchViewInput {
     func display(_ viewData: SearchViewData) {
         recentSearchesView.configure(items: viewData.recentSearches)
+        recentSearchesView.isHidden = viewData.recentSearches.isEmpty
+
+        popularHashtagsView.configure(items: viewData.popularHashtags)
+        popularHashtagsView.isHidden = viewData.popularHashtags.isEmpty
+
         dataSource.reload(trendingTopics: viewData.trendingTopics, suggestedUsers: viewData.suggestedUsers)
 
         if let errorMessage = viewData.errorMessage {
@@ -96,8 +122,8 @@ extension SearchViewController: UICollectionViewDelegate {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
 
         switch item {
-        case .trending:
-            showComingSoonSheet()
+        case .trending(let viewData):
+            trendingTopicTapped?(viewData.category)
         case .suggestedUser:
             // Профиль/фоллоу обрабатываются собственными тап-таргетами `SuggestedUserCell`, а не
             // выбором ячейки целиком
@@ -109,9 +135,19 @@ extension SearchViewController: UICollectionViewDelegate {
 // MARK: - Private
 
 private extension SearchViewController {
+    func submitSearch(_ text: String) {
+        switch presenter.recordSearch(text) {
+        case .empty:
+            break
+        case .searched(let query):
+            searchSubmitted?(query)
+        }
+    }
+
     func setupUI() {
         view.backgroundColor = Color.background
-        [searchBarView, recentSearchesView, collectionView].forEach { view.addSubview($0) }
+        [recentSearchesView, popularHashtagsView].forEach { collapsibleBlocksStack.addArrangedSubview($0) }
+        [searchBarView, collapsibleBlocksStack, collectionView].forEach { view.addSubview($0) }
     }
 
     func setupConstraints() {
@@ -119,12 +155,12 @@ private extension SearchViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
-        recentSearchesView.snp.makeConstraints {
+        collapsibleBlocksStack.snp.makeConstraints {
             $0.top.equalTo(searchBarView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(recentSearchesView.snp.bottom)
+            $0.top.equalTo(collapsibleBlocksStack.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         collectionView.contentInset.bottom = Constants.tabBarHeight

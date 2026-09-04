@@ -13,7 +13,7 @@ final class ModuleFactory {
         return SettingsViewController(presenter: presenter)
     }
     
-    static func createFeedModule() -> FeedViewController {
+    static func createFeedModule(filter: FeedFilter? = nil) -> FeedViewController {
         let service = FeedPostsService()
         let dataProvider = FeedPostsDataProvider(service: service)
         let likeService = FeedLikeService()
@@ -26,7 +26,7 @@ final class ModuleFactory {
             composerDataProvider: composerDataProvider
         )
         let viewDataFactory = FeedViewDataFactory()
-        let presenter = FeedPresenter(interactor: interactor, viewDataFactory: viewDataFactory)
+        let presenter = FeedPresenter(interactor: interactor, viewDataFactory: viewDataFactory, filter: filter)
         let viewController = FeedViewController(presenter: presenter)
         presenter.view = viewController
 

@@ -14,14 +14,16 @@ final class FeedDataSource {
         onAvatarTapped: @escaping (FeedPostViewData) -> Void,
         onLikeTapped: @escaping (UUID) -> Void,
         onCommentsTapped: @escaping (UUID) -> Void,
-        onShareTapped: @escaping (FeedPostViewData) -> Void
+        onShareTapped: @escaping (FeedPostViewData) -> Void,
+        onCardTapped: @escaping (UUID) -> Void
     ) {
         diffableDataSource = Self.makeDataSource(
             collectionView: collectionView,
             onAvatarTapped: onAvatarTapped,
             onLikeTapped: onLikeTapped,
             onCommentsTapped: onCommentsTapped,
-            onShareTapped: onShareTapped
+            onShareTapped: onShareTapped,
+            onCardTapped: onCardTapped
         )
     }
 
@@ -31,10 +33,10 @@ final class FeedDataSource {
         diffableDataSource.itemIdentifier(for: indexPath)
     }
 
-    func reload(posts: [FeedPostViewData]) {
+    func reload(items: [FeedItem]) {
         var snapshot = NSDiffableDataSourceSnapshot<FeedSection, FeedItem>()
         snapshot.appendSections(FeedSection.allCases)
-        snapshot.appendItems(posts.map { .post($0) }, toSection: .posts)
+        snapshot.appendItems(items, toSection: .posts)
         diffableDataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -47,7 +49,8 @@ private extension FeedDataSource {
         onAvatarTapped: @escaping (FeedPostViewData) -> Void,
         onLikeTapped: @escaping (UUID) -> Void,
         onCommentsTapped: @escaping (UUID) -> Void,
-        onShareTapped: @escaping (FeedPostViewData) -> Void
+        onShareTapped: @escaping (FeedPostViewData) -> Void,
+        onCardTapped: @escaping (UUID) -> Void
     ) -> UICollectionViewDiffableDataSource<FeedSection, FeedItem> {
         let postCell = UICollectionView.CellRegistration<FeedPostCell, FeedPostViewData> { cell, _, viewData in
             cell.configure(with: viewData)
@@ -55,7 +58,9 @@ private extension FeedDataSource {
             cell.onLikeTapped = { onLikeTapped(viewData.id) }
             cell.onCommentsTapped = { onCommentsTapped(viewData.id) }
             cell.onShareTapped = { onShareTapped(viewData) }
+            cell.onCardTapped = { onCardTapped(viewData.id) }
         }
+        let skeletonCell = UICollectionView.CellRegistration<FeedSkeletonCell, Int> { _, _, _ in }
 
         return UICollectionViewDiffableDataSource<FeedSection, FeedItem>(
             collectionView: collectionView
@@ -63,6 +68,8 @@ private extension FeedDataSource {
             switch item {
             case .post(let viewData):
                 return cv.dequeueConfiguredReusableCell(using: postCell, for: indexPath, item: viewData)
+            case .skeleton(let index):
+                return cv.dequeueConfiguredReusableCell(using: skeletonCell, for: indexPath, item: index)
             }
         }
     }

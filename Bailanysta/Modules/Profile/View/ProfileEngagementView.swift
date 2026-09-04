@@ -9,6 +9,8 @@ import SnapKit
 /// Иконка + опциональный счётчик в футере поста (комментарии/репосты/лайки/просмотры/закладки)
 final class ProfileEngagementView: UIView {
 
+    var onTap: (() -> Void)?
+
     private let iconImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -27,6 +29,10 @@ final class ProfileEngagementView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
 
+    @objc private func handleTap() {
+        onTap?()
+    }
+
     func configure(systemImageName: String, countText: String?) {
         iconImageView.image = UIImage(systemName: systemImageName)
         countLabel.setText(countText, size: 14, weight: .regular, textColor: Color.labelSecondary)
@@ -39,6 +45,9 @@ final class ProfileEngagementView: UIView {
 private extension ProfileEngagementView {
     func setupSubviews() {
         [iconImageView, countLabel].forEach { addSubview($0) }
+
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
 
     func setupConstraints() {

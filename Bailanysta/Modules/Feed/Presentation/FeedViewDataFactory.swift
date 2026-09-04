@@ -6,8 +6,26 @@
 import Foundation
 
 struct FeedViewDataFactory {
-    func createViewData(posts: [FeedPost], composer: FeedComposer, errorMessage: String? = nil) -> FeedViewData {
-        FeedViewData(posts: posts.map(Self.map), composer: Self.map(composer), errorMessage: errorMessage)
+    func createViewData(
+        posts: [FeedPost],
+        composer: FeedComposer,
+        isLoading: Bool,
+        errorMessage: String? = nil
+    ) -> FeedViewData {
+        FeedViewData(
+            items: Self.items(posts: posts, isLoading: isLoading),
+            composer: Self.map(composer),
+            errorMessage: errorMessage
+        )
+    }
+
+    /// Shimmering placeholders while the first page is loading and nothing has arrived yet;
+    /// real posts otherwise.
+    private static func items(posts: [FeedPost], isLoading: Bool) -> [FeedItem] {
+        guard isLoading && posts.isEmpty else {
+            return posts.map { .post(map($0)) }
+        }
+        return (0..<Constants.skeletonCount).map { .skeleton($0) }
     }
 
     private static func map(_ post: FeedPost) -> FeedPostViewData {
@@ -49,5 +67,9 @@ struct FeedViewDataFactory {
         default:
             return String(format: "%.1fM", Double(value) / 1_000_000)
         }
+    }
+
+    private enum Constants {
+        static let skeletonCount = 4
     }
 }

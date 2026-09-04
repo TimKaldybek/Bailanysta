@@ -57,9 +57,8 @@ final class FeedComposeView: UIView {
         setupConstraints()
     }
 
-    required init?(coder: NSCoder) {
-        nil
-    }
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { nil }
 
     func configure(with viewData: FeedComposerViewData) {
         if let avatarURL = viewData.avatarURL {
