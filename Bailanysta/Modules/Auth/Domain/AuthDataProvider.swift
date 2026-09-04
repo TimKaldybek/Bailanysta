@@ -20,11 +20,6 @@ struct AuthDataProvider {
         return Self.map(dto)
     }
 
-    func signInAnonymously() async throws -> AuthUser {
-        let dto = try await service.signInAnonymously()
-        return Self.map(dto)
-    }
-
     func signInWithGoogle(idToken: String, accessToken: String, name: String, email: String) async throws -> AuthUser {
         let dto = try await service.signInWithGoogle(idToken: idToken, accessToken: accessToken, name: name, email: email)
         return Self.map(dto)

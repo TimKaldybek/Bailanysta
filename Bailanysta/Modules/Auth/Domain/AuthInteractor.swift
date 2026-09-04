@@ -18,10 +18,6 @@ final class AuthInteractor {
         try await dataProvider.signUp(email: email, password: password, name: name, handle: handle)
     }
 
-    func continueAsGuest() async throws -> AuthUser {
-        try await dataProvider.signInAnonymously()
-    }
-
     func signInWithGoogle(idToken: String, accessToken: String, name: String, email: String) async throws -> AuthUser {
         try await dataProvider.signInWithGoogle(idToken: idToken, accessToken: accessToken, name: name, email: email)
     }

@@ -415,29 +415,6 @@
         }
       }
     },
-    "Auth.Login.ContinueAsGuestButton": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue as Guest"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Продолжить как гость"
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Қонақ ретінде жалғастыру"
-          }
-        }
-      }
-    },
     "Auth.Login.GoogleButton": {
       "extractionState": "manual",
       "localizations": {

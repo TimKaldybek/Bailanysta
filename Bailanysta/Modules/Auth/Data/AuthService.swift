@@ -28,11 +28,6 @@ final class AuthService {
         return Self.map(result.user)
     }
 
-    func signInAnonymously() async throws -> AuthUserDTO {
-        let result = try await auth.signInAnonymously()
-        return Self.map(result.user)
-    }
-
     func signInWithGoogle(idToken: String, accessToken: String, name: String, email: String) async throws -> AuthUserDTO {
         let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
         let result = try await auth.signIn(with: credential)

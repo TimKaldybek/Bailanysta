@@ -55,24 +55,6 @@ final class LoginPresenter {
         }
     }
 
-    func continueAsGuest() {
-        Task { @MainActor in
-            guard !isSubmitting else { return }
-
-            isSubmitting = true
-            pushViewData(errorMessage: nil)
-
-            do {
-                _ = try await interactor.continueAsGuest()
-                isSubmitting = false
-                view?.didAuthenticate()
-            } catch {
-                isSubmitting = false
-                pushViewData(errorMessage: "Auth.Error.Generic".localized)
-            }
-        }
-    }
-
     func signInWithGoogle(idToken: String, accessToken: String, name: String, email: String) {
         Task { @MainActor in
             guard !isSubmitting else { return }

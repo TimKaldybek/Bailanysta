@@ -85,10 +85,6 @@ final class LoginViewController: UIViewController {
         icon: "g.circle.fill"
     )
     private let divider = AuthFormStyle.makeDivider(text: "Auth.Shared.OrDivider".localized)
-    private let guestButton = AuthFormStyle.makeTextButton(
-        title: "Auth.Login.ContinueAsGuestButton".localized,
-        color: Color.labelSecondary
-    )
     private let signUpPromptButton = AuthFormStyle.makeTextButton(title: "Auth.Login.SignUpPrompt".localized)
 
     // MARK: - Init
@@ -130,7 +126,6 @@ extension LoginViewController: LoginViewInput {
         passwordField.isEnabled = viewData.isFormEnabled
         signInButton.isEnabled = viewData.isFormEnabled
         googleSignInButton.isEnabled = viewData.isFormEnabled
-        guestButton.isEnabled = viewData.isFormEnabled
         signUpPromptButton.isEnabled = viewData.isFormEnabled
 
         signInButton.configuration?.title = viewData.isSubmitting
@@ -173,7 +168,7 @@ private extension LoginViewController {
         [
             heroContainer, titleLabel, subtitleLabel,
             emailField, passwordField, errorLabel,
-            signInButton, googleSignInButton, divider, guestButton, signUpPromptButton
+            signInButton, googleSignInButton, divider, signUpPromptButton
         ].forEach { contentStackView.addArrangedSubview($0) }
 
         contentStackView.setCustomSpacing(20, after: heroContainer)
@@ -181,8 +176,7 @@ private extension LoginViewController {
         contentStackView.setCustomSpacing(28, after: subtitleLabel)
         contentStackView.setCustomSpacing(12, after: signInButton)
         contentStackView.setCustomSpacing(20, after: googleSignInButton)
-        contentStackView.setCustomSpacing(4, after: divider)
-        contentStackView.setCustomSpacing(28, after: guestButton)
+        contentStackView.setCustomSpacing(28, after: divider)
 
         scrollView.addSubview(contentStackView)
         view.addSubview(scrollView)
@@ -193,10 +187,6 @@ private extension LoginViewController {
 
         googleSignInButton.addAction(UIAction { [weak self] _ in
             self?.googleSignInTapped()
-        }, for: .touchUpInside)
-
-        guestButton.addAction(UIAction { [weak self] _ in
-            self?.continueAsGuestTapped()
         }, for: .touchUpInside)
 
         signUpPromptButton.addAction(UIAction { [weak self] _ in
@@ -218,7 +208,7 @@ private extension LoginViewController {
             $0.centerX.equalToSuperview()
         }
 
-        [signInButton, googleSignInButton, guestButton].forEach { control in
+        [signInButton, googleSignInButton].forEach { control in
             control.snp.makeConstraints {
                 $0.height.equalTo(54)
             }
@@ -264,11 +254,6 @@ private extension LoginViewController {
         let email = emailField.textField.text ?? ""
         let password = passwordField.textField.text ?? ""
         presenter.signIn(email: email, password: password)
-    }
-
-    func continueAsGuestTapped() {
-        view.endEditing(true)
-        presenter.continueAsGuest()
     }
 
     func googleSignInTapped() {
