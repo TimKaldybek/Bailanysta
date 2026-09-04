@@ -135,6 +135,8 @@ private extension FeedLikeService {
             text: data["text"] as? String ?? "",
             attachmentImageName: nil,
             attachmentImageURL: data["attachmentImageURL"] as? String,
+            voiceMessageURL: data["voiceMessageURL"] as? String,
+            voiceMessageDuration: data["voiceMessageDuration"] as? TimeInterval,
             likesCount: data["likesCount"] as? Int ?? 0,
             isLiked: likedByUserIds.contains(currentUserID),
             commentsCount: data["commentsCount"] as? Int ?? 0

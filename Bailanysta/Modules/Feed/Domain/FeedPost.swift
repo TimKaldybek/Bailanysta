@@ -17,6 +17,8 @@ struct FeedPost: Hashable {
     let text: String
     let attachmentImageName: String?
     let attachmentImageURL: URL?
+    let voiceMessageURL: URL?
+    let voiceMessageDuration: TimeInterval?
     let likesCount: Int
     let isLiked: Bool
     let commentsCount: Int

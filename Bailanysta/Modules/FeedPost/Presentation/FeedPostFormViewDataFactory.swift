@@ -21,6 +21,9 @@ struct FeedPostFormViewDataFactory {
         let remainingCharacters = Constants.maxCharacterCount - draft.text.count
         let remainingAttachmentSlots = max(0, Constants.maxAttachments - draft.images.count)
         let trimmedText = draft.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let voiceMessage = draft.voiceMessage.map {
+            FeedPostVoiceMessageViewData(fileURL: $0.fileURL, duration: $0.duration)
+        }
 
         return FeedPostFormViewData(
             categories: categories,
@@ -31,7 +34,9 @@ struct FeedPostFormViewDataFactory {
             attachmentsCountText: "\(draft.images.count)/\(Constants.maxAttachments)",
             isAddPhotoEnabled: !isSubmitting && remainingAttachmentSlots > 0,
             remainingAttachmentSlots: remainingAttachmentSlots,
-            isPostEnabled: !isSubmitting && !trimmedText.isEmpty,
+            voiceMessage: voiceMessage,
+            isRecordVoiceEnabled: !isSubmitting && draft.voiceMessage == nil,
+            isPostEnabled: !isSubmitting && (!trimmedText.isEmpty || draft.voiceMessage != nil),
             isSubmitting: isSubmitting,
             errorMessage: errorMessage
         )

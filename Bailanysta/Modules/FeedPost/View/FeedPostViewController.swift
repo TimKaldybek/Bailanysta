@@ -6,6 +6,7 @@
 import UIKit
 import SnapKit
 import PhotosUI
+import AVFoundation
 
 final class FeedPostViewController: UIViewController {
 
@@ -22,6 +23,15 @@ final class FeedPostViewController: UIViewController {
     /// every keystroke in the text view.
     private var renderedAttachmentIDs: [UUID] = []
     private var renderedIsAddPhotoEnabled = false
+
+    /// Last voice message URL actually configured into `voicePlayerView` — lets `display(_:)` skip
+    /// re-creating the `AVPlayer` (which would interrupt any in-progress preview playback) on
+    /// pushes unrelated to the voice message, e.g. every keystroke in the text view.
+    private var renderedVoiceMessageURL: URL?
+
+    private var audioRecorder: AVAudioRecorder?
+    private var recordingStartDate: Date?
+    private var recordingTimer: Timer?
 
     // MARK: - Header
 
@@ -129,6 +139,44 @@ final class FeedPostViewController: UIViewController {
         return button
     }()
 
+    // MARK: - Voice message section
+
+    private let voiceHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.setText("FeedPost.VoiceMessage".localized, size: 15, weight: .semibold, textColor: Color.label)
+        return label
+    }()
+
+    private let recordButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = Color.primaryMuted
+        configuration.baseForegroundColor = Color.primary
+        configuration.imagePadding = 8
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14)
+        let button = UIButton(configuration: configuration)
+        button.layer.cornerRadius = 16
+        button.clipsToBounds = true
+        return button
+    }()
+
+    private let voicePlayerView = VoiceMessagePlayerView()
+
+    private let removeVoiceButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = Color.labelSecondary
+        button.accessibilityLabel = "FeedPost.RemoveVoiceMessage".localized
+        return button
+    }()
+
+    private lazy var voicePreviewStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [voicePlayerView, removeVoiceButton])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        return stack
+    }()
+
     // MARK: - Category section
 
     private let categoryHeaderLabel: UILabel = {
@@ -167,6 +215,19 @@ final class FeedPostViewController: UIViewController {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
+
+    deinit {
+        // Safety net for a recording still in progress when this screen is dismissed (e.g. a
+        // swipe-to-dismiss that bypasses `closeButton`) — an orphaned `AVAudioRecorder` would
+        // otherwise keep the mic session active and its repeating elapsed-time `Timer` firing
+        // indefinitely.
+        recordingTimer?.invalidate()
+        if let recorder = audioRecorder {
+            recorder.stop()
+            try? FileManager.default.removeItem(at: recorder.url)
+            try? AVAudioSession.sharedInstance().setActive(false)
+        }
+    }
 
     // MARK: - Lifecycle
 
@@ -213,6 +274,7 @@ extension FeedPostViewController: FeedPostViewInput {
         }
 
         updateAttachmentsIfNeeded(viewData)
+        updateVoiceMessageIfNeeded(viewData)
 
         if let errorMessage = viewData.errorMessage {
             showAlert(title: "Error".localized, message: errorMessage)
@@ -220,6 +282,10 @@ extension FeedPostViewController: FeedPostViewInput {
     }
 
     func closeAfterPosting() {
+        // The recording's already been read and uploaded by now — its local temp copy is dead weight.
+        if let url = renderedVoiceMessageURL {
+            try? FileManager.default.removeItem(at: url)
+        }
         didFinish?()
     }
 }
@@ -275,11 +341,16 @@ private extension FeedPostViewController {
         photosSectionStack.axis = .vertical
         photosSectionStack.spacing = 12
 
+        let voiceSectionStack = UIStackView(arrangedSubviews: [voiceHeaderLabel, recordButton, voicePreviewStack])
+        voiceSectionStack.axis = .vertical
+        voiceSectionStack.alignment = .leading
+        voiceSectionStack.spacing = 12
+
         let categorySectionStack = UIStackView(arrangedSubviews: [categoryHeaderLabel, categoryStackView])
         categorySectionStack.axis = .vertical
         categorySectionStack.spacing = 12
 
-        [composerCardView, photosSectionStack, categorySectionStack].forEach {
+        [composerCardView, photosSectionStack, voiceSectionStack, categorySectionStack].forEach {
             contentStackView.addArrangedSubview($0)
         }
 
@@ -290,6 +361,7 @@ private extension FeedPostViewController {
         }
 
         closeButton.addAction(UIAction { [weak self] _ in
+            self?.discardVoiceMessageWork()
             self?.didFinish?()
         }, for: .touchUpInside)
 
@@ -300,6 +372,20 @@ private extension FeedPostViewController {
         addPhotoTileButton.addAction(UIAction { [weak self] _ in
             self?.presentPhotoPicker()
         }, for: .touchUpInside)
+
+        recordButton.addAction(UIAction { [weak self] _ in
+            self?.toggleRecording()
+        }, for: .touchUpInside)
+
+        removeVoiceButton.addAction(UIAction { [weak self] _ in
+            self?.voicePlayerView.stopPlayback()
+            if let url = self?.renderedVoiceMessageURL {
+                try? FileManager.default.removeItem(at: url)
+            }
+            self?.presenter.removeVoiceMessage()
+        }, for: .touchUpInside)
+
+        setRecordButtonIdle()
     }
 
     func setupCategoryButtons(count: Int) {
@@ -340,6 +426,22 @@ private extension FeedPostViewController {
         }
     }
 
+    func updateVoiceMessageIfNeeded(_ viewData: FeedPostFormViewData) {
+        recordButton.isEnabled = viewData.isRecordVoiceEnabled
+        recordButton.isHidden = viewData.voiceMessage != nil
+
+        guard let voiceMessage = viewData.voiceMessage else {
+            voicePreviewStack.isHidden = true
+            renderedVoiceMessageURL = nil
+            return
+        }
+
+        voicePreviewStack.isHidden = false
+        guard voiceMessage.fileURL != renderedVoiceMessageURL else { return }
+        renderedVoiceMessageURL = voiceMessage.fileURL
+        voicePlayerView.configure(url: voiceMessage.fileURL, duration: voiceMessage.duration)
+    }
+
     func presentPhotoPicker() {
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         configuration.filter = .images
@@ -374,6 +476,110 @@ private extension FeedPostViewController {
             }
             return images
         }
+    }
+
+    // MARK: - Voice recording
+
+    func toggleRecording() {
+        audioRecorder == nil ? startRecording() : stopRecording()
+    }
+
+    func startRecording() {
+        AVAudioApplication.requestRecordPermission { [weak self] granted in
+            DispatchQueue.main.async {
+                guard granted else {
+                    self?.showAlert(title: "Error".localized, message: "FeedPost.Error.MicrophoneDenied".localized)
+                    return
+                }
+                self?.beginRecording()
+            }
+        }
+    }
+
+    func beginRecording() {
+        let session = AVAudioSession.sharedInstance()
+        let fileURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString)
+            .appendingPathExtension("m4a")
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVSampleRateKey: 44_100,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.medium.rawValue
+        ]
+
+        do {
+            try session.setCategory(.playAndRecord, mode: .default)
+            try session.setActive(true)
+            let recorder = try AVAudioRecorder(url: fileURL, settings: settings)
+            recorder.record()
+            audioRecorder = recorder
+            recordingStartDate = Date()
+            setRecordButtonRecording(elapsed: 0)
+            recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
+                self?.updateRecordingElapsed()
+            }
+        } catch {
+            showAlert(title: "Error".localized, message: "FeedPost.Error.RecordingFailed".localized)
+        }
+    }
+
+    func updateRecordingElapsed() {
+        guard let recordingStartDate else { return }
+        setRecordButtonRecording(elapsed: Date().timeIntervalSince(recordingStartDate))
+    }
+
+    func stopRecording() {
+        guard let recorder = audioRecorder else { return }
+
+        let duration = recorder.currentTime
+        recorder.stop()
+        audioRecorder = nil
+        recordingStartDate = nil
+        recordingTimer?.invalidate()
+        recordingTimer = nil
+        setRecordButtonIdle()
+
+        guard duration >= Constants.minimumRecordingDuration else {
+            try? FileManager.default.removeItem(at: recorder.url)
+            return
+        }
+        presenter.voiceMessageRecorded(fileURL: recorder.url, duration: duration)
+    }
+
+    /// Stops any in-progress recording and discards any already-recorded-but-unposted voice
+    /// message's local temp file — called when the composer is closed without posting.
+    func discardVoiceMessageWork() {
+        if let recorder = audioRecorder {
+            recordingTimer?.invalidate()
+            recordingTimer = nil
+            recorder.stop()
+            audioRecorder = nil
+            try? FileManager.default.removeItem(at: recorder.url)
+            try? AVAudioSession.sharedInstance().setActive(false)
+        }
+        if let url = renderedVoiceMessageURL {
+            try? FileManager.default.removeItem(at: url)
+        }
+    }
+
+    func setRecordButtonIdle() {
+        recordButton.configuration?.image = UIImage(systemName: "mic.fill")
+        recordButton.configuration?.title = "FeedPost.RecordVoice".localized
+        recordButton.configuration?.baseBackgroundColor = Color.primaryMuted
+        recordButton.configuration?.baseForegroundColor = Color.primary
+    }
+
+    func setRecordButtonRecording(elapsed: TimeInterval) {
+        recordButton.configuration?.image = UIImage(systemName: "stop.fill")
+        recordButton.configuration?.title = Self.formattedTime(elapsed)
+        recordButton.configuration?.baseBackgroundColor = Color.accentRed.withAlphaComponent(0.12)
+        recordButton.configuration?.baseForegroundColor = Color.accentRed
+    }
+
+    static func formattedTime(_ seconds: TimeInterval) -> String {
+        let totalSeconds = Int(seconds.rounded())
+        return String(format: "%d:%02d", totalSeconds / 60, totalSeconds % 60)
     }
 
     func setupConstraints() {
@@ -419,6 +625,17 @@ private extension FeedPostViewController {
         }
         addPhotoTileButton.snp.makeConstraints {
             $0.size.equalTo(76)
+        }
+
+        recordButton.snp.makeConstraints {
+            $0.height.equalTo(44)
+        }
+        voicePreviewStack.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        removeVoiceButton.snp.makeConstraints {
+            $0.size.equalTo(28)
         }
 
         categoryStackView.snp.makeConstraints {
@@ -476,5 +693,14 @@ private extension FeedPostViewController {
         button.layer.cornerRadius = 18
         button.clipsToBounds = true
         return button
+    }
+}
+
+// MARK: - Constants
+
+private extension FeedPostViewController {
+    enum Constants {
+        /// A recording shorter than this (an accidental tap) is discarded rather than attached
+        static let minimumRecordingDuration: TimeInterval = 1
     }
 }

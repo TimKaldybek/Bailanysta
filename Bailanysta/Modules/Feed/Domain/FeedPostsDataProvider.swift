@@ -48,6 +48,8 @@ struct FeedPostsDataProvider {
             text: dto.text,
             attachmentImageName: dto.attachmentImageName,
             attachmentImageURL: dto.attachmentImageURL.flatMap(URL.init(string:)),
+            voiceMessageURL: dto.voiceMessageURL.flatMap(URL.init(string:)),
+            voiceMessageDuration: dto.voiceMessageDuration,
             likesCount: dto.likesCount,
             isLiked: dto.isLiked,
             commentsCount: dto.commentsCount

@@ -11,7 +11,7 @@ final class FeedPostPresenter {
     private let interactor: FeedPostInteractor
     private let viewDataFactory: FeedPostFormViewDataFactory
 
-    private var draft = FeedPostDraft(text: "", category: .design, images: [])
+    private var draft = FeedPostDraft(text: "", category: .design, images: [], voiceMessage: nil)
     private var isSubmitting = false
 
     init(interactor: FeedPostInteractor, viewDataFactory: FeedPostFormViewDataFactory) {
@@ -53,8 +53,18 @@ final class FeedPostPresenter {
         pushViewData()
     }
 
+    func voiceMessageRecorded(fileURL: URL, duration: TimeInterval) {
+        draft.voiceMessage = FeedPostVoiceMessage(fileURL: fileURL, duration: duration)
+        pushViewData()
+    }
+
+    func removeVoiceMessage() {
+        draft.voiceMessage = nil
+        pushViewData()
+    }
+
     func postButtonTapped() {
-        guard !isSubmitting, isTextValid else { return }
+        guard !isSubmitting, isPostValid else { return }
 
         isSubmitting = true
         pushViewData()
@@ -77,6 +87,12 @@ final class FeedPostPresenter {
 private extension FeedPostPresenter {
     var isTextValid: Bool {
         !draft.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    /// A post needs text, a voice message, or both — an empty draft with only photos isn't
+    /// postable (matches the pre-existing text-required behavior for photo-only drafts).
+    var isPostValid: Bool {
+        isTextValid || draft.voiceMessage != nil
     }
 
     func pushViewData(errorMessage: String? = nil) {

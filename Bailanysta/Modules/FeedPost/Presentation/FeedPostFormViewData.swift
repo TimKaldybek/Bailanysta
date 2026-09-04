@@ -14,6 +14,8 @@ struct FeedPostFormViewData {
     let attachmentsCountText: String
     let isAddPhotoEnabled: Bool
     let remainingAttachmentSlots: Int
+    let voiceMessage: FeedPostVoiceMessageViewData?
+    let isRecordVoiceEnabled: Bool
     let isPostEnabled: Bool
     let isSubmitting: Bool
     let errorMessage: String?
@@ -27,4 +29,9 @@ struct FeedPostCategoryViewData {
 struct FeedPostAttachmentViewData {
     let id: UUID
     let image: UIImage
+}
+
+struct FeedPostVoiceMessageViewData {
+    let fileURL: URL
+    let duration: TimeInterval
 }

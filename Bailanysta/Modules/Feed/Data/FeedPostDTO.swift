@@ -19,6 +19,9 @@ struct FeedPostDTO {
     let attachmentImageName: String?
     /// Firestore `attachmentImageURL` — `nil` means the post has no attachment
     let attachmentImageURL: String?
+    /// Firestore Storage download URL of a recorded voice message — `nil` means no voice message
+    let voiceMessageURL: String?
+    let voiceMessageDuration: TimeInterval?
     let likesCount: Int
     let isLiked: Bool
     let commentsCount: Int

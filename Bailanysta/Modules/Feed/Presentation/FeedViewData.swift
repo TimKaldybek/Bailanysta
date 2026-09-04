@@ -26,9 +26,15 @@ struct FeedPostViewData: Hashable {
     let handleTimeText: String
     let text: String
     let attachmentImageURL: URL?
+    let voiceMessage: FeedVoiceMessageViewData?
     let avatarImageName: String
     let avatarURL: URL?
     let formattedLikesCount: String
     let formattedCommentsCount: String
     let isLiked: Bool
+}
+
+struct FeedVoiceMessageViewData: Hashable {
+    let url: URL
+    let duration: TimeInterval
 }
