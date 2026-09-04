@@ -22,6 +22,7 @@ final class CommentCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.tintColor = Color.primary
         iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -86,8 +87,7 @@ private extension CommentCell {
             $0.size.equalTo(36)
         }
         avatarImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.size.equalTo(20)
+            $0.edges.equalToSuperview()
         }
         authorNameLabel.snp.makeConstraints {
             $0.leading.equalTo(avatarContainer.snp.trailing).offset(12)

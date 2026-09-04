@@ -43,6 +43,7 @@ final class FeedPostCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.tintColor = Color.primary
         iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -170,8 +171,7 @@ final class FeedPostCell: UICollectionViewCell {
             $0.size.equalTo(48)
         }
         avatarImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.size.equalTo(24)
+            $0.edges.equalToSuperview()
         }
         authorNameLabel.snp.makeConstraints {
             $0.leading.equalTo(avatarContainer.snp.trailing).offset(12)

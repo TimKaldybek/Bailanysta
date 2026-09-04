@@ -26,6 +26,7 @@ final class SuggestedUserCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.tintColor = Color.primary
         iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -94,8 +95,7 @@ final class SuggestedUserCell: UICollectionViewCell {
             $0.size.equalTo(44)
         }
         avatarImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.size.equalTo(22)
+            $0.edges.equalToSuperview()
         }
         followButton.snp.makeConstraints {
             $0.trailing.equalToSuperview()
