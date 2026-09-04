@@ -48,7 +48,8 @@ struct OtherProfileDataProvider {
             commentsCount: dto.commentsCount,
             repostsCount: dto.repostsCount,
             likesCount: dto.likesCount,
-            viewsCount: dto.viewsCount
+            viewsCount: dto.viewsCount,
+            replyingToHandle: dto.replyingToHandle
         )
     }
 }

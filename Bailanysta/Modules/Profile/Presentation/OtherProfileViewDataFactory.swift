@@ -44,6 +44,7 @@ struct OtherProfileViewDataFactory {
             text: post.text,
             attachmentImageName: post.attachmentImageName,
             avatarImageName: post.avatarImageName,
+            replyingToText: post.replyingToHandle,
             formattedCommentsCount: "\(post.commentsCount)",
             formattedRepostsCount: "\(post.repostsCount)",
             formattedLikesCount: "\(post.likesCount)",

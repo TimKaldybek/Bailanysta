@@ -44,6 +44,7 @@ struct ProfileViewDataFactory {
             text: post.text,
             attachmentImageName: post.attachmentImageName,
             avatarImageName: post.avatarImageName,
+            replyingToText: post.replyingToHandle.map { String(format: "Profile.ReplyingTo".localized, $0) },
             formattedCommentsCount: "\(post.commentsCount)",
             formattedRepostsCount: "\(post.repostsCount)",
             formattedLikesCount: "\(post.likesCount)",

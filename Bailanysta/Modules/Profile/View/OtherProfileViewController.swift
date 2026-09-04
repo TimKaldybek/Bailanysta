@@ -17,7 +17,7 @@ final class OtherProfileViewController: UIViewController {
 
     /// `lazy`, а не `let`: замыкание захватывает `self`, что запрещено до вызова `super.init()`.
     /// Переход "чужой профиль → тап на аватар поста → ещё один чужой профиль" вне скоупа задачи, поэтому колбэк — no-op
-    private lazy var dataSource = ProfileDataSource(collectionView: collectionView, onAvatarTapped: { _ in })
+    private lazy var dataSource = OtherProfileDataSource(collectionView: collectionView, onAvatarTapped: { _ in })
 
     private let headerView: UIView = {
         let view = UIView()
@@ -40,7 +40,7 @@ final class OtherProfileViewController: UIViewController {
     init(presenter: OtherProfilePresenter) {
         self.presenter = presenter
 
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: ProfileLayout.make())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: OtherProfileLayout.make())
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         self.collectionView = collectionView

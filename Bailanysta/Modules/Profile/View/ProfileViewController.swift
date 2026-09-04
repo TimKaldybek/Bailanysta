@@ -15,14 +15,22 @@ final class ProfileViewController: UIViewController {
     var postAuthorTapped: ((String) -> Void)?
 
     private let presenter: ProfilePresenter
+    private lazy var dataSource: ProfileDataSource = ProfileDataSource(
+        collectionView: collectionView,
+        onEditProfileTapped: { [weak self] in
+            self?.editProfileTapped?()
+        },
+        onShareTapped: { [weak self] handle in
+            self?.shareTapped?(handle)
+        },
+        onTabSelected: { [weak presenter] tab in
+            presenter?.selectTab(tab)
+        },
+        onAvatarTapped: { [weak self] viewData in
+            self?.postAuthorTapped?(viewData.authorHandle)
+        }
+    )
     private let collectionView: UICollectionView
-
-    /// `lazy`, а не `let`: замыкание захватывает `self`, что запрещено до вызова `super.init()`
-    private lazy var dataSource = ProfileDataSource(collectionView: collectionView, onAvatarTapped: { [weak self] viewData in
-        self?.postAuthorTapped?(viewData.authorHandle)
-    })
-
-    private var shareHandle = ""
 
     private let headerView: UIView = {
         let view = UIView()
@@ -37,8 +45,6 @@ final class ProfileViewController: UIViewController {
         label.setText("Profile.Title".localized, size: 28, weight: .bold, textColor: Color.primary)
         return label
     }()
-
-    private let profileHeaderCardView = ProfileHeaderCardView()
 
     // MARK: - Init
 
@@ -78,9 +84,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: ProfileViewInput {
     func display(_ viewData: ProfileViewData) {
-        shareHandle = viewData.header.handle
-        profileHeaderCardView.configure(with: viewData.header, selectedTab: viewData.selectedTab)
-        dataSource.reload(items: viewData.items)
+        dataSource.reload(viewData)
     }
 }
 
@@ -97,23 +101,11 @@ private extension ProfileViewController {
 
         [titleLabel, settingsButton].forEach { headerView.addSubview($0) }
         view.addSubview(headerView)
-        view.addSubview(profileHeaderCardView)
         view.addSubview(collectionView)
 
         settingsButton.addAction(UIAction { [weak self] _ in
             self?.settingsButtonTapped?()
         }, for: .touchUpInside)
-
-        profileHeaderCardView.onEditProfileTapped = { [weak self] in
-            self?.editProfileTapped?()
-        }
-        profileHeaderCardView.onShareTapped = { [weak self] in
-            guard let self else { return }
-            self.shareTapped?(self.shareHandle)
-        }
-        profileHeaderCardView.onTabSelected = { [weak self] tab in
-            self?.presenter.selectTab(tab)
-        }
     }
 
     func setupConstraints() {
@@ -130,12 +122,8 @@ private extension ProfileViewController {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(32)
         }
-        profileHeaderCardView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
-        }
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(profileHeaderCardView.snp.bottom).offset(12)
+            $0.top.equalTo(headerView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         collectionView.contentInset.bottom = Constants.tabBarHeight

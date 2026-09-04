@@ -17,4 +17,6 @@ struct ProfilePost: Hashable {
     let repostsCount: Int
     let likesCount: Int
     let viewsCount: Int
+    /// Хэндл автора исходного поста — заполнен только для вкладки Replies
+    let replyingToHandle: String?
 }

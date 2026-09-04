@@ -41,7 +41,8 @@ private extension OtherProfileService {
                     commentsCount: 18,
                     repostsCount: 0,
                     likesCount: 124,
-                    viewsCount: 0
+                    viewsCount: 0,
+                    replyingToHandle: nil
                 ),
                 ProfilePostDTO(
                     id: UUID().uuidString,
@@ -54,7 +55,8 @@ private extension OtherProfileService {
                     commentsCount: 0,
                     repostsCount: 0,
                     likesCount: 0,
-                    viewsCount: 0
+                    viewsCount: 0,
+                    replyingToHandle: nil
                 )
             ],
             likes: [],
