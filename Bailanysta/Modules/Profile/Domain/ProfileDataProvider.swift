@@ -26,6 +26,14 @@ struct ProfileDataProvider {
         _ = try await service.uploadAvatar(ProfileAvatarUploadDTO(imageData: imageData))
     }
 
+    func deletePost(postID: String) async throws {
+        try await service.deletePost(postID: postID)
+    }
+
+    func deleteReply(postID: String, commentID: String) async throws {
+        try await service.deleteReply(postID: postID, commentID: commentID)
+    }
+
     private static func map(_ dto: ProfileUserDTO) -> ProfileUser {
         ProfileUser(
             id: UUID(uuidString: dto.id) ?? UUID(),
@@ -43,7 +51,7 @@ struct ProfileDataProvider {
 
     private static func map(_ dto: ProfilePostDTO) -> ProfilePost {
         ProfilePost(
-            id: UUID(uuidString: dto.id) ?? UUID(),
+            id: dto.id,
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
@@ -55,7 +63,8 @@ struct ProfileDataProvider {
             repostsCount: dto.repostsCount,
             likesCount: dto.likesCount,
             viewsCount: dto.viewsCount,
-            replyingToHandle: dto.replyingToHandle
+            replyingToHandle: dto.replyingToHandle,
+            parentPostId: dto.parentPostId
         )
     }
 }

@@ -75,6 +75,26 @@ final class ProfilePresenter {
             pushViewData()
         }
     }
+
+    /// `parentPostId` non-nil means `id` is a reply's comment id (Replies tab); `nil` means `id`
+    /// is a post's own id (Posts tab) — Likes-tab items never reach here (`canDelete == false`).
+    func deleteItem(id: String, parentPostId: String?) {
+        Task { @MainActor in
+            do {
+                if let parentPostId {
+                    try await interactor.deleteReply(postID: parentPostId, commentID: id)
+                } else {
+                    try await interactor.deletePost(postID: id)
+                }
+            } catch {
+                pushViewData(errorMessage: "Profile.Error.Delete".localized)
+                return
+            }
+
+            await reloadModel()
+            pushViewData()
+        }
+    }
 }
 
 // MARK: - Private

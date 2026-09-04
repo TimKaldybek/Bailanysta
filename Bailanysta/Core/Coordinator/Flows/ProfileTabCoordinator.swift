@@ -36,8 +36,11 @@ final class ProfileTabCoordinator: Coordinator {
         navigationController.viewControllers = [vc]
     }
 
-    private func showComments(postID: UUID) {
-        let coordinator = CoordinatorFactory.commentsCoordinator(navigationController: navigationController, postID: postID)
+    private func showComments(postID: String) {
+        let coordinator = CoordinatorFactory.commentsCoordinator(
+            navigationController: navigationController,
+            postID: UUID(uuidString: postID) ?? UUID()
+        )
         commentsCoordinator = coordinator
         coordinator.start()
     }

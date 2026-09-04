@@ -35,7 +35,7 @@ struct ProfileHeaderCellViewData: Hashable {
 }
 
 struct ProfilePostViewData: Hashable {
-    let id: UUID
+    let id: String
     let authorName: String
     let authorHandle: String
     /// Готовая для отображения строка "@handle • time"
@@ -50,4 +50,11 @@ struct ProfilePostViewData: Hashable {
     let formattedRepostsCount: String
     let formattedLikesCount: String
     let formattedViewsCount: String
+    /// Id родительского поста — заполнен только для вкладки Replies (`nil` для Posts/Likes)
+    let parentPostId: String?
+    /// `true` для Posts/Replies (свой контент), `false` для Likes (чужой пост)
+    let canDelete: Bool
+    /// Id поста, чей экран комментариев открывать по тапу — это сам пост для Posts/Likes,
+    /// либо `parentPostId` для Replies (тап должен вести к посту, а не к самому комментарию)
+    let commentsTargetId: String
 }

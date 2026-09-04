@@ -14,6 +14,7 @@ final class ProfilePostCell: UICollectionViewCell {
     var onCommentsTapped: (() -> Void)?
     /// Reposts/likes/views/bookmark — none are implemented yet on this screen, all route to the same "coming soon" sheet
     var onComingSoonEngagementTapped: (() -> Void)?
+    var onDeleteTapped: (() -> Void)?
 
     private let cardView: UIView = {
         let view = UIView()
@@ -40,6 +41,15 @@ final class ProfilePostCell: UICollectionViewCell {
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         return iv
+    }()
+
+    private let moreButton: UIButton = {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(systemName: "ellipsis")
+        let button = UIButton(configuration: configuration)
+        button.tintColor = Color.labelSecondary
+        button.showsMenuAsPrimaryAction = true
+        return button
     }()
 
     private let authorNameLabel = UILabel()
@@ -88,9 +98,12 @@ final class ProfilePostCell: UICollectionViewCell {
         replyingToLabel.isHidden = true
         bodyLabel.text = nil
         attachmentView.isHidden = true
+        moreButton.menu = nil
+        moreButton.isHidden = true
         onAvatarTapped = nil
         onCommentsTapped = nil
         onComingSoonEngagementTapped = nil
+        onDeleteTapped = nil
     }
 
     func configure(with viewData: ProfilePostViewData) {
@@ -103,6 +116,12 @@ final class ProfilePostCell: UICollectionViewCell {
         authorNameLabel.setText(viewData.authorName, size: 17, weight: .bold, textColor: Color.label)
         handleTimeLabel.setText(viewData.handleTimeText, size: 14, weight: .regular, textColor: Color.labelSecondary)
         bodyLabel.setText(viewData.text, size: 17, weight: .regular, textColor: Color.label)
+
+        moreButton.isHidden = !viewData.canDelete
+        let deleteAction = UIAction(title: "Profile.Post.Delete".localized, image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+            self?.onDeleteTapped?()
+        }
+        moreButton.menu = UIMenu(children: [deleteAction])
 
         let hasReplyingTo = viewData.replyingToText != nil
         replyingToLabel.isHidden = !hasReplyingTo
@@ -144,7 +163,7 @@ final class ProfilePostCell: UICollectionViewCell {
         avatarContainer.addSubview(avatarImageView)
         [
             avatarContainer, authorNameLabel, handleTimeLabel, replyingToLabel, bodyLabel,
-            attachmentView, divider, footerStack
+            attachmentView, divider, footerStack, moreButton
         ].forEach { cardView.addSubview($0) }
         contentView.addSubview(cardView)
 
@@ -174,14 +193,19 @@ final class ProfilePostCell: UICollectionViewCell {
         avatarImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        moreButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(8)
+            $0.top.equalTo(avatarContainer)
+            $0.size.equalTo(32)
+        }
         authorNameLabel.snp.makeConstraints {
             $0.leading.equalTo(avatarContainer.snp.trailing).offset(12)
-            $0.trailing.equalToSuperview().inset(16)
+            $0.trailing.equalTo(moreButton.snp.leading).offset(-4)
             $0.top.equalTo(avatarContainer).offset(2)
         }
         handleTimeLabel.snp.makeConstraints {
             $0.leading.equalTo(authorNameLabel)
-            $0.trailing.equalToSuperview().inset(16)
+            $0.trailing.equalTo(moreButton.snp.leading).offset(-4)
             $0.top.equalTo(authorNameLabel.snp.bottom).offset(2)
         }
         // replyingToLabel и bodyLabel задаются динамически в configure(with:), т.к. зависят от наличия replyingToText

@@ -45,7 +45,7 @@ struct OtherProfileDataProvider {
 
     private static func map(_ dto: ProfilePostDTO) -> ProfilePost {
         ProfilePost(
-            id: UUID(uuidString: dto.id) ?? UUID(),
+            id: dto.id,
             authorName: dto.authorName,
             authorHandle: dto.authorHandle,
             avatarImageName: dto.avatarImageName,
@@ -57,7 +57,8 @@ struct OtherProfileDataProvider {
             repostsCount: dto.repostsCount,
             likesCount: dto.likesCount,
             viewsCount: dto.viewsCount,
-            replyingToHandle: dto.replyingToHandle
+            replyingToHandle: dto.replyingToHandle,
+            parentPostId: dto.parentPostId
         )
     }
 }

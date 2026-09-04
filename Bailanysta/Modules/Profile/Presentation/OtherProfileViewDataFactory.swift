@@ -55,7 +55,11 @@ struct OtherProfileViewDataFactory {
             formattedCommentsCount: "\(post.commentsCount)",
             formattedRepostsCount: "\(post.repostsCount)",
             formattedLikesCount: "\(post.likesCount)",
-            formattedViewsCount: "\(post.viewsCount)"
+            formattedViewsCount: "\(post.viewsCount)",
+            parentPostId: post.parentPostId,
+            // На чужом профиле удаление недоступно — можно удалять только свой контент
+            canDelete: false,
+            commentsTargetId: post.parentPostId ?? post.id
         )
     }
 

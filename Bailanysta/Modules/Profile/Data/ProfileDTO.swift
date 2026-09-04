@@ -37,6 +37,8 @@ struct ProfilePostDTO {
     let viewsCount: Int
     /// Хэндл автора исходного поста — заполнен только для вкладки Replies
     let replyingToHandle: String?
+    /// Document id родительского поста — заполнен только для вкладки Replies (`nil` для Posts/Likes)
+    let parentPostId: String?
 }
 
 struct ProfileDTO {

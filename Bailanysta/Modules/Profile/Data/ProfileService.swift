@@ -50,12 +50,67 @@ final class ProfileService {
 
         return url
     }
+
+    /// Deletes the post document, all of its comments (Firestore doesn't cascade-delete
+    /// subcollections), and best-effort cleans up its Storage attachments.
+    ///
+    /// - Throws: `ProfileServiceError.notOwner` if the post isn't the signed-in user's own — the
+    ///   UI only ever surfaces delete for the current user's own Posts/Replies tabs, but this is
+    ///   checked here too as defense-in-depth since Firestore's security rules don't enforce it.
+    func deletePost(postID: String) async throws {
+        guard let uid = SessionManager.shared.currentUserID else {
+            throw ProfileServiceError.notSignedIn
+        }
+
+        let postReference = firestore.collection(Constants.postsCollection).document(postID)
+        let postSnapshot = try await postReference.getDocument()
+        guard postSnapshot.exists, postSnapshot.data()?["authorId"] as? String == uid else {
+            throw ProfileServiceError.notOwner
+        }
+
+        let commentsSnapshot = try await postReference.collection(Constants.commentsCollectionGroup).getDocuments()
+
+        let batch = firestore.batch()
+        for commentDocument in commentsSnapshot.documents {
+            batch.deleteDocument(commentDocument.reference)
+        }
+        batch.deleteDocument(postReference)
+        try await batch.commit()
+
+        try? await storage.reference().child("postAttachments/\(uid)/\(postID).jpg").delete()
+        try? await storage.reference().child("postAttachments/\(uid)/\(postID)_voice.m4a").delete()
+    }
+
+    /// Deletes a single reply and best-effort decrements the parent post's `commentsCount` — a
+    /// failed decrement (e.g. the post was already deleted) shouldn't make the delete look failed.
+    ///
+    /// - Throws: `ProfileServiceError.notOwner` if the comment isn't the signed-in user's own —
+    ///   same defense-in-depth reasoning as `deletePost`.
+    func deleteReply(postID: String, commentID: String) async throws {
+        guard let uid = SessionManager.shared.currentUserID else {
+            throw ProfileServiceError.notSignedIn
+        }
+
+        let commentReference = firestore.collection(Constants.postsCollection).document(postID)
+            .collection(Constants.commentsCollectionGroup).document(commentID)
+        let commentSnapshot = try await commentReference.getDocument()
+        guard commentSnapshot.exists, commentSnapshot.data()?["authorId"] as? String == uid else {
+            throw ProfileServiceError.notOwner
+        }
+
+        try await commentReference.delete()
+
+        try? await firestore.collection(Constants.postsCollection).document(postID).updateData([
+            "commentsCount": FieldValue.increment(Int64(-1))
+        ])
+    }
 }
 
 // MARK: - Errors
 
 enum ProfileServiceError: Error {
     case notSignedIn
+    case notOwner
 }
 
 // MARK: - Private
@@ -163,7 +218,8 @@ private extension ProfileService {
             repostsCount: data["repostsCount"] as? Int ?? 0,
             likesCount: data["likesCount"] as? Int ?? 0,
             viewsCount: data["viewsCount"] as? Int ?? 0,
-            replyingToHandle: nil
+            replyingToHandle: nil,
+            parentPostId: nil
         )
     }
 
@@ -185,7 +241,8 @@ private extension ProfileService {
             repostsCount: 0,
             likesCount: 0,
             viewsCount: 0,
-            replyingToHandle: data["postAuthorHandle"] as? String
+            replyingToHandle: data["postAuthorHandle"] as? String,
+            parentPostId: document.reference.parent.parent?.documentID
         )
     }
 }

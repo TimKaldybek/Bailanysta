@@ -1640,19 +1640,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Now is the perfect time to reconnect ✨"
+            "value": "Come on in — we're always here to listen 💬"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сейчас самое время снова стать ближе ✨"
+            "value": "Заходите — мы всегда рады выслушать 💬"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Қазір қайта жақындасудың ең жақсы уақыты ✨"
+            "value": "Кіріңіз — біз әрқашан тыңдауға дайынбыз 💬"
           }
         }
       }
@@ -1663,19 +1663,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "When did you last have a heart-to-heart? 💬"
+            "value": "Got something to share?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Когда вы в последний раз говорили по душам? 💬"
+            "value": "Есть чем поделиться?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Соңғы рет жүректен-жүрекке сөйлескеніңіз қашан? 💬"
+            "value": "Бөлісетін нәрсе бар ма?"
           }
         }
       }
@@ -1686,19 +1686,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "An evening full of fun and discovery awaits 🌙"
+            "value": "Share your thoughts, we're always waiting ✨"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вас ждёт вечер, полный веселья и открытий 🌙"
+            "value": "Поделитесь мыслями, мы всегда ждём ✨"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сізді қызық пен жаңалыққа толы кеш күтіп тұр 🌙"
+            "value": "Ойларыңызбен бөлісіңіз, біз әрқашан күтеміз ✨"
           }
         }
       }
@@ -1709,19 +1709,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Play with your other half tonight 🎲"
+            "value": "How was your day?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сыграйте сегодня вечером со своей половинкой 🎲"
+            "value": "Как прошёл день?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бүгін кешке жарыңызбен ойнаңыз 🎲"
+            "value": "Күніңіз қалай өтті?"
           }
         }
       }
@@ -1732,19 +1732,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "One question can bring you closer than you think 💫"
+            "value": "Let it out — we're here to listen 🌙"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Один вопрос может сблизить вас больше, чем вы думаете 💫"
+            "value": "Выговоритесь — здесь вас услышат 🌙"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бір сұрақ сізді ойлағаннан да жақындата алады 💫"
+            "value": "Жүрегіңізді босатыңыз — біз тыңдаймыз 🌙"
           }
         }
       }
@@ -1755,19 +1755,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "How is your other half feeling? ❤️"
+            "value": "Something on your mind?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Как себя чувствует ваша половинка? ❤️"
+            "value": "Накопилось что сказать?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жарыңыздың көңіл-күйі қалай? ❤️"
+            "value": "Айтқыңыз келетін нәрсе бар ма?"
           }
         }
       }
@@ -1778,19 +1778,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Get to know each other even better tonight 🔥"
+            "value": "Drop by and share what's on your mind 💫"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Узнайте друг друга ещё лучше сегодня вечером 🔥"
+            "value": "Загляните и поделитесь тем, что на душе 💫"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бүгін кешке бір-біріңізді жақсырақ танып біліңіз 🔥"
+            "value": "Кіріп, көңіліңіздегімен бөлісіңіз 💫"
           }
         }
       }
@@ -1801,19 +1801,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "We have lots of new interesting questions for you 🌟"
+            "value": "A new day, new thoughts"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "У нас для вас много новых интересных вопросов 🌟"
+            "value": "Новый день — новые мысли"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сізге арналған көптеген жаңа қызықты сұрақтар бар 🌟"
+            "value": "Жаңа күн — жаңа ойлар"
           }
         }
       }
@@ -1824,19 +1824,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "One question reveals something new about your partner 🎯"
+            "value": "We're always here, come say hi 🎯"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Один вопрос открывает что-то новое о вашем партнёре 🎯"
+            "value": "Мы всегда рядом, заходите 🎯"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бір сұрақ серіктесіңіз туралы жаңа нәрсе ашады 🎯"
+            "value": "Біз әрқашан осындамыз, кіріңіз 🎯"
           }
         }
       }
@@ -1847,19 +1847,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Get a little closer every day 💑"
+            "value": "Feel like talking it out?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Становитесь ближе друг к другу каждый день 💑"
+            "value": "Хочется выговориться?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Күн сайын бір-біріңізге жақындай беріңіз 💑"
+            "value": "Көңіліңізді жеңілдеткіңіз келе ме?"
           }
         }
       }
@@ -1870,19 +1870,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Discover new sides of your partner tonight 💫"
+            "value": "Share everything that's built up today 🕯️"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Откройте новые стороны своего партнёра сегодня вечером 💫"
+            "value": "Поделитесь тем, что накопилось за день 🕯️"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бүгін кешке серіктесіңіздің жаңа қырларын ашыңыз 💫"
+            "value": "Күн бойы жиналған ойларыңызбен бөлісіңіз 🕯️"
           }
         }
       }
@@ -1893,19 +1893,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The perfect evening starts right here 🕯️"
+            "value": "Got a minute?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Идеальный вечер начинается прямо здесь 🕯️"
+            "value": "Есть минутка?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Тамаша кеш дәл осы жерден басталады 🕯️"
+            "value": "Бір минутыңыз бар ма?"
           }
         }
       }
@@ -1916,19 +1916,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A little conversation makes relationships stronger 💪"
+            "value": "Tell us — we're always here ❓"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Небольшой разговор делает отношения крепче 💪"
+            "value": "Расскажите нам — мы всегда ждём ❓"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Шағын әңгіме қарым-қатынасты нығайтады 💪"
+            "value": "Бізге айтыңыз — біз әрқашан күтеміз ❓"
           }
         }
       }
@@ -1939,19 +1939,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Question of the day for you two ❓"
+            "value": "What's new today?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вопрос дня для вас двоих ❓"
+            "value": "Что нового сегодня?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Екеуіңізге арналған күн сұрағы ❓"
+            "value": "Бүгін не жаңалық?"
           }
         }
       }
@@ -1962,19 +1962,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A few questions will make your evening unforgettable ✨"
+            "value": "Come in, there's always someone to share with 🥰"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Несколько вопросов сделают ваш вечер незабываемым ✨"
+            "value": "Заходите, здесь всегда есть, с кем поделиться 🥰"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бірнеше сұрақ кешіңізді ұмытылмас етеді ✨"
+            "value": "Кіріңіз, мұнда әрқашан бөлісетін біреу бар 🥰"
           }
         }
       }
@@ -1985,19 +1985,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Missing each other? 🥰"
+            "value": "Miss having someone to talk to?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Скучаете друг по другу? 🥰"
+            "value": "Соскучились по разговору?"
           }
         },
         "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бір-біріңізді сағындыңыз ба? 🥰"
+            "value": "Әңгімелесетін адам сағындыңыз ба?"
           }
         }
       }
@@ -2163,6 +2163,29 @@
         }
       }
     },
+    "Profile.Error.Delete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't delete. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось удалить. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою мүмкін болмады. Қайталап көріңіз."
+          }
+        }
+      }
+    },
     "Profile.Error.Follow": {
       "extractionState": "manual",
       "localizations": {
@@ -2228,6 +2251,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Әзірге сипаттама жоқ."
+          }
+        }
+      }
+    },
+    "Profile.Post.Delete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою"
           }
         }
       }
@@ -2918,6 +2964,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қолданбамен бөлісу"
+          }
+        }
+      }
+    },
+    "Profile.Post.DeleteConfirmMessage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This can't be undone."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это действие нельзя отменить."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл әрекетті болдырмау мүмкін емес."
           }
         }
       }

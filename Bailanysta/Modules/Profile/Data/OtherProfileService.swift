@@ -217,7 +217,8 @@ private extension OtherProfileService {
             repostsCount: data["repostsCount"] as? Int ?? 0,
             likesCount: data["likesCount"] as? Int ?? 0,
             viewsCount: data["viewsCount"] as? Int ?? 0,
-            replyingToHandle: nil
+            replyingToHandle: nil,
+            parentPostId: nil
         )
     }
 
@@ -239,7 +240,8 @@ private extension OtherProfileService {
             repostsCount: 0,
             likesCount: 0,
             viewsCount: 0,
-            replyingToHandle: data["postAuthorHandle"] as? String
+            replyingToHandle: data["postAuthorHandle"] as? String,
+            parentPostId: document.reference.parent.parent?.documentID
         )
     }
 }

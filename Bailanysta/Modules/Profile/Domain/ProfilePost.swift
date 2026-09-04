@@ -6,7 +6,7 @@
 import Foundation
 
 struct ProfilePost: Hashable {
-    let id: UUID
+    let id: String
     let authorName: String
     let authorHandle: String
     let avatarImageName: String
@@ -22,4 +22,6 @@ struct ProfilePost: Hashable {
     let viewsCount: Int
     /// Хэндл автора исходного поста — заполнен только для вкладки Replies
     let replyingToHandle: String?
+    /// Id родительского поста — заполнен только для вкладки Replies (`nil` для Posts/Likes)
+    let parentPostId: String?
 }

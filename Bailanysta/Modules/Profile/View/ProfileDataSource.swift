@@ -15,8 +15,9 @@ final class ProfileDataSource {
         onShareTapped: @escaping (String) -> Void,
         onTabSelected: @escaping (ProfileTab) -> Void,
         onAvatarTapped: @escaping (ProfilePostViewData) -> Void,
-        onCommentsTapped: @escaping (UUID) -> Void,
-        onComingSoonEngagementTapped: @escaping () -> Void
+        onCommentsTapped: @escaping (String) -> Void,
+        onComingSoonEngagementTapped: @escaping () -> Void,
+        onDeleteTapped: @escaping (ProfilePostViewData) -> Void
     ) {
         diffableDataSource = Self.makeDataSource(
             collectionView: collectionView,
@@ -25,7 +26,8 @@ final class ProfileDataSource {
             onTabSelected: onTabSelected,
             onAvatarTapped: onAvatarTapped,
             onCommentsTapped: onCommentsTapped,
-            onComingSoonEngagementTapped: onComingSoonEngagementTapped
+            onComingSoonEngagementTapped: onComingSoonEngagementTapped,
+            onDeleteTapped: onDeleteTapped
         )
     }
 
@@ -60,8 +62,9 @@ private extension ProfileDataSource {
         onShareTapped: @escaping (String) -> Void,
         onTabSelected: @escaping (ProfileTab) -> Void,
         onAvatarTapped: @escaping (ProfilePostViewData) -> Void,
-        onCommentsTapped: @escaping (UUID) -> Void,
-        onComingSoonEngagementTapped: @escaping () -> Void
+        onCommentsTapped: @escaping (String) -> Void,
+        onComingSoonEngagementTapped: @escaping () -> Void,
+        onDeleteTapped: @escaping (ProfilePostViewData) -> Void
     ) -> UICollectionViewDiffableDataSource<ProfileSection, ProfileItem> {
         let headerCell = UICollectionView.CellRegistration<ProfileHeaderCell, ProfileHeaderCellViewData> { cell, _, viewData in
             cell.configure(with: viewData)
@@ -72,8 +75,9 @@ private extension ProfileDataSource {
         let postCell = UICollectionView.CellRegistration<ProfilePostCell, ProfilePostViewData> { cell, _, viewData in
             cell.configure(with: viewData)
             cell.onAvatarTapped = { onAvatarTapped(viewData) }
-            cell.onCommentsTapped = { onCommentsTapped(viewData.id) }
+            cell.onCommentsTapped = { onCommentsTapped(viewData.commentsTargetId) }
             cell.onComingSoonEngagementTapped = onComingSoonEngagementTapped
+            cell.onDeleteTapped = { onDeleteTapped(viewData) }
         }
         let emptyStateCell = UICollectionView.CellRegistration<ProfileEmptyStateCell, String> { cell, _, message in
             cell.configure(with: message)

@@ -10,7 +10,7 @@ struct ProfileViewDataFactory {
         ProfileViewData(
             header: Self.mapHeader(model.user),
             selectedTab: selectedTab,
-            items: items(for: selectedTab, model: model).map(Self.mapPost),
+            items: items(for: selectedTab, model: model).map { Self.mapPost($0, selectedTab: selectedTab) },
             emptyStateMessage: Self.emptyStateMessage(for: selectedTab),
             errorMessage: errorMessage
         )
@@ -47,7 +47,7 @@ struct ProfileViewDataFactory {
         }
     }
 
-    private static func mapPost(_ post: ProfilePost) -> ProfilePostViewData {
+    private static func mapPost(_ post: ProfilePost, selectedTab: ProfileTab) -> ProfilePostViewData {
         ProfilePostViewData(
             id: post.id,
             authorName: post.authorName,
@@ -61,7 +61,10 @@ struct ProfileViewDataFactory {
             formattedCommentsCount: "\(post.commentsCount)",
             formattedRepostsCount: "\(post.repostsCount)",
             formattedLikesCount: "\(post.likesCount)",
-            formattedViewsCount: "\(post.viewsCount)"
+            formattedViewsCount: "\(post.viewsCount)",
+            parentPostId: post.parentPostId,
+            canDelete: selectedTab != .likes,
+            commentsTargetId: post.parentPostId ?? post.id
         )
     }
 

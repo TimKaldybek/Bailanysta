@@ -12,7 +12,7 @@ final class ProfileViewController: UIViewController {
     var settingsButtonTapped: (() -> Void)?
     var shareTapped: ((String) -> Void)?
     var postAuthorTapped: ((String) -> Void)?
-    var commentsTapped: ((UUID) -> Void)?
+    var commentsTapped: ((String) -> Void)?
 
     private let presenter: ProfilePresenter
     private lazy var dataSource: ProfileDataSource = ProfileDataSource(
@@ -34,6 +34,9 @@ final class ProfileViewController: UIViewController {
         },
         onComingSoonEngagementTapped: { [weak self] in
             self?.showComingSoonSheet()
+        },
+        onDeleteTapped: { [weak self] viewData in
+            self?.confirmDelete(viewData)
         }
     )
     private let collectionView: UICollectionView
@@ -124,6 +127,16 @@ extension ProfileViewController: PHPickerViewControllerDelegate {
 // MARK: - Private
 
 private extension ProfileViewController {
+
+    func confirmDelete(_ viewData: ProfilePostViewData) {
+        showConfirmation(
+            title: "Profile.Post.Delete".localized,
+            message: "Profile.Post.DeleteConfirmMessage".localized,
+            confirmTitle: "Profile.Post.Delete".localized
+        ) { [weak self] in
+            self?.presenter.deleteItem(id: viewData.id, parentPostId: viewData.parentPostId)
+        }
+    }
 
     func setupUI() {
         view.backgroundColor = Color.background
