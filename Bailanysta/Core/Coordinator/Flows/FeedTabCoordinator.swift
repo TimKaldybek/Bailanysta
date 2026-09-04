@@ -57,6 +57,9 @@ final class FeedTabCoordinator: Coordinator {
         vc.backButtonTapped = { [weak self] in
             self?.navigationController.popViewController(animated: true)
         }
+        vc.settingsButtonTapped = { [weak self] in
+            self?.showSettings()
+        }
 
         navigationController.pushViewController(vc, animated: true)
     }

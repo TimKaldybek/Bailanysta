@@ -13,6 +13,11 @@ final class FeedViewController: UIViewController {
     var postAuthorTapped: ((String) -> Void)?
     var commentsTapped: ((UUID) -> Void)?
     var shareTapped: ((String) -> Void)?
+    /// Set only when this instance is pushed as a secondary screen (e.g. a Trending Searches
+    /// topic's filtered feed) rather than shown as the Feed tab's root — shows a back chevron
+    var backButtonTapped: (() -> Void)? {
+        didSet { backButton.isHidden = backButtonTapped == nil }
+    }
 
     private let presenter: FeedPresenter
     private let collectionView: UICollectionView
@@ -31,6 +36,9 @@ final class FeedViewController: UIViewController {
         },
         onShareTapped: { [weak self] viewData in
             self?.shareTapped?(viewData.text)
+        },
+        onCardTapped: { [weak self] postID in
+            self?.commentsTapped?(postID)
         }
     )
 
@@ -41,6 +49,11 @@ final class FeedViewController: UIViewController {
     }()
 
     private let settingsButton = FeedViewController.makeHeaderButton(systemImageName: "gearshape.fill")
+    private let backButton: UIButton = {
+        let button = FeedViewController.makeHeaderButton(systemImageName: "chevron.left")
+        button.isHidden = true
+        return button
+    }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -88,7 +101,7 @@ final class FeedViewController: UIViewController {
 
 extension FeedViewController: FeedViewInput {
     func display(_ viewData: FeedViewData) {
-        dataSource.reload(posts: viewData.posts)
+        dataSource.reload(items: viewData.items)
         composeView.configure(with: viewData.composer)
 
         if let errorMessage = viewData.errorMessage {
@@ -112,13 +125,17 @@ private extension FeedViewController {
     func setupUI() {
         view.backgroundColor = Color.background
 
-        [titleLabel, settingsButton].forEach { headerView.addSubview($0) }
+        [backButton, titleLabel, settingsButton].forEach { headerView.addSubview($0) }
         view.addSubview(headerView)
         view.addSubview(composeView)
         view.addSubview(collectionView)
 
         settingsButton.addAction(UIAction { [weak self] _ in
             self?.settingsButtonTapped?()
+        }, for: .touchUpInside)
+
+        backButton.addAction(UIAction { [weak self] _ in
+            self?.backButtonTapped?()
         }, for: .touchUpInside)
 
         composeView.onComposeTapped = { [weak self] in
@@ -136,6 +153,11 @@ private extension FeedViewController {
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(56)
+        }
+        backButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.centerY.equalTo(settingsButton)
+            $0.size.equalTo(32)
         }
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()

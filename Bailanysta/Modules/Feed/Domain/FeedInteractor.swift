@@ -20,12 +20,12 @@ final class FeedInteractor {
         self.composerDataProvider = composerDataProvider
     }
 
-    func loadData() async throws -> [FeedPost] {
-        try await dataProvider.loadData()
+    func loadData(filter: FeedFilter? = nil) async throws -> [FeedPost] {
+        try await dataProvider.loadData(filter: filter)
     }
 
-    func observePosts() -> AsyncStream<Result<[FeedPost], Error>> {
-        dataProvider.observePosts()
+    func observePosts(filter: FeedFilter? = nil) -> AsyncStream<Result<[FeedPost], Error>> {
+        dataProvider.observePosts(filter: filter)
     }
 
     func toggleLike(postID: UUID, isLiked: Bool) async throws -> FeedPost {

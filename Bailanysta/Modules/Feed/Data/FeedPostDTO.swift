@@ -26,3 +26,26 @@ struct FeedPostDTO {
     let isLiked: Bool
     let commentsCount: Int
 }
+
+extension FeedPostDTO {
+    /// Shared by every `Domain` layer caller that maps this DTO to `FeedPost`
+    /// (`FeedPostsDataProvider`, `FeedLikeDataProvider`) so the mapping stays in one place.
+    func toFeedPost() -> FeedPost {
+        FeedPost(
+            id: UUID(uuidString: id) ?? UUID(),
+            authorName: authorName,
+            authorHandle: authorHandle,
+            avatarImageName: avatarImageName,
+            avatarURL: avatarURL.flatMap(URL.init(string:)),
+            createdAt: createdAt,
+            text: text,
+            attachmentImageName: attachmentImageName,
+            attachmentImageURL: attachmentImageURL.flatMap(URL.init(string:)),
+            voiceMessageURL: voiceMessageURL.flatMap(URL.init(string:)),
+            voiceMessageDuration: voiceMessageDuration,
+            likesCount: likesCount,
+            isLiked: isLiked,
+            commentsCount: commentsCount
+        )
+    }
+}

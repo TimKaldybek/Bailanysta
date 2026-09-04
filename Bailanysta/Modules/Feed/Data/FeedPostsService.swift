@@ -14,17 +14,22 @@ final class FeedPostsService {
     init(firestore: Firestore = Firestore.firestore()) {
         self.firestore = firestore
     }
-    
-    func loadData() async throws -> [FeedPostDTO] {
-        let snapshot = try await firestore.collection(Constants.postsCollection)
+
+    /// - Parameter filter: `.category` filters server-side via an exact Firestore field match
+    ///   (e.g. from a tapped Trending Searches topic); `.keyword` filters client-side against each
+    ///   post's `text` since Firestore has no substring/full-text index; `nil` loads the
+    ///   unfiltered feed.
+    func loadData(filter: FeedFilter? = nil) async throws -> [FeedPostDTO] {
+        let snapshot = try await postsQuery(filter: filter)
             .order(by: "createdAt", descending: true)
             .getDocuments()
-        return snapshot.documents.map(Self.map)
+        let posts = snapshot.documents.map(Self.map)
+        return Self.applyClientSideFilter(filter, to: posts)
     }
 
-    func observePosts() -> AsyncStream<Result<[FeedPostDTO], Error>> {
+    func observePosts(filter: FeedFilter? = nil) -> AsyncStream<Result<[FeedPostDTO], Error>> {
         AsyncStream { continuation in
-            let registration = firestore.collection(Constants.postsCollection)
+            let registration = postsQuery(filter: filter)
                 .order(by: "createdAt", descending: true)
                 .addSnapshotListener { snapshot, error in
                     if let error {
@@ -32,7 +37,8 @@ final class FeedPostsService {
                         return
                     }
                     guard let snapshot else { return }
-                    continuation.yield(.success(snapshot.documents.map(Self.map)))
+                    let posts = snapshot.documents.map(Self.map)
+                    continuation.yield(.success(Self.applyClientSideFilter(filter, to: posts)))
                 }
 
             continuation.onTermination = { _ in
@@ -45,6 +51,30 @@ final class FeedPostsService {
 // MARK: - Private
 
 private extension FeedPostsService {
+    func postsQuery(filter: FeedFilter?) -> Query {
+        let collection = firestore.collection(Constants.postsCollection)
+
+        switch filter {
+        case .category(let category):
+            return collection.whereField("category", isEqualTo: category)
+        case .keyword:
+            return collection.limit(to: Constants.keywordSearchLimit)
+        case nil:
+            return collection
+        }
+    }
+
+    /// `.category` is already narrowed server-side by `postsQuery`; `.keyword` has no server-side
+    /// index and must be matched here against each post's raw `text`.
+    static func applyClientSideFilter(_ filter: FeedFilter?, to posts: [FeedPostDTO]) -> [FeedPostDTO] {
+        guard case .keyword(let keyword) = filter else { return posts }
+
+        let normalizedKeyword = keyword.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !normalizedKeyword.isEmpty else { return posts }
+
+        return posts.filter { $0.text.lowercased().contains(normalizedKeyword) }
+    }
+
     static func map(_ document: QueryDocumentSnapshot) -> FeedPostDTO {
         let data = document.data()
         let likedByUserIds = data["likedByUserIds"] as? [String] ?? []
@@ -75,5 +105,7 @@ private extension FeedPostsService {
     enum Constants {
         static let postsCollection = "posts"
         static let defaultAvatarImageName = "person.crop.circle.fill"
+        /// Bounds reads for an unindexed keyword search since there's no server-side text index.
+        static let keywordSearchLimit = 300
     }
 }

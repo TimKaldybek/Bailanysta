@@ -14,14 +14,18 @@ final class ProfileDataSource {
         onEditProfileTapped: @escaping () -> Void,
         onShareTapped: @escaping (String) -> Void,
         onTabSelected: @escaping (ProfileTab) -> Void,
-        onAvatarTapped: @escaping (ProfilePostViewData) -> Void
+        onAvatarTapped: @escaping (ProfilePostViewData) -> Void,
+        onCommentsTapped: @escaping (UUID) -> Void,
+        onComingSoonEngagementTapped: @escaping () -> Void
     ) {
         diffableDataSource = Self.makeDataSource(
             collectionView: collectionView,
             onEditProfileTapped: onEditProfileTapped,
             onShareTapped: onShareTapped,
             onTabSelected: onTabSelected,
-            onAvatarTapped: onAvatarTapped
+            onAvatarTapped: onAvatarTapped,
+            onCommentsTapped: onCommentsTapped,
+            onComingSoonEngagementTapped: onComingSoonEngagementTapped
         )
     }
 
@@ -55,7 +59,9 @@ private extension ProfileDataSource {
         onEditProfileTapped: @escaping () -> Void,
         onShareTapped: @escaping (String) -> Void,
         onTabSelected: @escaping (ProfileTab) -> Void,
-        onAvatarTapped: @escaping (ProfilePostViewData) -> Void
+        onAvatarTapped: @escaping (ProfilePostViewData) -> Void,
+        onCommentsTapped: @escaping (UUID) -> Void,
+        onComingSoonEngagementTapped: @escaping () -> Void
     ) -> UICollectionViewDiffableDataSource<ProfileSection, ProfileItem> {
         let headerCell = UICollectionView.CellRegistration<ProfileHeaderCell, ProfileHeaderCellViewData> { cell, _, viewData in
             cell.configure(with: viewData)
@@ -66,6 +72,8 @@ private extension ProfileDataSource {
         let postCell = UICollectionView.CellRegistration<ProfilePostCell, ProfilePostViewData> { cell, _, viewData in
             cell.configure(with: viewData)
             cell.onAvatarTapped = { onAvatarTapped(viewData) }
+            cell.onCommentsTapped = { onCommentsTapped(viewData.id) }
+            cell.onComingSoonEngagementTapped = onComingSoonEngagementTapped
         }
         let emptyStateCell = UICollectionView.CellRegistration<ProfileEmptyStateCell, String> { cell, _, message in
             cell.configure(with: message)

@@ -1,28 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "Alert.MixedSection.Message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pick themes from one section only 💛 Either deep questions or fun games — then let's go!"
-          }
-        }
-      }
-    },
-    "Alert.MixedSection.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oops! 🤔"
-          }
-        }
-      }
-    },
     "Alerts.Action.Accept": {
       "extractionState": "manual",
       "localizations": {
@@ -30,6 +8,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Accept"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Принять"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қабылдау"
           }
         }
       }
@@ -42,6 +32,18 @@
             "state": "translated",
             "value": "Decline"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отклонить"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бас тарту"
+          }
         }
       }
     },
@@ -52,6 +54,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reply"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответить"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жауап беру"
           }
         }
       }
@@ -64,6 +78,18 @@
             "state": "translated",
             "value": "Earlier this week"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ранее на этой неделе"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы аптада ертерек"
+          }
         }
       }
     },
@@ -74,6 +100,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mark all as read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отметить всё как прочитанное"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлығын оқылды деп белгілеу"
           }
         }
       }
@@ -86,6 +124,18 @@
             "state": "translated",
             "value": "Invited by %@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приглашение от %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ шақырды"
+          }
         }
       }
     },
@@ -96,6 +146,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "You have been invited to join the"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вас пригласили присоединиться к"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сізді"
           }
         }
       }
@@ -108,6 +170,18 @@
             "state": "translated",
             "value": "workspace"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "рабочему пространству"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жұмыс кеңістігіне қосылуға шақырды"
+          }
         }
       }
     },
@@ -118,6 +192,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "and %d others liked your post"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "и ещё %d человек лайкнули ваш пост"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "және тағы %d адам жазбаңызды ұнатты"
           }
         }
       }
@@ -130,6 +216,18 @@
             "state": "translated",
             "value": "liked your post"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "нравится ваш пост"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жазбаңызды ұнатты"
+          }
         }
       }
     },
@@ -140,6 +238,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "mentioned you in a comment on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "упоминает вас в комментарии к"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "пікірде сізді атап өтті:"
           }
         }
       }
@@ -152,6 +262,18 @@
             "state": "translated",
             "value": "replied to your thread"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "отвечает на ваш тред"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "тіркеміңізге жауап берді"
+          }
         }
       }
     },
@@ -163,93 +285,17 @@
             "state": "translated",
             "value": "Notifications"
           }
-        }
-      }
-    },
-    "Article.HappyRelationship.Subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empathy, positivity, connection"
+            "value": "Уведомления"
           }
-        }
-      }
-    },
-    "Article.HappyRelationship.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Science of Happy Relationships"
-          }
-        }
-      }
-    },
-    "Article.MarriageSuccess.Subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "5 science-backed secrets"
-          }
-        }
-      }
-    },
-    "Article.MarriageSuccess.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Why the Best Marriages Succeed"
-          }
-        }
-      }
-    },
-    "Article.RelationshipStrength.Subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More important than love alone"
-          }
-        }
-      }
-    },
-    "Article.RelationshipStrength.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The #1 Key to a Strong Relationship"
-          }
-        }
-      }
-    },
-    "Article.TalkToPartner.Subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tips from a couples therapist"
-          }
-        }
-      }
-    },
-    "Article.TalkToPartner.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How to Talk to Your Partner"
+            "value": "Хабарландырулар"
           }
         }
       }
@@ -262,6 +308,18 @@
             "state": "translated",
             "value": "Something went wrong. Please try again."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что-то пошло не так. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірдеңе дұрыс болмады. Қайталап көріңіз."
+          }
         }
       }
     },
@@ -272,6 +330,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Please enter a valid email address."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите корректный адрес электронной почты."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дұрыс электрондық пошта мекенжайын енгізіңіз."
           }
         }
       }
@@ -284,6 +354,18 @@
             "state": "translated",
             "value": "Please enter your email and password."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите email и пароль."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email мен құпия сөзді енгізіңіз."
+          }
         }
       }
     },
@@ -294,6 +376,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Please fill in all fields."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заполните все поля."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлық өрісті толтырыңыз."
           }
         }
       }
@@ -306,6 +400,18 @@
             "state": "translated",
             "value": "Password must be at least 6 characters."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль должен содержать не менее 6 символов."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Құпия сөз кемінде 6 таңбадан тұруы керек."
+          }
         }
       }
     },
@@ -316,6 +422,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Continue as Guest"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить как гость"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қонақ ретінде жалғастыру"
           }
         }
       }
@@ -328,6 +446,18 @@
             "state": "translated",
             "value": "Sign in with Google"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войти через Google"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google арқылы кіру"
+          }
         }
       }
     },
@@ -338,6 +468,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sign In"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войти"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кіру"
           }
         }
       }
@@ -350,6 +492,18 @@
             "state": "translated",
             "value": "Don't have an account? Sign Up"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет аккаунта? Зарегистрироваться"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аккаунтыңыз жоқ па? Тіркелу"
+          }
         }
       }
     },
@@ -360,6 +514,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Signing In…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кіру…"
           }
         }
       }
@@ -372,6 +538,18 @@
             "state": "translated",
             "value": "Sign in to continue to Bailanysta."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Войдите, чтобы продолжить в Bailanysta."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta-ны жалғастыру үшін кіріңіз."
+          }
         }
       }
     },
@@ -383,6 +561,18 @@
             "state": "translated",
             "value": "Welcome Back"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С возвращением"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайта келгеніңізге қуаныштымыз"
+          }
         }
       }
     },
@@ -390,6 +580,18 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Email"
@@ -405,6 +607,18 @@
             "state": "translated",
             "value": "or"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "или"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "немесе"
+          }
         }
       }
     },
@@ -415,6 +629,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Password"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Құпия сөз"
           }
         }
       }
@@ -427,6 +653,18 @@
             "state": "translated",
             "value": "Handle"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Никнейм"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Никнейм"
+          }
         }
       }
     },
@@ -437,6 +675,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Name"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Имя"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аты-жөні"
           }
         }
       }
@@ -449,6 +699,18 @@
             "state": "translated",
             "value": "Sign Up"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зарегистрироваться"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тіркелу"
+          }
         }
       }
     },
@@ -459,6 +721,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Signing Up…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Регистрация…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тіркелу…"
           }
         }
       }
@@ -471,6 +745,18 @@
             "state": "translated",
             "value": "Tell us a bit about yourself to get started."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расскажите немного о себе, чтобы начать."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бастау үшін өзіңіз туралы аздап айтыңыз."
+          }
         }
       }
     },
@@ -481,6 +767,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Create Account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать аккаунт"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аккаунт жасау"
           }
         }
       }
@@ -493,60 +791,17 @@
             "state": "translated",
             "value": "Cancel"
           }
-        }
-      }
-    },
-    "ChooseCategoriesVC.BuyPremium": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buy premium access"
+            "value": "Отмена"
           }
-        }
-      }
-    },
-    "ChooseCategoriesVC.ChooseCategory": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose a category"
-          }
-        }
-      }
-    },
-    "ChooseCategoriesVC.ChooseCategoryBeforeStart": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "First select a category before starting the game"
-          }
-        }
-      }
-    },
-    "ChooseCategoriesVC.ChooseMoreThemesBuySubscr": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To play these themes, buy a paid subscription"
-          }
-        }
-      }
-    },
-    "ChooseCategoriesVC.ChooseTopic": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "What topic do you want to talk about?"
+            "value": "Бас тарту"
           }
         }
       }
@@ -559,6 +814,18 @@
             "state": "translated",
             "value": "Got it"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Понятно"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түсінікті"
+          }
         }
       }
     },
@@ -569,6 +836,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "We're actively working on this section. It'll be ready very soon — thanks for your interest! ;)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мы активно работаем над этим разделом. Совсем скоро всё будет готово — спасибо за интерес! ;)"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Біз бұл бөлім үстінде белсенді жұмыс істеп жатырмыз. Жақын арада дайын болады — қызығушылығыңыз үшін рахмет! ;)"
           }
         }
       }
@@ -581,6 +860,18 @@
             "state": "translated",
             "value": "Coming Soon"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скоро"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жақында"
+          }
         }
       }
     },
@@ -591,6 +882,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "No comments yet. Be the first to comment!"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет комментариев. Будьте первым!"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әзірге пікір жоқ. Бірінші болыңыз!"
           }
         }
       }
@@ -603,6 +906,18 @@
             "state": "translated",
             "value": "Couldn't load comments. Please try again."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось загрузить комментарии. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пікірлерді жүктеу мүмкін болмады. Қайталап көріңіз."
+          }
         }
       }
     },
@@ -613,6 +928,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn't post your comment. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось отправить комментарий. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пікірді жіберу мүмкін болмады. Қайталап көріңіз."
           }
         }
       }
@@ -625,6 +952,18 @@
             "state": "translated",
             "value": "Add a comment..."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить комментарий..."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пікір қосу..."
+          }
         }
       }
     },
@@ -636,16 +975,17 @@
             "state": "translated",
             "value": "Comments"
           }
-        }
-      }
-    },
-    "Continue": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Continue"
+            "value": "Комментарии"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пікірлер"
           }
         }
       }
@@ -658,6 +998,18 @@
             "state": "translated",
             "value": "Error"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ошибка"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қате"
+          }
         }
       }
     },
@@ -669,6 +1021,18 @@
             "state": "translated",
             "value": "Failed to open settings"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось открыть настройки"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Параметрлерді ашу мүмкін болмады"
+          }
         }
       }
     },
@@ -676,6 +1040,18 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta"
+          }
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Bailanysta"
@@ -691,6 +1067,18 @@
             "state": "translated",
             "value": "Couldn't update your like. Please try again."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось обновить лайк. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лайкты жаңарту мүмкін болмады. Қайталап көріңіз."
+          }
         }
       }
     },
@@ -701,6 +1089,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn't load the feed. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось загрузить ленту. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лентаны жүктеу мүмкін болмады. Қайталап көріңіз."
           }
         }
       }
@@ -713,6 +1113,18 @@
             "state": "translated",
             "value": "Post"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Опубликовать"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жариялау"
+          }
         }
       }
     },
@@ -723,6 +1135,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alerts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хабарландырулар"
           }
         }
       }
@@ -735,6 +1159,18 @@
             "state": "translated",
             "value": "Feed"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лента"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лента"
+          }
         }
       }
     },
@@ -745,6 +1181,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Profile"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Профиль"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Профиль"
           }
         }
       }
@@ -757,6 +1205,18 @@
             "state": "translated",
             "value": "Search"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іздеу"
+          }
         }
       }
     },
@@ -767,6 +1227,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "What's happening?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что происходит?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не болып жатыр?"
           }
         }
       }
@@ -779,6 +1251,18 @@
             "state": "translated",
             "value": "Add media"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить медиа"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Медиа қосу"
+          }
         }
       }
     },
@@ -789,6 +1273,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санат"
           }
         }
       }
@@ -801,6 +1297,18 @@
             "state": "translated",
             "value": "Design"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дизайн"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дизайн"
+          }
         }
       }
     },
@@ -811,6 +1319,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "General"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Общее"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жалпы"
           }
         }
       }
@@ -823,6 +1343,18 @@
             "state": "translated",
             "value": "Tech"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Технологии"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Технология"
+          }
         }
       }
     },
@@ -834,6 +1366,18 @@
             "state": "translated",
             "value": "Updates"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обновления"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жаңалықтар"
+          }
         }
       }
     },
@@ -844,6 +1388,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn't post. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось опубликовать. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жариялау мүмкін болмады. Қайталап көріңіз."
           }
         }
       }
@@ -878,6 +1434,18 @@
             "state": "translated",
             "value": "Photos"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фото"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фотосуреттер"
+          }
         }
       }
     },
@@ -889,6 +1457,18 @@
             "state": "translated",
             "value": "What's on your mind?"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "О чём вы думаете?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не туралы ойлап отырсыз?"
+          }
         }
       }
     },
@@ -899,6 +1479,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Posting…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Публикация…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жариялануда…"
           }
         }
       }
@@ -922,6 +1514,18 @@
             "state": "translated",
             "value": "Remove photo"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить фото"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фотосуретті өшіру"
+          }
         }
       }
     },
@@ -944,6 +1548,18 @@
             "state": "translated",
             "value": "Create Post"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать пост"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазба жасау"
+          }
         }
       }
     },
@@ -958,61 +1574,6 @@
         }
       }
     },
-    "FeedbackVC.Impressions": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your impressions"
-          }
-        }
-      }
-    },
-    "FeedbackVC.ThanksForFeedback": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thank you for your feedback!"
-          }
-        }
-      }
-    },
-    "FeedbackVC.feedback": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Feedback"
-          }
-        }
-      }
-    },
-    "Finish": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finish"
-          }
-        }
-      }
-    },
-    "Next.question": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next question"
-          }
-        }
-      }
-    },
     "Notification.1.Body": {
       "extractionState": "manual",
       "localizations": {
@@ -1020,6 +1581,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Now is the perfect time to reconnect ✨"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас самое время снова стать ближе ✨"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қазір қайта жақындасудың ең жақсы уақыты ✨"
           }
         }
       }
@@ -1032,6 +1605,18 @@
             "state": "translated",
             "value": "When did you last have a heart-to-heart? 💬"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда вы в последний раз говорили по душам? 💬"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соңғы рет жүректен-жүрекке сөйлескеніңіз қашан? 💬"
+          }
         }
       }
     },
@@ -1042,6 +1627,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "An evening full of fun and discovery awaits 🌙"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вас ждёт вечер, полный веселья и открытий 🌙"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сізді қызық пен жаңалыққа толы кеш күтіп тұр 🌙"
           }
         }
       }
@@ -1054,6 +1651,18 @@
             "state": "translated",
             "value": "Play with your other half tonight 🎲"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сыграйте сегодня вечером со своей половинкой 🎲"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүгін кешке жарыңызбен ойнаңыз 🎲"
+          }
         }
       }
     },
@@ -1064,6 +1673,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "One question can bring you closer than you think 💫"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один вопрос может сблизить вас больше, чем вы думаете 💫"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бір сұрақ сізді ойлағаннан да жақындата алады 💫"
           }
         }
       }
@@ -1076,6 +1697,18 @@
             "state": "translated",
             "value": "How is your other half feeling? ❤️"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как себя чувствует ваша половинка? ❤️"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жарыңыздың көңіл-күйі қалай? ❤️"
+          }
         }
       }
     },
@@ -1086,6 +1719,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Get to know each other even better tonight 🔥"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Узнайте друг друга ещё лучше сегодня вечером 🔥"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүгін кешке бір-біріңізді жақсырақ танып біліңіз 🔥"
           }
         }
       }
@@ -1098,6 +1743,18 @@
             "state": "translated",
             "value": "We have lots of new interesting questions for you 🌟"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У нас для вас много новых интересных вопросов 🌟"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сізге арналған көптеген жаңа қызықты сұрақтар бар 🌟"
+          }
         }
       }
     },
@@ -1108,6 +1765,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "One question reveals something new about your partner 🎯"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один вопрос открывает что-то новое о вашем партнёре 🎯"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бір сұрақ серіктесіңіз туралы жаңа нәрсе ашады 🎯"
           }
         }
       }
@@ -1120,6 +1789,18 @@
             "state": "translated",
             "value": "Get a little closer every day 💑"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Становитесь ближе друг к другу каждый день 💑"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күн сайын бір-біріңізге жақындай беріңіз 💑"
+          }
         }
       }
     },
@@ -1130,6 +1811,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Discover new sides of your partner tonight 💫"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте новые стороны своего партнёра сегодня вечером 💫"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүгін кешке серіктесіңіздің жаңа қырларын ашыңыз 💫"
           }
         }
       }
@@ -1142,6 +1835,18 @@
             "state": "translated",
             "value": "The perfect evening starts right here 🕯️"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Идеальный вечер начинается прямо здесь 🕯️"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тамаша кеш дәл осы жерден басталады 🕯️"
+          }
         }
       }
     },
@@ -1152,6 +1857,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "A little conversation makes relationships stronger 💪"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Небольшой разговор делает отношения крепче 💪"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шағын әңгіме қарым-қатынасты нығайтады 💪"
           }
         }
       }
@@ -1164,6 +1881,18 @@
             "state": "translated",
             "value": "Question of the day for you two ❓"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вопрос дня для вас двоих ❓"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Екеуіңізге арналған күн сұрағы ❓"
+          }
         }
       }
     },
@@ -1174,6 +1903,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "A few questions will make your evening unforgettable ✨"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Несколько вопросов сделают ваш вечер незабываемым ✨"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірнеше сұрақ кешіңізді ұмытылмас етеді ✨"
           }
         }
       }
@@ -1186,6 +1927,18 @@
             "state": "translated",
             "value": "Missing each other? 🥰"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скучаете друг по другу? 🥰"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бір-біріңізді сағындыңыз ба? 🥰"
+          }
         }
       }
     },
@@ -1197,27 +1950,17 @@
             "state": "translated",
             "value": "OK"
           }
-        }
-      }
-    },
-    "PlayView.PressButtons": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Press and hold the buttons simultaneously to start the game!"
+            "value": "ОК"
           }
-        }
-      }
-    },
-    "PlayView.ReadyToStart": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ready to get started?"
+            "value": "ОК"
           }
         }
       }
@@ -1226,6 +1969,18 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta"
+          }
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "Bailanysta"
@@ -1241,6 +1996,18 @@
             "state": "translated",
             "value": "Change Photo"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить фото"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фотосуретті өзгерту"
+          }
         }
       }
     },
@@ -1251,6 +2018,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "No liked posts yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет понравившихся постов."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әзірге ұнатылған жазба жоқ."
           }
         }
       }
@@ -1263,6 +2042,18 @@
             "state": "translated",
             "value": "No posts yet."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет постов."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әзірге жазба жоқ."
+          }
         }
       }
     },
@@ -1273,6 +2064,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "No replies yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет ответов."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әзірге жауап жоқ."
           }
         }
       }
@@ -1285,6 +2088,18 @@
             "state": "translated",
             "value": "Couldn't update your avatar. Please try again."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось обновить аватар. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аватарды жаңарту мүмкін болмады. Қайталап көріңіз."
+          }
         }
       }
     },
@@ -1295,6 +2110,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn't update follow status. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось обновить статус подписки. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылу мәртебесін жаңарту мүмкін болмады. Қайталап көріңіз."
           }
         }
       }
@@ -1307,6 +2134,18 @@
             "state": "translated",
             "value": "Message"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сообщение"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хабарлама"
+          }
         }
       }
     },
@@ -1317,6 +2156,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "No bio yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет описания."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әзірге сипаттама жоқ."
           }
         }
       }
@@ -1329,6 +2180,18 @@
             "state": "translated",
             "value": "Replying to %@"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответ пользователю %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ пайдаланушысына жауап"
+          }
         }
       }
     },
@@ -1339,6 +2202,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Share"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поделиться"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бөлісу"
           }
         }
       }
@@ -1351,6 +2226,18 @@
             "state": "translated",
             "value": "Followers"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подписчики"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылушылар"
+          }
         }
       }
     },
@@ -1361,6 +2248,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Following"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подписки"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылымдар"
           }
         }
       }
@@ -1373,6 +2272,18 @@
             "state": "translated",
             "value": "Posts"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Посты"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазбалар"
+          }
         }
       }
     },
@@ -1383,6 +2294,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Likes"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лайки"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лайктар"
           }
         }
       }
@@ -1395,6 +2318,18 @@
             "state": "translated",
             "value": "Posts"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Посты"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазбалар"
+          }
         }
       }
     },
@@ -1405,6 +2340,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Replies"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ответы"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жауаптар"
           }
         }
       }
@@ -1417,49 +2364,17 @@
             "state": "translated",
             "value": "Profile"
           }
-        }
-      }
-    },
-    "QuestionCard.Topic: %@": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Topic: %@"
+            "value": "Профиль"
           }
-        }
-      }
-    },
-    "QuickGame.Subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Random theme"
-          }
-        }
-      }
-    },
-    "QuickGame.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Quick Game"
-          }
-        }
-      }
-    },
-    "Reply": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reply"
+            "value": "Профиль"
           }
         }
       }
@@ -1472,6 +2387,18 @@
             "state": "translated",
             "value": "Clear"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистить"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тазалау"
+          }
         }
       }
     },
@@ -1482,6 +2409,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn't load search. Please try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось загрузить поиск. Попробуйте ещё раз."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іздеуді жүктеу мүмкін болмады. Қайталап көріңіз."
           }
         }
       }
@@ -1494,6 +2433,18 @@
             "state": "translated",
             "value": "Follow"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подписаться"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылу"
+          }
         }
       }
     },
@@ -1504,6 +2455,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Following"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы подписаны"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылғансыз"
           }
         }
       }
@@ -1516,6 +2479,41 @@
             "state": "translated",
             "value": "Search Bailanysta..."
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск в Bailanysta..."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bailanysta ішінен іздеу..."
+          }
+        }
+      }
+    },
+    "Search.PopularHashtags": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Popular Hashtags"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Популярные хэштеги"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Танымал хэштегтер"
+          }
         }
       }
     },
@@ -1526,6 +2524,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recent Searches"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недавние запросы"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соңғы сұраулар"
           }
         }
       }
@@ -1538,16 +2548,17 @@
             "state": "translated",
             "value": "Suggested for you"
           }
-        }
-      }
-    },
-    "Search.Title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Search"
+            "value": "Рекомендуем вам"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сізге ұсынылады"
           }
         }
       }
@@ -1560,6 +2571,18 @@
             "state": "translated",
             "value": "Trending"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В тренде"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Трендте"
+          }
         }
       }
     },
@@ -1571,71 +2594,17 @@
             "state": "translated",
             "value": "Trending Now"
           }
-        }
-      }
-    },
-    "Section.Articles.Header": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Useful articles 📖"
+            "value": "Сейчас в тренде"
           }
-        }
-      }
-    },
-    "Section.Deep.Header": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heart-to-heart questions 💬"
-          }
-        }
-      }
-    },
-    "Section.Fun.Header": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Laugh together 😂"
-          }
-        }
-      }
-    },
-    "Section.Tip.Header": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Relationship Tip 💡"
-          }
-        }
-      }
-    },
-    "Send": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Send"
-          }
-        }
-      }
-    },
-    "Sent": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sent"
+            "value": "Қазір трендте"
           }
         }
       }
@@ -1648,6 +2617,18 @@
             "state": "translated",
             "value": "Settings"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Параметрлер"
+          }
         }
       }
     },
@@ -1658,6 +2639,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Appearance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оформление"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сыртқы түрі"
           }
         }
       }
@@ -1670,6 +2663,18 @@
             "state": "translated",
             "value": "Dark"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тёмная"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күңгірт"
+          }
         }
       }
     },
@@ -1680,6 +2685,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Light"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Светлая"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ашық"
           }
         }
       }
@@ -1692,16 +2709,17 @@
             "state": "translated",
             "value": "System"
           }
-        }
-      }
-    },
-    "SettingsVC.GiveFeedback": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Give feedback"
+            "value": "Системная"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жүйелік"
           }
         }
       }
@@ -1714,6 +2732,18 @@
             "state": "translated",
             "value": "Interface language"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Язык интерфейса"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интерфейс тілі"
+          }
         }
       }
     },
@@ -1724,6 +2754,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Log Out"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выйти"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шығу"
           }
         }
       }
@@ -1736,6 +2778,18 @@
             "state": "translated",
             "value": "Are you sure you want to log out?"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы уверены, что хотите выйти?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шыққыңыз келетініне сенімдісіз бе?"
+          }
         }
       }
     },
@@ -1746,6 +2800,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Log Out"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выйти"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шығу"
           }
         }
       }
@@ -1758,6 +2824,18 @@
             "state": "translated",
             "value": "Notifications and sounds"
           }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления и звуки"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хабарландырулар мен дыбыстар"
+          }
         }
       }
     },
@@ -1769,588 +2847,17 @@
             "state": "translated",
             "value": "Share the app"
           }
-        }
-      }
-    },
-    "SubscriptionPage.AllThemes": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "All themes unlocked"
+            "value": "Поделиться приложением"
           }
-        }
-      }
-    },
-    "SubscriptionPage.Benefit1": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
-            "value": "We are adding new questions and you will be the first to access them."
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Benefit2": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "We customize themes specifically for you based on your preferences"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Benefit3": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Get to know each other better with daily questions."
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Benefit4": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open all topics and categories without restrictions, anytime."
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Benefit5": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explore all categories — from romantic to adventurous."
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Benefit6": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No round limits — ask as many questions as you want."
-          }
-        }
-      }
-    },
-    "SubscriptionPage.CloserTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Know each other deeper"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.ContinueFree": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue for free"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Feature.UnlimitedDesc": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Questions never end — explore without limits"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.ForOneMonth": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "For 1 month"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.ForOneYear": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "For 1 year"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.ForThreeMonth": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "For 3 months"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.FullAccess": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Access to all topics"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.HeaderSubtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlock all topics and get closer to your partner"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.HeaderTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rediscover each other"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.NewQuestions": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New questions"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.NoLimits": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited questions"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.PerMonth": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "per month"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Personal.Recommend": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Personal recommendations"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.PersonalizedQuestions": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Personalized Question Recommendations"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.PremiumIncludes": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "What's included"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.PrivacyPolicy": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Privacy Policy"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.RegularUpdates": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Regular updates"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.Subscribe": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Get subscription"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.TermsOfUse": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terms and conditions"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.UnlimiteQuesitons": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited access"
-          }
-        }
-      }
-    },
-    "SubscriptionPage.UnlimitedAccess": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited access to all topics"
-          }
-        }
-      }
-    },
-    "Theme.Care": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Care and warmth"
-          }
-        }
-      }
-    },
-    "Theme.Confessions": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Confessions"
-          }
-        }
-      }
-    },
-    "Theme.DreamsDesires": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dreams and desires"
-          }
-        }
-      }
-    },
-    "Theme.LifeWorkMoney": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Life, work, money"
-          }
-        }
-      }
-    },
-    "Theme.NeverHaveI": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Never have I ever..."
-          }
-        }
-      }
-    },
-    "Theme.Random": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Random"
-          }
-        }
-      }
-    },
-    "Theme.Relationship": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Relationships"
-          }
-        }
-      }
-    },
-    "Theme.Sex": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sex"
-          }
-        }
-      }
-    },
-    "Theme.TruthOrDare": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Truth or dare"
-          }
-        }
-      }
-    },
-    "Theme.WhoAmong": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Who between us..."
-          }
-        }
-      }
-    },
-    "Tip.1.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Practice the «6-second kiss» today. Research shows it's long enough to release oxytocin and create a moment of genuine connection."
-          }
-        }
-      }
-    },
-    "Tip.10.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Give your partner a genuine compliment about something they often overlook about themselves."
-          }
-        }
-      }
-    },
-    "Tip.11.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Touch more intentionally today — a hand on the shoulder, a longer hug, a gentle touch when passing by."
-          }
-        }
-      }
-    },
-    "Tip.12.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Share a memory that made you fall in love with your partner. Say it out loud."
-          }
-        }
-      }
-    },
-    "Tip.13.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Surprise your partner with their favorite snack or drink today. Small gestures build big love."
-          }
-        }
-      }
-    },
-    "Tip.14.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ask: «What would make next week better for you?» and actually help make it happen."
-          }
-        }
-      }
-    },
-    "Tip.15.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Before going to sleep tonight, tell your partner one thing you're grateful for about them."
-          }
-        }
-      }
-    },
-    "Tip.2.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Put your phones away for one hour tonight. Give each other your full, undivided attention — no screens, just presence."
-          }
-        }
-      }
-    },
-    "Tip.3.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ask your partner: «What's one small thing I do that makes you feel loved?» Then do more of it."
-          }
-        }
-      }
-    },
-    "Tip.4.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Write a text to your partner right now listing three things you love about them. Send it before you put your phone down."
-          }
-        }
-      }
-    },
-    "Tip.5.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try the 'appreciation ritual' tonight: each of you shares one moment from today when your partner made you feel good."
-          }
-        }
-      }
-    },
-    "Tip.6.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan a five-minute walk together after dinner — no phones, no agenda. Just walk and talk."
-          }
-        }
-      }
-    },
-    "Tip.7.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Say 'I love you' in a different way today — through an action, a note, or something you cook."
-          }
-        }
-      }
-    },
-    "Tip.8.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ask your partner: «What's one dream you haven't told me yet?» Then just listen."
-          }
-        }
-      }
-    },
-    "Tip.9.Text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recreate your very first date tonight — same food, same music, same energy."
+            "value": "Қолданбамен бөлісу"
           }
         }
       }

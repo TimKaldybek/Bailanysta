@@ -72,6 +72,20 @@ enum Color {
     /// arbitrary image content, not app surfaces, so it doesn't invert between light and dark.
     static let overlayScrim = UIColor.black.withAlphaComponent(0.55)
 
+    // MARK: - Skeleton loading placeholders
+
+    /// Resting fill of a skeleton placeholder block (e.g. `SkeletonView`).
+    static let skeletonBase = dynamic(
+        light: neutral.withAlphaComponent(0.06),
+        dark: UIColor.white.withAlphaComponent(0.08)
+    )
+
+    /// Bright band that sweeps across a skeleton placeholder to read as "loading" rather than static.
+    static let skeletonHighlight = dynamic(
+        light: neutral.withAlphaComponent(0.12),
+        dark: UIColor.white.withAlphaComponent(0.16)
+    )
+
     // MARK: - Decorative icon accents (e.g. the Settings list)
 
     static let accentBlue = UIColor.systemBlue

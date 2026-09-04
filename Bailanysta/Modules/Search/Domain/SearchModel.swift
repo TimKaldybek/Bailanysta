@@ -8,6 +8,7 @@ import Foundation
 struct SearchModel {
     var trendingTopics: [TrendingTopic]
     var suggestedUsers: [SuggestedUser]
+    var popularHashtags: [Hashtag]
 }
 
 struct TrendingTopic {
@@ -26,4 +27,10 @@ struct SuggestedUser {
     let avatarImageName: String
     let avatarURL: URL?
     var isFollowing: Bool
+}
+
+struct Hashtag {
+    let id: String
+    let tag: String
+    let count: Int
 }

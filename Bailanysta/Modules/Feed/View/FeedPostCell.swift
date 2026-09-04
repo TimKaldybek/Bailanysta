@@ -14,6 +14,11 @@ final class FeedPostCell: UICollectionViewCell {
     var onLikeTapped: (() -> Void)?
     var onCommentsTapped: (() -> Void)?
     var onShareTapped: (() -> Void)?
+    /// Тап по посту целиком (вне аватара/футера) — открывает комментарии, как и `onCommentsTapped`
+    var onCardTapped: (() -> Void)?
+
+    private let avatarTapGesture = UITapGestureRecognizer()
+    private let cardTapGesture = UITapGestureRecognizer()
 
     /// Last voice message URL actually configured into `voicePlayerView` — a like toggle or live
     /// Firestore update re-pushes this post's `ViewData` on every change, and without this guard
@@ -97,6 +102,7 @@ final class FeedPostCell: UICollectionViewCell {
         onLikeTapped = nil
         onCommentsTapped = nil
         onShareTapped = nil
+        onCardTapped = nil
     }
 
     func configure(with viewData: FeedPostViewData) {
@@ -155,7 +161,17 @@ final class FeedPostCell: UICollectionViewCell {
         contentView.addSubview(cardView)
 
         avatarContainer.isUserInteractionEnabled = true
-        avatarContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAvatarTapped)))
+        avatarTapGesture.addTarget(self, action: #selector(handleAvatarTapped))
+        avatarContainer.addGestureRecognizer(avatarTapGesture)
+
+        cardTapGesture.addTarget(self, action: #selector(handleCardTapped))
+        // Даёт аватару и футеру (лайк/комменты/шер) шанс распознаться первыми — иначе тап по ним
+        // дополнительно откроет комментарии через этот же жест
+        cardTapGesture.require(toFail: avatarTapGesture)
+        cardTapGesture.require(toFail: likesView.tapGestureRecognizer)
+        cardTapGesture.require(toFail: commentsView.tapGestureRecognizer)
+        cardTapGesture.require(toFail: shareView.tapGestureRecognizer)
+        cardView.addGestureRecognizer(cardTapGesture)
 
         likesView.onTap = { [weak self] in self?.onLikeTapped?() }
         commentsView.onTap = { [weak self] in self?.onCommentsTapped?() }
@@ -164,6 +180,10 @@ final class FeedPostCell: UICollectionViewCell {
 
     @objc private func handleAvatarTapped() {
         onAvatarTapped?()
+    }
+
+    @objc private func handleCardTapped() {
+        onCardTapped?()
     }
 
     private func setupConstraints() {

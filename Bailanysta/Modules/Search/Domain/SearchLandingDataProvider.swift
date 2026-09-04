@@ -16,7 +16,8 @@ struct SearchLandingDataProvider {
         let dto = try await service.loadData()
         return SearchModel(
             trendingTopics: dto.trendingTopics.map(Self.map),
-            suggestedUsers: dto.suggestedUsers.map(Self.map)
+            suggestedUsers: dto.suggestedUsers.map(Self.map),
+            popularHashtags: dto.popularHashtags.map(Self.map)
         )
     }
 
@@ -40,5 +41,9 @@ struct SearchLandingDataProvider {
             avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
             isFollowing: false
         )
+    }
+
+    private static func map(_ dto: HashtagDTO) -> Hashtag {
+        Hashtag(id: dto.id, tag: dto.tag, count: dto.count)
     }
 }

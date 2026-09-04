@@ -11,6 +11,7 @@ struct SearchViewDataFactory {
             },
             trendingTopics: model.trendingTopics.map(Self.map),
             suggestedUsers: model.suggestedUsers.map(Self.map),
+            popularHashtags: model.popularHashtags.map(Self.map),
             errorMessage: errorMessage
         )
     }
@@ -21,7 +22,8 @@ struct SearchViewDataFactory {
             metaText: "\(topic.rank) • \(topic.category) • \("Search.Trending".localized)",
             title: topic.title,
             subtitle: topic.subtitle,
-            imageURL: topic.imageURL
+            imageURL: topic.imageURL,
+            category: topic.category
         )
     }
 
@@ -35,5 +37,9 @@ struct SearchViewDataFactory {
             followButtonTitle: user.isFollowing ? "Search.Following".localized : "Search.Follow".localized,
             isFollowing: user.isFollowing
         )
+    }
+
+    private static func map(_ hashtag: Hashtag) -> HashtagViewData {
+        HashtagViewData(id: hashtag.id, tag: hashtag.tag)
     }
 }

@@ -9,6 +9,7 @@ struct SearchViewData {
     let recentSearches: [RecentSearchViewData]
     let trendingTopics: [TrendingTopicViewData]
     let suggestedUsers: [SuggestedUserViewData]
+    let popularHashtags: [HashtagViewData]
     /// One-off failure message (e.g. load failed) — `nil` when there's nothing to show
     let errorMessage: String?
 }
@@ -25,6 +26,8 @@ struct TrendingTopicViewData: Hashable {
     let title: String
     let subtitle: String
     let imageURL: URL?
+    /// Тема поста — передаётся в Feed для предзагрузки постов по теме при тапе на карточку
+    let category: String
 }
 
 struct SuggestedUserViewData: Hashable {
@@ -35,4 +38,9 @@ struct SuggestedUserViewData: Hashable {
     let avatarURL: URL?
     let followButtonTitle: String
     let isFollowing: Bool
+}
+
+struct HashtagViewData: Hashable {
+    let id: String
+    let tag: String
 }

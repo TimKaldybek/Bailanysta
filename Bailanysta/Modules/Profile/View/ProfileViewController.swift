@@ -12,6 +12,7 @@ final class ProfileViewController: UIViewController {
     var settingsButtonTapped: (() -> Void)?
     var shareTapped: ((String) -> Void)?
     var postAuthorTapped: ((String) -> Void)?
+    var commentsTapped: ((UUID) -> Void)?
 
     private let presenter: ProfilePresenter
     private lazy var dataSource: ProfileDataSource = ProfileDataSource(
@@ -27,6 +28,12 @@ final class ProfileViewController: UIViewController {
         },
         onAvatarTapped: { [weak self] viewData in
             self?.postAuthorTapped?(viewData.authorHandle)
+        },
+        onCommentsTapped: { [weak self] postID in
+            self?.commentsTapped?(postID)
+        },
+        onComingSoonEngagementTapped: { [weak self] in
+            self?.showComingSoonSheet()
         }
     )
     private let collectionView: UICollectionView

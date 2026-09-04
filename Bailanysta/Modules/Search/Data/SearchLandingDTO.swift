@@ -6,6 +6,7 @@
 struct SearchLandingDTO {
     let trendingTopics: [TrendingTopicDTO]
     let suggestedUsers: [SuggestedUserDTO]
+    let popularHashtags: [HashtagDTO]
 }
 
 struct TrendingTopicDTO {
@@ -25,4 +26,10 @@ struct SuggestedUserDTO {
     let avatarImageName: String
     /// Firestore `avatarURL`; `nil` — используется `avatarImageName`
     let avatarURL: String?
+}
+
+struct HashtagDTO {
+    let id: String
+    let tag: String
+    let count: Int
 }

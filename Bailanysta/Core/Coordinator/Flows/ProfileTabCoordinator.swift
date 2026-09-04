@@ -11,6 +11,7 @@ final class ProfileTabCoordinator: Coordinator {
     let navigationController: UINavigationController
 
     private var settingsCoordinator: SettingsCoordinator?
+    private var commentsCoordinator: CommentsCoordinator?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -28,8 +29,17 @@ final class ProfileTabCoordinator: Coordinator {
         vc.postAuthorTapped = { [weak self] handle in
             self?.showOtherProfile(handle: handle)
         }
+        vc.commentsTapped = { [weak self] postID in
+            self?.showComments(postID: postID)
+        }
 
         navigationController.viewControllers = [vc]
+    }
+
+    private func showComments(postID: UUID) {
+        let coordinator = CoordinatorFactory.commentsCoordinator(navigationController: navigationController, postID: postID)
+        commentsCoordinator = coordinator
+        coordinator.start()
     }
 
     private func showOtherProfile(handle: String) {
@@ -37,6 +47,9 @@ final class ProfileTabCoordinator: Coordinator {
 
         vc.backButtonTapped = { [weak self] in
             self?.navigationController.popViewController(animated: true)
+        }
+        vc.settingsButtonTapped = { [weak self] in
+            self?.showSettings()
         }
 
         navigationController.pushViewController(vc, animated: true)

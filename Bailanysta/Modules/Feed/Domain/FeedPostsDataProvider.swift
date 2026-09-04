@@ -12,18 +12,18 @@ struct FeedPostsDataProvider {
         self.service = service
     }
 
-    func loadData() async throws -> [FeedPost] {
-        let dtos = try await service.loadData()
-        return dtos.map(Self.map)
+    func loadData(filter: FeedFilter? = nil) async throws -> [FeedPost] {
+        let dtos = try await service.loadData(filter: filter)
+        return dtos.map { $0.toFeedPost() }
     }
-    
-    func observePosts() -> AsyncStream<Result<[FeedPost], Error>> {
+
+    func observePosts(filter: FeedFilter? = nil) -> AsyncStream<Result<[FeedPost], Error>> {
         AsyncStream { continuation in
             let task = Task {
-                for await result in service.observePosts() {
+                for await result in service.observePosts(filter: filter) {
                     switch result {
                     case .success(let dtos):
-                        continuation.yield(.success(dtos.map(Self.map)))
+                        continuation.yield(.success(dtos.map { $0.toFeedPost() }))
                     case .failure(let error):
                         continuation.yield(.failure(error))
                     }
@@ -35,24 +35,5 @@ struct FeedPostsDataProvider {
                 task.cancel()
             }
         }
-    }
-
-    private static func map(_ dto: FeedPostDTO) -> FeedPost {
-        FeedPost(
-            id: UUID(uuidString: dto.id) ?? UUID(),
-            authorName: dto.authorName,
-            authorHandle: dto.authorHandle,
-            avatarImageName: dto.avatarImageName,
-            avatarURL: dto.avatarURL.flatMap(URL.init(string:)),
-            createdAt: dto.createdAt,
-            text: dto.text,
-            attachmentImageName: dto.attachmentImageName,
-            attachmentImageURL: dto.attachmentImageURL.flatMap(URL.init(string:)),
-            voiceMessageURL: dto.voiceMessageURL.flatMap(URL.init(string:)),
-            voiceMessageDuration: dto.voiceMessageDuration,
-            likesCount: dto.likesCount,
-            isLiked: dto.isLiked,
-            commentsCount: dto.commentsCount
-        )
     }
 }
