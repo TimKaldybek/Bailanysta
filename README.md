@@ -2,6 +2,8 @@
 
 **Bailanysta** («байланыс» — «связь» на казахском) — это iOS приложение, которое помогает людям общаться друг с другом. Делать посты и делиться важными моментами или интересными вопросами с читателями.
 
+<img width="1254" height="771" alt="йцу" src="https://github.com/user-attachments/assets/77de4ac8-5e29-4df2-ba1f-3e99bc51bc5f" />
+
 ## Быстрый старт
 
 **Требования:** Xcode, симулятор iOS или устройство.
@@ -61,7 +63,3 @@ open Bailanysta.xcodeproj
 | Изображения | Kingfisher |
 | Аналитика / шаринг | Facebook SDK |
 | Управление зависимостями | Swift Package Manager |
-
-<img width="1254" height="771" alt="йцу" src="https://github.com/user-attachments/assets/77de4ac8-5e29-4df2-ba1f-3e99bc51bc5f" />
-
-
