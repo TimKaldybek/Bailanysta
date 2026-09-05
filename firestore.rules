@@ -2,17 +2,91 @@ rules_version='2'
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 10, 4);
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // `users/{userId}` — profile documents.
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(userId);
+      // Any signed-in user may bump another user's `followersCount` (the other half of a
+      // follow/unfollow batch, see `OtherProfileService.makeToggleFollowBatch`) — but may only
+      // touch that one field on a document that isn't their own.
+      allow update: if isOwner(userId) ||
+        (isSignedIn() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['followersCount']));
+      allow delete: if false;
+
+      // `users/{userId}/notifications` — created by whoever triggers the notification (a like,
+      // a comment), read/marked-as-read only by the owning user.
+      match /notifications/{notificationId} {
+        allow read, update: if isOwner(userId);
+        allow create: if isSignedIn();
+        allow delete: if false;
+      }
+
+      // `users/{userId}/following/{targetUid}` — the signed-in user's own follow list; only they
+      // can add/remove entries in it.
+      match /following/{targetUid} {
+        allow read: if isOwner(userId);
+        allow create, delete: if isOwner(userId);
+      }
+
+      // `users/{userId}/followers/{followerUid}` — lives under the *followed* user's document,
+      // but each entry is written by the follower themselves (`followerUid`), not by `userId`.
+      match /followers/{followerUid} {
+        allow read: if isOwner(userId);
+        allow create, delete: if isOwner(followerUid);
+      }
+    }
+
+    // `posts/{postId}` — the main feed.
+    match /posts/{postId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid;
+      // The author can change anything on their own post. Anyone else may only touch the
+      // engagement counters a like/comment naturally updates (see `FeedLikeService`,
+      // `CommentsService.addComment`, `ProfileService.deleteReply`'s decrement) — never the
+      // content, category, or attachment fields of a post they don't own.
+      allow update: if isOwner(resource.data.authorId) ||
+        (isSignedIn() && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['likesCount', 'likedByUserIds', 'commentsCount', 'repostsCount', 'viewsCount']));
+      allow delete: if isOwner(resource.data.authorId);
+
+      // `posts/{postId}/comments/{commentId}`.
+      match /comments/{commentId} {
+        allow read: if isSignedIn();
+        allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid;
+        // A comment can be deleted by whoever wrote it, or by the post's author deleting the
+        // whole post (`ProfileService.deletePost` cascade-deletes every comment underneath it,
+        // regardless of who wrote each one).
+        allow update: if false;
+        allow delete: if isOwner(resource.data.authorId) ||
+          isOwner(get(/databases/$(database)/documents/posts/$(postId)).data.authorId);
+      }
+    }
+
+    // `hashtags/{tagId}` — aggregate counters, incremented by anyone posting a hashtag.
+    match /hashtags/{tagId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn();
+      allow delete: if false;
+    }
+
+    // Editorial content for the Search screen — never written by the app itself.
+    match /trendingTopics/{topicId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    match /suggestedUsers/{suggestedUserId} {
+      allow read: if isSignedIn();
+      allow write: if false;
     }
   }
 }
