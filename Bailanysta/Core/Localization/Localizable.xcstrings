@@ -2967,6 +2967,29 @@
           }
         }
       }
+    },
+    "FeedPost.VoiceMessage.Hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tip: add a short voice note to bring your post to life."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Совет: добавьте короткое голосовое сообщение, чтобы оживить пост."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кеңес: жазбаңызды жандандыру үшін қысқа дауыстық хабарлама қосыңыз."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

@@ -146,6 +146,13 @@ final class FeedPostViewController: UIViewController {
         label.setText("FeedPost.VoiceMessage".localized, size: 15, weight: .semibold, textColor: Color.label)
         return label
     }()
+    
+    private let voiceHintLabel: UILabel = {
+        let label = UILabel()
+        label.setText("FeedPost.VoiceMessage.Hint".localized, size: 13, weight: .regular, textColor: Color.labelSecondary)
+        label.numberOfLines = 0
+        return label
+    }()
 
     private let recordButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
@@ -341,10 +348,16 @@ private extension FeedPostViewController {
         photosSectionStack.axis = .vertical
         photosSectionStack.spacing = 12
 
-        let voiceSectionStack = UIStackView(arrangedSubviews: [voiceHeaderLabel, recordButton, voicePreviewStack])
+        let voiceSectionStack = UIStackView(
+            arrangedSubviews: [voiceHeaderLabel, voiceHintLabel, recordButton, voicePreviewStack]
+        )
         voiceSectionStack.axis = .vertical
         voiceSectionStack.alignment = .leading
         voiceSectionStack.spacing = 12
+        voiceSectionStack.setCustomSpacing(4, after: voiceHeaderLabel)
+        voiceHintLabel.snp.makeConstraints {
+            $0.width.equalTo(voiceSectionStack)
+        }
 
         let categorySectionStack = UIStackView(arrangedSubviews: [categoryHeaderLabel, categoryStackView])
         categorySectionStack.axis = .vertical
@@ -429,6 +442,7 @@ private extension FeedPostViewController {
     func updateVoiceMessageIfNeeded(_ viewData: FeedPostFormViewData) {
         recordButton.isEnabled = viewData.isRecordVoiceEnabled
         recordButton.isHidden = viewData.voiceMessage != nil
+        voiceHintLabel.isHidden = viewData.voiceMessage != nil
 
         guard let voiceMessage = viewData.voiceMessage else {
             voicePreviewStack.isHidden = true
@@ -632,6 +646,9 @@ private extension FeedPostViewController {
         }
         voicePreviewStack.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(44)
+        }
+        voicePlayerView.snp.makeConstraints {
             $0.height.equalTo(44)
         }
         removeVoiceButton.snp.makeConstraints {
